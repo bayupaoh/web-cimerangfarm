@@ -1,0 +1,201 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+md-grid-list {
+  margin: 8px;
+}
+
+md-grid-tile {
+  cursor: pointer;
+  transition: background .2s ease-in;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+md-grid-tile md-icon {
+  width: 30%;
+  height: 30%;
+  padding-bottom: 32px;
+}
+
+md-tab[disabled] {
+  opacity: 0.5; 
+}
+
+/* Background Color */
+
+.blue {
+  background: rgba(41, 121, 255, .68);
+}
+
+.green {
+  background: rgba(178, 255, 89, .68);
+}
+
+.green:hover {
+  background: rgba(178, 255, 89, 1);
+}
+
+.red {
+  background: rgba(255, 82, 82, .68);
+}
+
+.red:hover {
+  background: rgba(255, 82, 82, 1);
+}
+
+/* Footer */
+
+.footer {
+  height: 100%;
+  background: rgba(0, 0, 0, .2);
+  
+  display: flex;
+  justify-content: center;
+}
+
+.footer h3 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Grid */
+.flex {
+  display: flex;
+}
+
+.flex-base {
+  height: 100%;
+
+  flex : 1;
+  flex-direction: row;
+}
+
+.flex-column__inner {
+  margin: 12px;
+  padding: 12px;
+  height: 100%;
+
+  border: 1px solid #ddd;
+
+  flex: 10;
+  align-items: flex-start;
+}
+
+.flex-column__outer {
+  margin: 12px;
+  height: 100%
+
+  flex: 2;
+  align-items: center;
+}
+
+.flex-kandang {
+  position: relative;
+  height: 100%;
+
+  flex: 11;
+  z-index: 1;
+}
+
+.flex-kandang__sensor {
+  position: relative;
+  height: 100%;
+  z-index: 2;
+
+  flex: 6;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.flex-sensor__inner {
+  margin: 12px;
+  height: 150px;
+  background: rgba(41, 121, 255, .68);
+  text-align: center;
+
+  flex: 1;
+  flex-direction: column;
+}
+
+.flex-sensor__outer {
+  height: 200px;
+  width: 20px;
+
+  text-align: center;  
+  background: rgba(41, 121, 255, .68);  
+
+  flex-direction: column;
+}
+
+.flex-sensor__outer h3,
+.flex-sensor__inner h3 {
+  font-size: 14px;
+}
+
+.sensor-indoor {
+  margin: 5px 100px 15px 100px;
+  width: 75px;
+  height: 75px;
+  background-color: pink;
+  border-radius: 100%;
+
+  text-align: center;
+}
+
+.sensor-indoor h6 {
+  margin-bottom: 3px;
+}
+
+/* Mobile View */
+
+@media screen and (min-width:320px) and (max-width:768px) and (orientation:landscape) {
+
+  .footer h3 {
+    margin-left: -.5em;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .flex-column__inner {
+    flex: 11;
+  }
+
+  .flex-column__outer {
+    flex: 1;
+  }
+
+  .flex-sensor__inner {
+    height: 75px;
+  }
+
+  .flex-sensor__outer {
+    height: 100px;
+  }
+
+  .flex-sensor__outer h3,
+  .flex-sensor__inner h3 {
+    font-size: 8px;
+  }
+
+  .flex-sensor__outer span,
+  .flex-sensor__inner span {
+    font-size: 8px;
+  }
+
+  .sensor-indoor {
+    margin: 5px 100px 15px 100px;
+    width: 75px;
+    height: 75px;
+  }
+
+  .sensor-indoor h6 {
+    font-size: 8px;
+    margin-bottom: 3px;
+  }
+}
