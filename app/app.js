@@ -1,84 +1,35 @@
-/*global angular*/
 angular
-  .module('CimerangFarm', ['ngAnimate', 'ngCookies', 'ngTouch',
-  'ngSanitize', 'ui.router', 'ngMaterial', 'nvd3', 'firebase'])
+  .module('FarmCimerang', ['ngMaterial', 'ui.router'])
 
-  .config(function ($mdThemingProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider) {
     'use strict';
+
+    $stateProvider
+      .state('dashboard', {
+        url: '/dashboard',
+        templateUrl: 'app/views/dashboard.html'
+      })
+      .state('peternak', {
+        url: '/peternak',
+        templateUrl: 'app/views/peternak.html'
+      })
+      .state('kandang', {
+        url: '/kandang',
+        templateUrl: 'app/views/kandang.html'
+      });
+
+    $urlRouterProvider.otherwise('/dashboard');
   
     $mdThemingProvider
       .theme('default')
-        .primaryPalette('amber', {
-          'default': '600'
-        })
-        .accentPalette('teal', {
-          'default': '500'
-        })
-        .warnPalette('defaultPrimary');
-
-    $mdThemingProvider.theme('dark', 'default')
-      .primaryPalette('defaultPrimary')
-      .dark();
-
-    $mdThemingProvider.theme('amber', 'default')
-      .primaryPalette('amber');
-
-    $mdThemingProvider.theme('custom', 'default')
-      .primaryPalette('defaultPrimary', {
-        'hue-1': '50'
-    });
-
-    $mdThemingProvider.definePalette('defaultPrimary', {
-      '50':  '#FFFFFF',
-      '100': 'rgb(255, 198, 197)',
-      '200': '#E75753',
-      '300': '#E75753',
-      '400': '#E75753',
-      '500': '#E75753',
-      '600': '#E75753',
-      '700': '#E75753',
-      '800': '#E75753',
-      '900': '#E75753',
-      'A100': '#E75753',
-      'A200': '#E75753',
-      'A400': '#E75753',
-      'A700': '#E75753'
-    });
+      .primaryPalette('amber')
+      .accentPalette('red');
   })
 
-  .controller('MainController', [
-          'navService', '$mdSidenav', '$mdBottomSheet', '$log', '$q', '$state', '$mdToast',
-          MainController
-       ]);
-
-  function MainController(navService, $mdSidenav, $mdBottomSheet, $log, $q, $state, $mdToast) {
+  .controller('MainController', function ($scope, $timeout, $mdSidenav, $log) {
     var vm = this;
 
-    vm.menuItems = [ ];
     vm.selectItem = selectItem;
-    vm.toggleItemsList = toggleItemsList;
-    vm.showActions = showActions;
-    vm.title = $state.current.data.title;
-    vm.showSimpleToast = showSimpleToast;
-    vm.toggleRightSidebar = toggleRightSidebar;
-
-    navService
-      .loadAllItems()
-      .then(function(menuItems) {
-        vm.menuItems = [].concat(menuItems);
-      });
-
-    function toggleRightSidebar() {
-        $mdSidenav('right').toggle();
-    }
-
-    function toggleItemsList() {
-      var pending = $mdBottomSheet.hide() || $q.when(true);
-
-      pending.then(function(){
-        $mdSidenav('left').toggle();
-      });
-    }
 
     function selectItem (item) {
       vm.title = item.name;
@@ -86,69 +37,79 @@ angular
       vm.showSimpleToast(vm.title);
     }
 
-    function showActions($event) {
-        $mdBottomSheet.show({
-          parent: angular.element(document.getElementById('content')),
-          templateUrl: 'app/views/partials/bottomSheet.html',
-          controller: [ '$mdBottomSheet', SheetController],
-          controllerAs: "vm",
-          bindToController : true,
-          targetEvent: $event
-        }).then(function(clickedItem) {
-          clickedItem && $log.debug( clickedItem.name + ' clicked!');
-        });
-
-        function SheetController( $mdBottomSheet ) {
-          var vm = this;
-
-          vm.actions = [
-            { name: 'Share', icon: 'share', url: 'https://twitter.com/intent/tweet?text=Angular%20Material%20Dashboard%20https://github.com/flatlogic/angular-material-dashboard%20via%20@flatlogicinc' },
-            { name: 'Star', icon: 'star', url: 'https://github.com/flatlogic/angular-material-dashboard/stargazers' }
-          ];
-
-          vm.performAction = function(action) {
-            $mdBottomSheet.hide(action);
-          };
-        }
-    }
-
-    function showSimpleToast(title) {
-      $mdToast.show(
-        $mdToast.simple()
-          .content(title)
-          .hideDelay(2000)
-          .position('bottom right')
-      );
-    }
-  }
-
-  .service('navService', [
-          '$q',
-          navService
-  ]);
-
-  function navService($q){
-    var menuItems = [
+    vm.menuItems = [
       {
         name: 'Dashboard',
         icon: 'dashboard',
         sref: '.dashboard'
       },
       {
-        name: 'Profile',
+        name: 'Peternak',
         icon: 'person',
-        sref: '.profile'
+        sref: '.peternak'
       },
       {
-        name: 'Table',
+        name: 'Kandang',
         icon: 'view_module',
-        sref: '.table'
+        sref: '.kandang'
       }
     ];
 
-    return {
-      loadAllItems : function() {
-        return $q.when(menuItems);
+
+    $scope.toggleLeft = buildDelayedToggler('left');
+
+    /**
+     * Supplies a function that will continue to operate until the
+     * time is up.
+     */
+    function debounce(func, wait, context) {
+      var timer;
+
+      return function debounced() {
+        var context = $scope,
+            args = Array.prototype.slice.call(arguments);
+        $timeout.cancel(timer);
+        timer = $timeout(function() {
+          timer = undefined;
+          func.apply(context, args);
+        }, wait || 10);
+      };
+    }
+
+    /**
+     * Build handler to open/close a SideNav; when animation finishes
+     * report completion in console
+     */
+    function buildDelayedToggler(navID) {
+      return debounce(function() {
+        // Component lookup should always be available since we are not using `ng-if`
+        $mdSidenav(navID)
+          .toggle()
+          .then(function () {
+            $log.debug("toggle " + navID + " is done");
+          });
+      }, 200);
+    }
+
+    function buildToggler(navID) {
+      return function() {
+        // Component lookup should always be available since we are not using `ng-if`
+        $mdSidenav(navID)
+          .toggle()
+          .then(function () {
+            $log.debug("toggle " + navID + " is done");
+          });
       }
+    }
+  })
+
+  .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+    $scope.close = function () {
+      // Component lookup should always be available since we are not using `ng-if`
+      $mdSidenav('left').close()
+        .then(function () {
+          $log.debug("close LEFT is done");
+        });
+
     };
-  }
+  });
