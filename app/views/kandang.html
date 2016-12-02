@@ -1,54 +1,20 @@
-<md-content flex class="md-padding">
-	<div class="flex flex-base">
-        <div class="flex flex-column__outer">
+<md-content class="md-padding" layout-padding>
+	<span class="md-headline">Pengaturan Kandang</span>
 
-            <div class="flex flex-sensor__outer" ng-repeat="sensor in data2">
-                <h3>Suhu Luar</h3>
-                <span>
-                  {{sensor.suhu}} C
-                </span>
-                <h3>Kelembapan</h3>
-                <span>
-                  {{sensor.humadity}} %
-                </span>
-              </div>
-
-            </div>
-
-            <div class="flex flex-column__inner">
-
-            <div class="flex flex-sensor__inner">
-                <h3>Angin</h3>
-                <span ng-repeat="sensor in data2">
-                  {{sensor.wind}} km/jam
-                </span>
-            </div>
-
-            <md-grid-list
-                md-cols-gt-md="8" md-cols="8"
-                md-row-height-gt-md="3:4" md-row-height="1:1"
-                md-gutter="12px"
-                class="flex flex-kandang">
-
-                <md-grid-tile ng-repeat="cage in data"
-                    ng-class="color(cage.amonia_ppm)">
-                
-                    <md-grid-tile-footer class="footer">
-                      <h3>{{cage.amonia_ppm}} ppm</h3>
-                      <h3>{{cage.berat}} kg</h3>
-                    </md-grid-tile-footer>
-                </md-grid-tile>
-
-                <div class="flex flex-kandang__sensor">
-                    <div class="sensor-indoor" ng-repeat="indoor in data3">
-                      <h6>{{indoor.suhu}} C</h6>
-                      <h6>{{indoor.humadity}} %</h6>
-                    </div>
-                </div> 
-
-            </md-grid-list>                
-
-        </div>
-
+	<h4>Lantai</h4>
+	<form ng-submit="vm.addTab(tTitle,tContent)" layout="column" class="md-padding" style="padding-top: 0;">
+    <div layout="row" layout-sm="column">
+      <md-input-container>
+        <label for="label">Lantai</label>
+        <input type="text" id="label" ng-model="tTitle">
+      </md-input-container>
+      <md-input-container>
+        <label for="content">Konten</label>
+        <input type="text" id="content" ng-model="tContent">
+      </md-input-container>      
     </div>
+    <div layout="row" layout-sm="column">
+    	<md-button class="md-accent md-raised" ng-disabled="!tTitle || !tContent" type="submit">Tambah</md-button>
+    </div>
+  </form>
 </md-content>

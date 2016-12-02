@@ -30,10 +30,10 @@
         </md-toolbar>
         <md-content ng-controller="LeftCtrl" layout-padding>
           <md-button ng-repeat="item in vm.menuItems" layout="column" layout-align="center center"
-                     flex ng-click="vm.selectItem(item)"
+                     class="capitalize"
                      ui-sref-active="md-warn" ui-sref="{{item.sref}}">
             <div hide-sm hide-md class="md-tile-content">
-              <i class="material-icons md-36">{{item.icon}}</i>
+              <i class="material-icons md-32">{{item.icon}}</i>
             </div>
             <div class="md-tile-content">
               {{item.name}}
@@ -46,11 +46,8 @@
       <md-content flex>
 
         <div layout="column" layout-align="top center">
-          <md-toolbar class="md-hue-1">
+          <md-toolbar>
             <div class="md-toolbar-tools">
-              <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
-                <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-              </md-button>
               <h2>
                 <span>Administrator Cimerang Farm</span>
               </h2>

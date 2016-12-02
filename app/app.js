@@ -9,9 +9,9 @@ angular
         url: '/dashboard',
         templateUrl: 'app/views/dashboard.html'
       })
-      .state('peternak', {
-        url: '/peternak',
-        templateUrl: 'app/views/peternak.html'
+      .state('daftar', {
+        url: '/daftar',
+        templateUrl: 'app/views/daftar.html'
       })
       .state('kandang', {
         url: '/kandang',
@@ -24,18 +24,15 @@ angular
       .theme('default')
       .primaryPalette('amber')
       .accentPalette('red');
+
+    $mdThemingProvider
+      .theme('tabs')
+      .primaryPalette('red')
+      .accentPalette('amber');
   })
 
-  .controller('MainController', function ($scope, $timeout, $mdSidenav, $log) {
+  .controller('MainController', function ($scope, $timeout, $mdSidenav, $log, $http) {
     var vm = this;
-
-    vm.selectItem = selectItem;
-
-    function selectItem (item) {
-      vm.title = item.name;
-      vm.toggleItemsList();
-      vm.showSimpleToast(vm.title);
-    }
 
     vm.menuItems = [
       {
@@ -44,9 +41,9 @@ angular
         sref: '.dashboard'
       },
       {
-        name: 'Peternak',
+        name: 'Daftar',
         icon: 'person',
-        sref: '.peternak'
+        sref: '.daftar'
       },
       {
         name: 'Kandang',
@@ -55,6 +52,18 @@ angular
       }
     ];
 
+    vm.tabs =  [
+      {
+        title: 'Lantai 1',
+        content: 'Kandang Ayam Lantai-1'
+      }
+    ];
+    vm.selectedIndex = 1;
+
+    vm.addTab = function (title, view) {
+      view = view || title + " Content View";
+      vm.tabs.push ({title: title, content: view, disabled: false});
+    };
 
     $scope.toggleLeft = buildDelayedToggler('left');
 

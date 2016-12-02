@@ -1,0 +1,50 @@
+<!-- TODO: Add validations -->
+<md-content class="md-padding" layout-padding>
+    <span class="md-headline">Form Tambah Admin</span>
+    <form name="userForm">
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Nama Depan</label>
+                <input ng-model="vm.user.namaDepan">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Nama Belakang</label>
+                <input ng-model="vm.user.namaBelakang">
+            </md-input-container>
+        </div>
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Alamat</label>
+                <input ng-model="vm.user.alamat">
+            </md-input-container>
+        </div>
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>No. KTP</label>
+                <input ng-model="vm.user.noKTP">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Tempat Lahir</label>
+                <input ng-model="vm.user.tempatLahir">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Tanggal</label>
+                <md-datepicker ng-model="user.tanggalLahir"></md-datepicker>
+            </md-input-container>
+        </div>
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Email</label>
+                <input ng-model="vm.user.email" type="email">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Password</label>
+                <input ng-model="vm.user.password" type="password">
+            </md-input-container>
+        </div>
+        <div layout layout-sm="column">
+            <span flex></span>
+            <md-button class="md-raised md-accent" type="submit">Submit</md-button>
+        </div>
+    </form>
+</md-content>

@@ -16,7 +16,7 @@ body {
   margin-left: 10px; }
 
 .capitalize {
-  text-transform: capitalize; }
+  text-transform: initial; }
 
 .img-circle {
   height: 50px;
@@ -89,6 +89,15 @@ md-radio-button.md-accent.md-checked .md-label span {
 md-backdrop.md-sidenav-backdrop {
   position: fixed; }
 
+
+md-tab[disabled] {
+  opacity: .5;
+}
+
+md-tabs {
+  border: 1px solid #e1e1e1;
+}
+
 .material-icons {
   vertical-align: middle; }
 
@@ -122,6 +131,11 @@ md-backdrop.md-sidenav-backdrop {
 
 .md-padding {
   background-color: #ffffff;
+}
+
+.demo-tab > div > div {
+  padding: 25px;
+  box-sizing: border-box;
 }
 
 /*# sourceMappingURL=custosm.css.map */
