@@ -131,11 +131,67 @@ md-tabs {
 
 .md-padding {
   background-color: #ffffff;
+  margin: 10px;
 }
 
 .demo-tab > div > div {
   padding: 25px;
   box-sizing: border-box;
+}
+
+md-grid-list {
+  margin: 8px;
+}
+
+md-grid-tile {
+  cursor: pointer;
+  transition: background .2s ease-in;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+md-grid-tile md-icon {
+  width: 30%;
+  height: 30%;
+  padding-bottom: 32px;
+}
+
+/* Background Color */
+
+.blue {
+  background: rgba(41, 121, 255, .9);
+}
+
+.green {
+  background: rgba(178, 255, 89, .9);
+}
+
+.green:hover {
+  background: rgba(178, 255, 89, 1);
+}
+
+.red {
+  background: rgba(255, 82, 82, .9);
+}
+
+.red:hover {
+  background: rgba(255, 82, 82, 1);
+}
+
+/* Footer */
+
+.footer {
+  height: 100%;
+  background: rgba(0, 0, 0, .2);
+  
+  display: flex;
+  justify-content: center;
+}
+
+.footer h3 {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=custosm.css.map */

@@ -1,45 +1,45 @@
 <!-- TODO: Add validations -->
 <md-content class="md-padding" layout-padding>
     <span class="md-headline">Form Tambah Admin</span>
-    <form name="userForm">
+    <form ng-submit="vm.addAdmin()">
         <div layout layout-sm="column">
             <md-input-container flex>
                 <label>Nama Depan</label>
-                <input ng-model="vm.user.namaDepan">
+                <input ng-model="vm.admin.namaDepan" type="text">
             </md-input-container>
             <md-input-container flex>
                 <label>Nama Belakang</label>
-                <input ng-model="vm.user.namaBelakang">
+                <input ng-model="vm.admin.namaBelakang" type="text">
             </md-input-container>
         </div>
         <div layout layout-sm="column">
             <md-input-container flex>
                 <label>Alamat</label>
-                <input ng-model="vm.user.alamat">
+                <input ng-model="vm.admin.alamat" type="text">
             </md-input-container>
         </div>
         <div layout layout-sm="column">
             <md-input-container flex>
                 <label>No. KTP</label>
-                <input ng-model="vm.user.noKTP">
+                <input ng-model="vm.admin.noKtp" type="text">
             </md-input-container>
             <md-input-container flex>
                 <label>Tempat Lahir</label>
-                <input ng-model="vm.user.tempatLahir">
+                <input ng-model="vm.admin.tempatLahir" type="text">
             </md-input-container>
             <md-input-container flex>
                 <label>Tanggal</label>
-                <md-datepicker ng-model="user.tanggalLahir"></md-datepicker>
+                <md-datepicker ng-model="vm.admin.tglLahir"></md-datepicker>
             </md-input-container>
         </div>
         <div layout layout-sm="column">
             <md-input-container flex>
-                <label>Email</label>
-                <input ng-model="vm.user.email" type="email">
+                <label>Username</label>
+                <input ng-model="vm.admin.username" type="text">
             </md-input-container>
             <md-input-container flex>
                 <label>Password</label>
-                <input ng-model="vm.user.password" type="password">
+                <input ng-model="vm.admin.password" type="password">
             </md-input-container>
         </div>
         <div layout layout-sm="column">

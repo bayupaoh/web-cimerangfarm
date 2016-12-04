@@ -1,15 +1,16 @@
 <div md-theme="tabs">
-<md-tabs md-selected="selectedIndex"
-		 md-border-bottom md-autoselect md-stretch-tabs="always" 
-		 style="background-color: white;">
-  	<md-tab ng-repeat="tab in vm.tabs"
-  			ng-disabled="tab.disabled"
-  		    label="{{tab.title}}">
-  		<div class="demo-tab tab{{$index%4}}" style="padding: 25px; text-align: center;">
-  			<div ng-bind="tab.content"></div>
-  		</div>
-  	</md-tab>
-</md-tabs>
+  <md-tabs md-selected="selectedIndex"
+  		 md-border-bottom md-autoselect md-stretch-tabs="always" 
+  		 style="background-color: white;">
+    	<md-tab ng-repeat="tab in vm.tabs"
+    			ng-disabled="tab.disabled"
+    		    label="{{tab.title}}">
+    		<div class="demo-tab tab{{$index%4}}" style="padding: 25px; text-align: center;">
+    			<div ng-bind="tab.content"></div>
+    		</div>
+    	</md-tab>
+  </md-tabs>
+</div>
 
 <md-content class="md-padding">
 	<md-grid-list
@@ -17,10 +18,15 @@
         md-row-height-gt-md="3:4" md-row-height="1:1"
         md-gutter="12px">
 
-        <md-grid-tile ng-repeat="kandang in vm.kandang">
+        <md-grid-tile ng-repeat="grid in vm.data"
+                      ng-class="vm.color(grid.b)">
         	<md-grid-tile-footer class="footer">
-                <h3>{{kandang.grid}}</h3>
-            </md-grid-tile-footer>
+            <h3>No. RFID : {{grid.$id}}</h3>
+            <h3>B : {{grid.b}}</h3>
+            <h3>C : {{grid.c}}</h3>
+            <h3>D : {{grid.d}}</h3>
+            <h3>E : {{grid.e}}</h3>
+          </md-grid-tile-footer>
         </md-grid-tile>
 
     </md-grid-list>
