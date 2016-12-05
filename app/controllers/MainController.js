@@ -11,6 +11,7 @@
   function mainController ($scope, $timeout, $mdSidenav, $log, $firebaseArray) {
     var vm = this;
 
+    /* SideNav Menu */
     vm.menuItems = [
       {
         name: 'Dashboard',
@@ -29,6 +30,7 @@
       }
     ];
 
+    /* Data Kandang */
     var ref = firebase.database().ref().child('kandang').child('g');
     vm.data = $firebaseArray(ref);
 
@@ -39,27 +41,11 @@
         return 'green';
     };
 
+    /* Data Sensor */
     var ref2 = firebase.database().ref().child('kandang').child('so');
     vm.data2 = $firebaseArray(ref2);
 
-    vm.tabs =  [
-      {
-        title: 'Lantai 1',
-        content: 'Kandang Ayam Lantai-1'
-      },
-      {
-        title: 'Lantai 2',
-        content: 'Kandang Ayam Lantai-2'
-      }
-
-    ];
-    vm.selectedIndex = 1;    
-
-    vm.addTab = function (title, view) {
-      view = view || title + " Content View";
-      vm.tabs.push ({title: title, content: view, disabled: false});
-    };
-
+    /* md-sidenav */
     $scope.toggleLeft = buildDelayedToggler('left');
 
     /**
@@ -118,6 +104,7 @@
     };
   }
 
+  /* Menu Dialog Ubah Data Kandang */
   function BasicDemoCtrl($mdPanel) {
     this._mdPanel = $mdPanel;
     this.disableParentScroll = false;
