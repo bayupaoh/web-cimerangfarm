@@ -1,34 +1,56 @@
-<div md-theme="tabs">
-  <md-tabs md-selected="selectedIndex"
-  		 md-border-bottom md-autoselect md-stretch-tabs="always" 
-  		 style="background-color: white;">
-    	<md-tab ng-repeat="tab in vm.tabs"
-    			ng-disabled="tab.disabled"
-    		    label="{{tab.title}}">
-    		<div class="demo-tab tab{{$index%4}}" style="padding: 25px; text-align: center;">
-    			<div ng-bind="tab.content"></div>
-    		</div>
-    	</md-tab>
-  </md-tabs>
-</div>
+  <div md-theme="tabs">
+    <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always"
+    		 style="background-color: white; border:none;">
+      	<md-tab label="Lantai 1">
+          <md-content class="md-padding" layout="row" style="background-color:white;">
+            <div ng-repeat="so in vm.data2">
+              <p>{{so.a}}</p>
+            </div>
+            <md-grid-list
+                  md-cols-gt-md="3" md-cols="3"
+                  md-row-height-gt-md="2:3" md-row-height="1:1"
+                  md-gutter="12px"
+                  style="width:35%;">
 
-<md-content class="md-padding">
-	<md-grid-list
-        md-cols-gt-md="8" md-cols="8"
-        md-row-height-gt-md="3:4" md-row-height="1:1"
-        md-gutter="12px">
+                  <md-grid-tile ng-repeat="grid in vm.data | filter: { lantai: 1 }"
+                                ng-class="vm.color(grid.b)">
+                    <md-grid-tile-footer class="footer">
+                      <h2>{{grid.posisi}}</h2>
+                      <h3>No. RFID : {{grid.$id}}</h3>
+                      <h3>A:  {{grid.a}}</h3>
+                      <h3>B : {{grid.b}}</h3>
+                      <h3>C : {{grid.c}}</h3>
+                      <h3>D : {{grid.d}}</h3>
+                      <h3>E : {{grid.e}}</h3>
+                    </md-grid-tile-footer>
+                  </md-grid-tile>
 
-        <md-grid-tile ng-repeat="grid in vm.data"
-                      ng-class="vm.color(grid.b)">
-        	<md-grid-tile-footer class="footer">
-            <h3>No. RFID : {{grid.$id}}</h3>
-            <h3>B : {{grid.b}}</h3>
-            <h3>C : {{grid.c}}</h3>
-            <h3>D : {{grid.d}}</h3>
-            <h3>E : {{grid.e}}</h3>
-          </md-grid-tile-footer>
-        </md-grid-tile>
+              </md-grid-list>
+          </md-content>
+      	</md-tab>
+        <md-tab label="Lantai 2">
+          <md-content class="md-padding" style="background-color:white;">
+            <md-grid-list
+                  md-cols-gt-md="3" md-cols="3"
+                  md-row-height-gt-md="2:3" md-row-height="1:1"
+                  md-gutter="12px"
+                  style="width:35%;">
 
-    </md-grid-list>
+                  <md-grid-tile ng-repeat="grid in vm.data | filter: { lantai: 2 }"
+                                ng-class="vm.color(grid.b)">
+                    <md-grid-tile-footer class="footer">
+                      <h2>{{grid.posisi}}</h2>
+                      <h3>No. RFID : {{grid.$id}}</h3>
+                      <h3>A:  {{grid.a}}</h3>
+                      <h3>B : {{grid.b}}</h3>
+                      <h3>C : {{grid.c}}</h3>
+                      <h3>D : {{grid.d}}</h3>
+                      <h3>E : {{grid.e}}</h3>
+                    </md-grid-tile-footer>
+                  </md-grid-tile>
 
-</md-content>
+              </md-grid-list>
+          </md-content>
+        </md-tab>
+    </md-tabs>
+  </div>

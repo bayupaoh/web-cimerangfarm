@@ -4,7 +4,9 @@
   angular
   	.module('appController')
   	.controller('mainController', mainController)
-  	.controller('LeftCtrl', leftCtrl);
+  	.controller('LeftCtrl', leftCtrl)
+    .controller('BasicDemoCtrl', BasicDemoCtrl)
+    .controller('PanelDialogCtrl', PanelDialogCtrl);
 
   function mainController ($scope, $timeout, $mdSidenav, $log, $firebaseArray) {
     var vm = this;
@@ -37,11 +39,19 @@
         return 'green';
     };
 
+    var ref2 = firebase.database().ref().child('kandang').child('so');
+    vm.data2 = $firebaseArray(ref2);
+
     vm.tabs =  [
       {
         title: 'Lantai 1',
         content: 'Kandang Ayam Lantai-1'
+      },
+      {
+        title: 'Lantai 2',
+        content: 'Kandang Ayam Lantai-2'
       }
+
     ];
     vm.selectedIndex = 1;    
 
@@ -107,5 +117,47 @@
 
     };
   }
+
+  function BasicDemoCtrl($mdPanel) {
+    this._mdPanel = $mdPanel;
+    this.disableParentScroll = false;
+  }
+
+  BasicDemoCtrl.prototype.showDialog = function() {
+    var position = this._mdPanel.newPanelPosition()
+        .absolute()
+        .center();
+
+    var config = {
+      attachTo: angular.element(document.body),
+      controller: PanelDialogCtrl,
+      controllerAs: 'ctrl',
+      disableParentScroll: this.disableParentScroll,
+      templateUrl: 'app/views/partials/panel.html',
+      hasBackdrop: true,
+      panelClass: 'demo-dialog-example',
+      position: position,
+      trapFocus: true,
+      zIndex: 150,
+      clickOutsideToClose: true,
+      escapeToClose: true,
+      focusOnOpen: true
+    };
+
+    this._mdPanel.open(config);
+  };
+
+  function PanelDialogCtrl(mdPanelRef) {
+    this._mdPanelRef = mdPanelRef;
+  }
+
+  PanelDialogCtrl.prototype.closeDialog = function() {
+    var panelRef = this._mdPanelRef;
+
+    panelRef && panelRef.close().then(function() {
+      angular.element(document.querySelector('md-grid-tile')).focus();
+      panelRef.destroy();
+    });
+  };
 
 })();
