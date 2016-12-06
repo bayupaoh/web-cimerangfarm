@@ -1,8 +1,24 @@
-  <div md-theme="tabs">
-    <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always"
-    		 style="background-color: white; border:none;">
-      	<md-tab label="Lantai 1">
-          <md-content class="md-padding" layout="column" style="background-color:white;">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Cimerang Farm">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cimerang Farm</title>
+
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- App Styling -->
+  <link rel="stylesheet" href="../app/stylesheets/custom.css">
+  <link rel="stylesheet" href="../app/stylesheets/table.css">
+
+</head>
+<body ng-app="farmCimerang" ng-cloak>
+  <div ng-controller="mainController as vm" layout="column" layout-fill ng-cloak>
+
+        <md-content class="md-padding" layout="column" style="background-color:white;">
               <div class="sensor-luar" ng-repeat="so in vm.data2">
                 <h4>Suhu: {{so.a}} C</h4>
                 <h4>Kelembaban: {{so.b}} %</h4>
@@ -52,39 +68,29 @@
                         <td data-title="Kelembaban">{{si.b}}</td>
                     </tr>
                     </tbody>
-              </table>
-
-              <md-content class="md-padding">
-                <canvas id="line" class="chart chart-line" chart-data="vm.datas"
-                        chart-labels="vm.labels" chart-series="vm.series" chart-options="vm.options"
-                        chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick">
-                </canvas>
-              </md-content>          
+              </table>          
           </md-content>
-      	</md-tab>
-        <md-tab label="Lantai 2">
-          <md-content class="md-padding" style="background-color:white;">
-            <md-grid-list
-                  md-cols-gt-md="3" md-cols="3"
-                  md-row-height-gt-md="2:3" md-row-height="1:1"
-                  md-gutter="12px"
-                  style="width:35%;">
 
-                  <md-grid-tile ng-repeat="grid in vm.data | filter: { lantai: 2 }"
-                                ng-class="vm.color(grid.b)">
-                    <md-grid-tile-footer class="footer">
-                      <h2>{{grid.posisi}}</h2>
-                      <h3>No. RFID : {{grid.$id}}</h3>
-                      <h3>A:  {{grid.a}}</h3>
-                      <h3>B : {{grid.b}}</h3>
-                      <h3>C : {{grid.c}}</h3>
-                      <h3>D : {{grid.d}}</h3>
-                      <h3>E : {{grid.e}}</h3>
-                    </md-grid-tile-footer>
-                  </md-grid-tile>
+  <!-- Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+  <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-              </md-grid-list>
-          </md-content>
-        </md-tab>
-    </md-tabs>
-  </div>
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  
+  <!-- My application bootstrap  -->
+  <script src="../app/index.js"></script>
+  <script src="../app/app.js"></script>  
+  <script src="../app/controllers/MainController.js"></script>
+  
+  <!-- Initialize Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+  <script src="../app/scripts/config.js"></script>
+
+  <!-- AngularFire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+</body>
+</html>
