@@ -238,3 +238,14 @@ md-grid-tile md-icon {
 
   display: flex;
 }
+
+.tabs-lantai {
+  background-color: white; 
+  border: none;
+}
+
+@media all and (max-width: 1024px) {
+  .navbar {
+    display: none;
+  }
+}

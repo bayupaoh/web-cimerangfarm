@@ -8,7 +8,7 @@
     .controller('BasicDemoCtrl', BasicDemoCtrl)
     .controller('PanelDialogCtrl', PanelDialogCtrl);
 
-  function mainController ($scope, $timeout, $mdSidenav, $log, $firebaseArray) {
+  function mainController ($scope, $timeout, $mdSidenav, $log, $firebaseArray, $firebaseObject) {
     var vm = this;
 
     /* SideNav Menu */
@@ -16,17 +16,17 @@
       {
         name: 'Dashboard',
         icon: 'dashboard',
-        sref: '.dashboard'
+        sref: 'dashboard'
       },
       {
         name: 'Daftar',
         icon: 'person',
-        sref: '.daftar'
+        sref: 'daftar'
       },
       {
         name: 'Kandang',
         icon: 'view_module',
-        sref: '.kandang'
+        sref: 'kandang'
       }
     ];
 
@@ -49,16 +49,44 @@
     vm.data3 = $firebaseArray(ref3);
 
     /* Grafik Produktivitas Ternak */
-    vm.labels = ["January", "February", "March", "April", "May", "June", "July"];
-    vm.series = ['Series A', 'Series B'];
-    vm.datas = [
-      [65, 59, 80, 81, 56, 55, 40],
-      [28, 48, 40, 19, 86, 27, 90]
-    ];
+
+    var ref4 = firebase.database().ref().child('percobaangrafik').child('lantai1').child('grid');
+    vm.data4 = $firebaseArray(ref4);
+
+
+    /* Tanggal */
+    var x_axis = [];
+    var rerataBerat = [];
+
+    vm.data4.$loaded()
+    .then(function () {
+      for (var i = 0; i < vm.data4.length; i++) {
+        x_axis.push(vm.data4.$keyAt(i));
+      }      
+    });
+
+    /* Hitung Rata-Rata */
+    ref4.once("value")
+      .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          var sum = 0;
+          var count = 0;
+          childSnapshot.forEach(function(childSnapshot) {
+            var snap = childSnapshot.val().berat;
+            sum += snap;
+            count += 1;
+          });
+          rerataBerat.push((sum/count).toFixed(2));
+        });
+      });
+
+    vm.labels = x_axis;
+    vm.series = ['Rata-Rata Berat Ayam'];
+    vm.datas = [rerataBerat];
     vm.onClick = function (points, evt) {
       console.log(points, evt);
     };
-    vm.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+    vm.datasetOverride = [{ yAxisID: 'y-axis-1' }];
     vm.options = {
       scales: {
         yAxes: [
@@ -67,12 +95,6 @@
             type: 'linear',
             display: true,
             position: 'left'
-          },
-          {
-            id: 'y-axis-2',
-            type: 'linear',
-            display: true,
-            position: 'right'
           }
         ]
       }

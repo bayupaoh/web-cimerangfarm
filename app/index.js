@@ -20,6 +20,14 @@ angular
       .state('kandang', {
         url: '/kandang',
         templateUrl: 'app/views/kandang.html'
+      })
+      .state('android/lantai1', {
+        url: '/android/lantai1',
+        templateUrl: 'app/views/android/lantai1.html'
+      })
+      .state('android/lantai2', {
+        url: '/android/lantai2',
+        templateUrl: 'app/views/android/lantai2.html'
       });
 
     $urlRouterProvider.otherwise('/dashboard');

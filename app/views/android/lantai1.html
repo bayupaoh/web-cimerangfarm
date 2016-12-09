@@ -1,0 +1,60 @@
+<md-content class="md-padding" layout="column" style="background-color:white;">
+  <div class="sensor-luar" ng-repeat="so in vm.data2">
+    <h4>Suhu: {{so.a}} C</h4>
+    <h4>Kelembaban: {{so.b}} %</h4>
+  </div>
+
+  <div layout="column" style="border: 1px solid #ddd">
+    <div layout="row">
+      <span flex></span>
+      <div class="sensor-angin" ng-repeat="so in vm.data2">
+        <h4>Angin: {{so.c}} km/jam</h4>
+      </div>
+    </div>
+
+    <md-grid-list
+      md-cols="8"
+      md-row-height="2:3"
+      md-gutter="12px">
+
+      <md-grid-tile ng-repeat="grid in vm.data | orderBy:'posisi' | filter: { lantai: 1 }"
+                    ng-class="vm.color(grid.b)">
+        <md-grid-tile-footer class="footer">
+          <h3>{{grid.posisi}}</h3>
+          <h3>{{grid.$id}}</h3>
+          <h3>A : {{grid.a}}</h3>
+          <h3>B : {{grid.b}}</h3>
+          <h3>C : {{grid.c}}</h3>
+          <h3>D : {{grid.d}}</h3>
+          <h3>E : {{grid.e}}</h3>
+        </md-grid-tile-footer>
+      </md-grid-tile>
+
+    </md-grid-list>
+  </div>
+                
+  <table id="table" class="table table-hover table-bordered" style="border: 1px solid #ddd; margin-top:12px;">
+    <thead>
+    <tr>
+        <th>No. Sensor</th>
+        <th>Suhu</th>
+        <th>Kelembaban</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="si in vm.data3">
+        <td data-title="No. Sensor">{{si.$id}}</td>
+        <td data-title="Suhu">{{si.a}}</td>
+        <td data-title="Kelembaban">{{si.b}}</td>
+     </tr>
+    </tbody>
+  </table>
+
+  <span class="md-headline">Grafik Produktivitas Berat Ayam</span>
+  <md-content class="md-padding" style="background-color:white;">
+    <canvas id="line" class="chart chart-line" chart-data="vm.datas"
+            chart-labels="vm.labels" chart-series="vm.series" chart-options="vm.options"
+            chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick">
+    </canvas>
+  </md-content>          
+</md-content>
