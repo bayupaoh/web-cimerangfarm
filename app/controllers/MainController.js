@@ -8,7 +8,7 @@
     .controller('BasicDemoCtrl', BasicDemoCtrl)
     .controller('PanelDialogCtrl', PanelDialogCtrl);
 
-  function mainController ($scope, $timeout, $mdSidenav, $log, $firebaseArray, $firebaseObject) {
+  function mainController ($scope, $timeout, $mdSidenav, $log, $firebaseArray) {
     var vm = this;
 
     /* SideNav Menu */
@@ -34,11 +34,18 @@
     var ref = firebase.database().ref().child('percobaantampilkandang').child('g');
     vm.data = $firebaseArray(ref);
 
-    vm.color = function (a) {
-      if (a < 19 || a > 30) 
+    vm.color = function (b,d) {
+      if (b >= 20 && (d > 60 && d < 70)) 
         return 'red';
       else 
         return 'green';
+    };
+
+    vm.tableColor = function (a) {
+      if (a > 28) 
+        return 'table-red';
+      else 
+        return 'table-green';
     };
 
     /* Data Sensor */
@@ -48,29 +55,18 @@
     var ref3 = firebase.database().ref().child('percobaantampilkandang').child('si');
     vm.data3 = $firebaseArray(ref3);
 
-    /* Grafik Produktivitas Ternak */
-
-    var ref4 = firebase.database().ref().child('percobaangrafik').child('lantai1').child('grid');
-    vm.data4 = $firebaseArray(ref4);
-
-
-    /* Tanggal */
+    /* Grafik Produktivitas Ternak */  
     var x_axis = [];
     var rerataBerat = [];
+    var ref4 = firebase.database().ref().child('percobaangrafik').child('lantai1').child('grid');
 
-    vm.data4.$loaded()
-    .then(function () {
-      for (var i = 0; i < vm.data4.length; i++) {
-        x_axis.push(vm.data4.$keyAt(i));
-      }      
-    });
-
-    /* Hitung Rata-Rata */
+    /* Hitung Rata-Rata Berat Ayam*/
     ref4.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
           var sum = 0;
           var count = 0;
+          x_axis.push(childSnapshot.key);
           childSnapshot.forEach(function(childSnapshot) {
             var snap = childSnapshot.val().berat;
             sum += snap;

@@ -154,10 +154,22 @@ md-grid-tile {
   flex-direction: column;
 }
 
+.icon {
+  margin: -1.5em;
+  padding: -1.5em;
+}
+
 md-grid-tile md-icon {
   width: 30%;
   height: 30%;
   padding-bottom: 32px;
+}
+
+.svg-icon {
+  margin: 0;
+  padding: 0;
+
+  width: 18px;
 }
 
 /* Background Color */
@@ -180,6 +192,14 @@ md-grid-tile md-icon {
 
 .red:hover {
   background: rgba(255, 82, 82, 1);
+}
+
+.table-green {
+  background: rgba(178, 255, 89, .1);
+}
+
+.table-red {
+  background: rgba(255, 82, 82, .1);
 }
 
 /* Footer */

@@ -21,15 +21,13 @@
                       md-gutter="12px">
 
                       <md-grid-tile ng-repeat="grid in vm.data | orderBy:'posisi' | filter: { lantai: 1 }"
-                                    ng-class="vm.color(grid.b)">
+                                    ng-class="vm.color(grid.b,grid.d)">
                         <md-grid-tile-footer class="footer">
-                          <h3>{{grid.posisi}}</h3>
-                          <h3>{{grid.$id}}</h3>
-                          <h3>A : {{grid.a}}</h3>
-                          <h3>B : {{grid.b}}</h3>
-                          <h3>C : {{grid.c}}</h3>
-                          <h3>D : {{grid.d}}</h3>
-                          <h3>E : {{grid.e}}</h3>
+                          <h2 style="font-size:18px;margin-top:0;">{{grid.$id}}</h3>
+                          <h3 class="icon"><md-icon md-svg-icon="assets/icons/scale.svg" class="svg-icon"></md-icon> {{grid.a}} Kg</h3>
+                          <h3 class="icon"><md-icon md-svg-icon="assets/icons/poison.svg" class="svg-icon"></md-icon> {{grid.b}} ppm</h3>
+                          <h3 class="icon"><md-icon md-svg-icon="assets/icons/thermometer.svg" class="svg-icon"></md-icon> {{grid.c}} C</h3>
+                          <h3 class="icon"><md-icon md-svg-icon="assets/icons/drop.svg" class="svg-icon"></md-icon> {{grid.d}} %</h3>
                         </md-grid-tile-footer>
                       </md-grid-tile>
 
@@ -45,7 +43,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="si in vm.data3">
+                    <tr ng-repeat="si in vm.data3" ng-class="vm.tableColor(si.a)">
                         <td data-title="No. Sensor">{{si.$id}}</td>
                         <td data-title="Suhu">{{si.a}}</td>
                         <td data-title="Kelembaban">{{si.b}}</td>
@@ -54,7 +52,7 @@
               </table>
 
               <span class="md-headline">Grafik Produktivitas Berat Ayam</span>
-              <md-content class="md-padding" style="width:50%;background-color:white;">
+              <md-content class="md-padding" style="background-color:white;">
                 <canvas id="line" class="chart chart-line" chart-data="vm.datas"
                         chart-labels="vm.labels" chart-series="vm.series" chart-options="vm.options"
                         chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick">
@@ -116,7 +114,7 @@
             </table>
 
             <span class="md-headline">Grafik Produktivitas Berat Ayam</span>
-            <md-content class="md-padding" style="width:50%;background-color:white;">
+            <md-content class="md-padding" style="background-color:white;">
               <canvas id="line" class="chart chart-line" chart-data="vm.datas"
                       chart-labels="vm.labels" chart-series="vm.series" chart-options="vm.options"
                       chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick">
