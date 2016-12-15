@@ -1,7 +1,7 @@
 'use strict'
 
 angular
-  .module('farmCimerang', ['ngMaterial', 'ui.router', 'appController'])
+  .module('farmCimerang', ['ngMaterial', 'ui.router', 'appController', 'chart.js'])
 
   .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider) {
     'use strict';
@@ -20,6 +20,10 @@ angular
       .state('kandang', {
         url: '/kandang',
         templateUrl: 'app/views/kandang.html'
+      })
+      .state('sensor', {
+        url: '/sensor',
+        templateUrl: 'app/views/sensor.html'
       })
       .state('android/lantai1', {
         url: '/android/lantai1',

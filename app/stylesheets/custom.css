@@ -182,16 +182,8 @@ md-grid-tile md-icon {
   background: rgba(178, 255, 89, .9);
 }
 
-.green:hover {
-  background: rgba(178, 255, 89, 1);
-}
-
 .red {
   background: rgba(255, 82, 82, .9);
-}
-
-.red:hover {
-  background: rgba(255, 82, 82, 1);
 }
 
 .table-green {
@@ -206,15 +198,19 @@ md-grid-tile md-icon {
 
 .footer {
   height: 100%;
-  background: rgba(0, 0, 0, .2);
   
   display: flex;
   justify-content: center;
 }
 
+.footer h2 {
+  color: black;
+}
+
 .footer h3 {
   font-size: 16px;
   font-weight: bold;
+  color: black;
 }
 
 /*# sourceMappingURL=custosm.css.map */
@@ -248,7 +244,6 @@ md-grid-tile md-icon {
 }
 
 .sensor-angin {
-  margin: 10px;
   padding: 10px;
   height: 65px;
   width: 175px;
@@ -263,6 +258,19 @@ md-grid-tile md-icon {
   background-color: white; 
   border: none;
 }
+
+.indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: rgba(178, 255, 89, .9);
+
+  float: right;
+  position: relative;
+  top: 20;
+}
+
+
 
 @media all and (max-width: 1024px) {
   .navbar {

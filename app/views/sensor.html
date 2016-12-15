@@ -4,20 +4,20 @@
         <table id="table" class="table table-hover table-bordered">
             <thead>
             <tr>
-                <th>No.RFID</th>
+                <th>No. Sensor</th>
                 <th>Lantai</th>
-                <th>Posisi</th>
+                <th>Kode Sensor</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="grid in vm.data">
+            <tr ng-repeat="grid in vm.data2">
                 <td data-title="Rfid">{{grid.$id}}</td>
                 <td data-title="Lantai">{{grid.lantai}}</td>
-                <td data-title="Posisi">{{grid.posisi}}</td>
+                <td data-title="Posisi">{{grid.tipe}}</td>
                 <td>
                   <md-button class="md-raised md-accent"
-                             ng-click="vm.getId(grid.$id, grid.lantai, grid.posisi); ctrl.showDialog($event)">Edit
+                             ng-click="ctrl.showDialog($event); panel.getId(grid.$id)">Edit
                   </md-button>
                 </td>
             </tr>

@@ -6,26 +6,26 @@
     </md-toolbar>
 
     <div class="demo-dialog-content">
-      <form ng-submit="panel.ubahDataKandang">
+      <form ng-submit="vm.ubahDataKandang">
         <div layout="row">
           <md-input-container class="md-block" flex>
             <label>No. RFID</label>
-            <input ng-model="panel.kandang.rfid" type="text">
+            <input ng-model="vm.cage.rfid" type="text">
           </md-input-container>
         </div>
         <div layout="row">
           <md-input-container flex>
             <label>Lantai</label>
-            <input ng-model="panel.kandang.lantai" type="number">
+            <input ng-model="vm.cage.lantai" type="number">
           </md-input-container>
           <md-input-container flex>
             <label>Posisi</label>
-            <input ng-model="panel.kandang.posisi" type="number">
+            <input ng-model="vm.cage.posisi" type="number">
           </md-input-container>
         </div>
         <md-button class="md-raised md-accent demo-dialog-button" 
                    ng-click="ctrl.closeDialog()"
-                   ng-disabled="!vm.data.noRfid || !vm.data.lantai || !vm.data.grid">
+                   ng-disabled="!vm.kandang.rfid || !vm.kandang.lantai || !vm.kandang.posisi">
           Simpan
         </md-button>
       </form>

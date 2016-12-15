@@ -27,6 +27,11 @@
         name: 'Kandang',
         icon: 'view_module',
         sref: 'kandang'
+      },
+      {
+        name: 'Sensor',
+        icon: 'settings',
+        sref: 'sensor'
       }
     ];
 
@@ -35,7 +40,7 @@
     vm.data = $firebaseArray(ref);
 
     vm.color = function (b,d) {
-      if (b >= 20 && (d > 60 && d < 70)) 
+      if (b >= 20 || (d < 60 || d > 70)) 
         return 'red';
       else 
         return 'green';
@@ -49,15 +54,15 @@
     };
 
     /* Data Sensor */
-    var ref2 = firebase.database().ref().child('percobaantampilkandang').child('so');
+    var ref2 = firebase.database().ref().child('percobaantampilkandang').child('s');
     vm.data2 = $firebaseArray(ref2);
-
-    var ref3 = firebase.database().ref().child('percobaantampilkandang').child('si');
-    vm.data3 = $firebaseArray(ref3);
 
     /* Grafik Produktivitas Ternak */  
     var x_axis = [];
     var rerataBerat = [];
+    var beratIdeal = [0, 0, 0, 0, 0, 0, 160, 200, 240, 280, 320, 350, 390, 430, 490, 550,
+                      610, 670, 730, 780, 840, 920, 1000, 1080, 1160, 1240, 1320, 1400, 1490, 1570,
+                      1660, 1750, 1840, 1930, 2020, 2100, 2190, 2280, 2370, 2450, 2540, 2630];
     var ref4 = firebase.database().ref().child('percobaangrafik').child('lantai1').child('grid');
 
     /* Hitung Rata-Rata Berat Ayam*/
@@ -77,24 +82,83 @@
       });
 
     vm.labels = x_axis;
-    vm.series = ['Rata-Rata Berat Ayam'];
-    vm.datas = [rerataBerat];
+    vm.datas = [rerataBerat, beratIdeal];
     vm.onClick = function (points, evt) {
       console.log(points, evt);
     };
-    vm.datasetOverride = [{ yAxisID: 'y-axis-1' }];
-    vm.options = {
-      scales: {
-        yAxes: [
-          {
-            id: 'y-axis-1',
-            type: 'linear',
-            display: true,
-            position: 'left'
-          }
-        ]
+    vm.colors = ['#98fb98', '#ff6384'];
+    vm.datasetOverride = [
+      {
+        label: 'Berat Aktual',
+        borderWidth: 3,
+        type: 'line'
+      },
+      {
+        label: 'Berat Ideal',
+        borderWidth: 3,
+        type: 'line'
       }
+    ];
+    vm.options = { legend: { display: true } };
+
+
+    /* Grafik Akumulasi Kematian Ayam */  
+    var mor_x_axis = [];
+    var ayamMati = [];
+    var mortalityStd = [19, 11, 12, 23, 25, 17, 18, 20, 20, 23, 15, 13, 14, 18, 
+                     14, 15, 10, 7, 13, 15, 9, 10, 10, 13, 20, 37, 35, 18, 
+                     14, 16, 10, 24, 11, 13, 11, 20];
+
+    var pakanHarian = [];
+    var ref5 = firebase.database().ref().child('percobaangrafik').child('lantai1').child('feedandmortality');
+
+    ref5.once("value")
+      .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          mor_x_axis.push(childSnapshot.key);
+          var mortality = childSnapshot.val().ayamMati;
+          var feed = childSnapshot.val().pakan;
+          ayamMati.push(mortality);
+          pakanHarian.push(feed);
+        });
+      });
+
+    /* Grafik Mortality */
+    vm.mor_labels = mor_x_axis;
+    vm.mor_datas = [ayamMati, mortalityStd];
+    vm.mor_onClick = function (points, evt) {
+      console.log(points, evt);
     };
+    vm.mor_colors = ['#98fb98', '#ff6384'];
+    vm.mor_datasetOverride = [
+      {
+        label: 'Berat Aktual',
+        borderWidth: 3,
+        type: 'line'
+      },
+      {
+        label: 'Berat Ideal',
+        borderWidth: 3,
+        type: 'line'
+      }
+    ];
+    vm.mor_options = { legend: { display: true } };
+
+    /* Grafik Pakan */
+    vm.feed_labels = mor_x_axis;
+    vm.feed_datas = [pakanHarian];
+    vm.feed_onClick = function (points, evt) {
+      console.log(points, evt);
+    };
+    vm.feed_colors = ['#98fb98'];
+    vm.feed_datasetOverride = [
+      {
+        label: 'Pakan Harian',
+        borderWidth: 3,
+        type: 'line'
+      }
+    ];
+    vm.feed_options = { legend: { display: true } };
 
     /* md-sidenav */
     $scope.toggleLeft = buildDelayedToggler('left');
@@ -169,7 +233,7 @@
     var config = {
       attachTo: angular.element(document.body),
       controller: PanelDialogCtrl,
-      controllerAs: 'ctrl',
+      controllerAs: 'vm',
       disableParentScroll: this.disableParentScroll,
       templateUrl: 'app/views/partials/panel.html',
       hasBackdrop: true,
