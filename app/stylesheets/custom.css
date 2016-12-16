@@ -195,10 +195,11 @@ md-grid-tile md-icon {
 }
 
 /* Footer */
-
 .footer {
   height: 100%;
-  
+
+  background: #fcfcfc;
+  border: 1px solid #ddd;
   display: flex;
   justify-content: center;
 }
@@ -259,18 +260,87 @@ md-grid-tile md-icon {
   border: none;
 }
 
-.indicator {
+.indicator-green {
   width: 20px;
   height: 20px;
   border-radius: 100%;
   background: rgba(178, 255, 89, .9);
+  color: rgba(178, 255, 89, .9);;
 
   float: right;
   position: relative;
   top: 20;
 }
 
+.indicator-red {
+  /*width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: rgba(255, 82, 82, .9);
 
+
+  float: right;
+  position: relative;
+  top: 21.5;*/
+
+  color: rgb(255, 82, 82);
+}
+
+.flex-sensor {
+  display: flex;
+
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.base {
+  width: 33.333%;
+  height: 35%;
+
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.sensor-indoor-red {
+  background: rgba(255, 82, 82, .78);
+  width: 65px;
+  height: 65px;
+  border-radius: 100%;
+}
+
+.sensor-indoor-green {
+  background: rgba(0, 0, 0, .2);
+  width: 65px;
+  height: 65px;
+
+  border-radius: 100%;
+}
+
+.sensor-indoor-red h4 {
+  text-align: center;
+  margin-bottom: 0;
+}
+.sensor-indoor-green h4 {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.md-fab {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;  
+}
+
+.md-datepicker-calendar-pane {
+  z-index: 999;
+}
 
 @media all and (max-width: 1024px) {
   .navbar {

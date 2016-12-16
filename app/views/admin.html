@@ -1,0 +1,32 @@
+<div ng-controller="adminController as vm">
+  <div ng-controller="BasicDemoCtrl as ctrl">
+    <md-content layout-padding>
+      <span class="md-headline">Data Ayam Mati dan Pakan Harian</span>
+    </md-content>
+    <div style="padding: 12px;">
+      <div class="table-responsive-vertical md-whiteframe-z1" style="margin-top: 12px;">
+        <table id="table" class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Jumlah Ayam Mati</th>
+              <th>Pakan Harian (Kg)</th>
+              <th>Lantai</th>                
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="data in vm.data">
+              <td data-title="Tanggal">{{data.$id}}</td>
+              <td data-title="Ayam Mati">{{data.ayamMati}}</td>
+              <td data-title="Pakan Harian">{{data.pakan}}</td>
+              <td data-title="Lantai">{{data.lantai}}</td>            
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <md-button class="md-fab" aria-label="Tambah" ng-click="ctrl.showDialog($event)">
+      <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
+    </md-button>
+  </div>
+</div>

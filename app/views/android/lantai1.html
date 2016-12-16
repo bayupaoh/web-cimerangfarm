@@ -1,78 +1,114 @@
-<md-content class="md-padding" layout="column" style="background-color:white;">
-              <div class="sensor-luar" ng-repeat="so in vm.data2 | filter: { tipe: 'so' }">
-                <h4>Suhu: {{so.a}} C</h4>
-                <h4>Kelembaban: {{so.b}} %</h4>
-              </div>
+          <md-content>
+            <md-content class="md-padding" layout="column" style="background-color: white;">
+              <div ng-controller="kandangController as vm">
+                <div layout="column" style="border: 1px solid #ddd">
+                  <md-grid-list
+                        md-cols="8"
+                        md-row-height="2:3"
+                        md-gutter="12px">
 
-              <div layout="column" style="border: 1px solid #ddd">
-                <div layout="row">
-                  <span flex></span>
-                  <div class="sensor-angin" ng-repeat="so in vm.data2 | filter: { tipe: 'so' }">
-                    <h4>Angin: {{so.c}} km/jam</h4>
+                        <md-grid-tile ng-repeat="grid in vm.grids | orderBy:'posisi' | filter: { lantai: 1 }">
+                          <md-grid-tile-footer class="footer">
+                            <h3 class="icon">
+                              <md-icon md-svg-icon="assets/icons/scale.svg" class="svg-icon"></md-icon> {{grid.a}} Kg
+                              </h3>
+                            <h3 class="icon">
+                              <md-icon md-svg-icon="assets/icons/poison.svg" class="svg-icon"></md-icon> 
+                              <span ng-class="vm.ammoniaColor(grid.b)">{{grid.b}} ppm</span>
+                            </h3>
+                            <h3 class="icon">
+                              <md-icon md-svg-icon="assets/icons/thermometer.svg" class="svg-icon"></md-icon> {{grid.c}} C
+                            </h3>
+                            <h3 class="icon">
+                              <md-icon md-svg-icon="assets/icons/drop.svg" class="svg-icon"></md-icon>
+                              <span ng-class="vm.humidityColor(grid.d)">{{grid.d}} % </span>
+                            </h3>
+                          </md-grid-tile-footer>
+                        </md-grid-tile>
+
+                        <div class="flex-sensor">
+                          <div class="flex-sensor base" ng-repeat="si in vm.sensor | filter: { tipe: 'si' }" >
+                            <div ng-class="vm.tableColor(si.a)">
+                              <h4>{{si.$id}}</h4>
+                            </div>
+                          </div>
+                        </div>
+
+                  </md-grid-list>               
+                </div>
+
+                <div layout="row" style="margin: 12px 12px 12px 0;">
+
+                  <div ng-repeat="so in vm.sensor | filter: { tipe: 'so' }" layout="column" style="width:20%;">
+                    <div class="sensor-luar" >
+                      <h4>Suhu Luar: {{so.a}} C</h4>
+                      <h4>Kelembaban: {{so.b}} %</h4>
+                    </div>
+
+                    <div class="sensor-angin">
+                        <h4>Angin: {{so.c}} km/jam</h4>
+                    </div>
                   </div>
-                </div>
-
-                <md-grid-list
-                      md-cols="8"
-                      md-row-height="2:3"
-                      md-gutter="12px">
-
-                      <md-grid-tile ng-repeat="grid in vm.data | orderBy:'posisi' | filter: { lantai: 1 }"
-                                    ng-class="vm.color(grid.b,grid.d)">
-                        <md-grid-tile-footer class="footer">
-                          <h2 style="font-size:18px;margin-top:0;">{{grid.$id}}</h3>
-                          <h3 class="icon"><md-icon md-svg-icon="assets/icons/scale.svg" class="svg-icon"></md-icon> {{grid.a}} Kg</h3>
-                          <h3 class="icon"><md-icon md-svg-icon="assets/icons/poison.svg" class="svg-icon"></md-icon> {{grid.b}} ppm</h3>
-                          <h3 class="icon"><md-icon md-svg-icon="assets/icons/thermometer.svg" class="svg-icon"></md-icon> {{grid.c}} C</h3>
-                          <h3 class="icon"><md-icon md-svg-icon="assets/icons/drop.svg" class="svg-icon"></md-icon> {{grid.d}} %</h3>
-                        </md-grid-tile-footer>
-                      </md-grid-tile>
-
-                </md-grid-list>
-
-                <div class="sensor-indoor">
-
+                    
+                  <table id="table" class="table table-hover table-bordered" 
+                         style="border: 1px solid #ddd; width: 80%; margin-left: 12px;">
+                        <thead>
+                        <tr>
+                            <th>No. Sensor</th>
+                            <th>Suhu</th>
+                            <th>Kelembaban</th>
+                            <th>Posisi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="si in vm.sensor | filter: { tipe: 'si' }">
+                            <td data-title="No. Sensor">{{si.$id}}</td>
+                            <td data-title="Suhu">{{si.a}}</td>
+                            <td data-title="Kelembaban">{{si.b}}</td>
+                            <td data-title="Posisi">{{si.posisi}}</td>
+                        </tr>
+                        </tbody>
+                  </table>
                 </div>
               </div>
-                
-              <table id="table" class="table table-hover table-bordered" style="border: 1px solid #ddd; margin-top:12px;">
-                    <thead>
-                    <tr>
-                        <th>No. Sensor</th>
-                        <th>Suhu</th>
-                        <th>Kelembaban</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="si in vm.data2 | filter: { tipe: 'si' }" ng-class="vm.tableColor(si.a)">
-                        <td data-title="No. Sensor">{{si.$id}}</td>
-                        <td data-title="Suhu">{{si.a}}</td>
-                        <td data-title="Kelembaban">{{si.b}}</td>
-                    </tr>
-                    </tbody>
-              </table>
+            </md-content>
 
-              <span class="md-headline">Grafik Produktivitas Berat Ayam</span>
-              <md-content class="md-padding" style="background-color:white;">
-                <canvas id="base" class="chart chart-line" chart-data="vm.datas"
-                        chart-labels="vm.labels"  chart-colors="vm.colors"
-                        chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" chart-options="vm.options">
-                </canvas>
-              </md-content>
+            <md-content layout="column" style="padding-top:18px">
+              <div ng-controller="beratAyamController as vm">                
+                <md-content class="md-padding" style="background-color: white;">
+                  <span class="md-headline">Grafik Produktivitas Berat Ayam</span>
+                  <canvas id="base" class="chart chart-line" chart-data="vm.data"
+                          chart-labels="vm.labels"  chart-colors="vm.colors"
+                          chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 
+                          chart-options="vm.options">
+                  </canvas>
+                </md-content>
+              </div>
+            </md-content>
 
-              <span class="md-headline">Grafik Akumulasi Kematian Ayam</span>
-              <md-content class="md-padding" style="background-color:white;">
-                <canvas id="base" class="chart chart-line" chart-data="vm.mor_datas"
-                        chart-labels="vm.mor_labels"  chart-colors="vm.mor_colors"
-                        chart-dataset-override="vm.mor_datasetOverride" chart-click="vm.mor_onClick" chart-options="vm.mor_options">
-                </canvas>
-              </md-content>   
+            <md-content layout="column" style="padding-top:18px">
+              <div ng-controller="mortalityController as vm">                
+                <md-content class="md-padding" style="background-color: white;">
+                  <span class="md-headline">Grafik Akumulasi Kematian Ayam</span>
+                  <canvas id="base" class="chart chart-line" chart-data="vm.data"
+                          chart-labels="vm.labels"  chart-colors="vm.colors"
+                          chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 
+                          chart-options="vm.options">
+                  </canvas>
+                </md-content>   
+              </div>
+            </md-content>
 
-              <span class="md-headline">Grafik Pakan Ayam Harian</span>
-              <md-content class="md-padding" style="background-color:white;">
-                <canvas id="base" class="chart chart-line" chart-data="vm.feed_datas"
-                        chart-labels="vm.feed_labels"  chart-colors="vm.feed_colors"
-                        chart-dataset-override="vm.feed_datasetOverride" chart-click="vm.feed_onClick" chart-options="vm.feed_options">
-                </canvas>
-              </md-content>       
+            <md-content layout="column" style="padding-top:18px">
+              <div ng-controller="feedController as vm">                
+                <md-content class="md-padding" style="background-color: white;">
+                  <span class="md-headline">Grafik Pakan Ayam Harian</span>
+                  <canvas id="base" class="chart chart-line" chart-data="vm.data"
+                          chart-labels="vm.labels"  chart-colors="vm.colors"
+                          chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 
+                          chart-options="vm.options">
+                  </canvas>
+                </md-content>
+              </div>
+            </md-content>
           </md-content>
