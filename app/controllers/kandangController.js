@@ -7,62 +7,35 @@
 
   function kandangController($firebaseArray) {
     var vm = this;
-    var ref = firebase.database().ref().child('percobaantampilkandang').child('g');
-    vm.data = $firebaseArray(ref);
+    var gridRef = firebase.database().ref().child('percobaantampilkandang').child('g');
+    var sensorRef = firebase.database().ref().child('percobaantampilkandang').child('s');
 
-    vm.color = function (a) {
-      if (a < 19 || a > 30) 
-        return 'red';
+    vm.grids = $firebaseArray(gridRef);
+    vm.sensor = $firebaseArray(sensorRef);
+
+    vm.humidityColor = humidityColor;
+    vm.ammoniaColor = ammoniaColor;
+    vm.tableColor = tableColor;
+
+    function humidityColor (d) {
+      if (d < 60 || d > 70)
+        return 'indicator-red';
       else 
-        return 'green';
+        return '';
     };
 
-    /* Data Sensor */
-    var ref2 = firebase.database().ref().child('percobaantampilkandang').child('so');
-    vm.data2 = $firebaseArray(ref2);
-
-    var ref3 = firebase.database().ref().child('percobaantampilkandang').child('si');
-    vm.data3 = $firebaseArray(ref3);
-
-    /* Grafik Produktivitas Ternak */  
-    var x_axis = [];
-    var rerataBerat = [];
-    var ref4 = firebase.database().ref().child('percobaangrafik').child('lantai1').child('grid');
-
-    /* Hitung Rata-Rata Berat Ayam*/
-    ref4.once("value")
-      .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          var sum = 0;
-          var count = 0;
-          x_axis.push(childSnapshot.key);
-          childSnapshot.forEach(function(childSnapshot) {
-            var snap = childSnapshot.val().berat;
-            sum += snap;
-            count += 1;
-          });
-          rerataBerat.push((sum/count).toFixed(2));
-        });
-      });
-
-    vm.labels = x_axis;
-    vm.series = ['Rata-Rata Berat Ayam'];
-    vm.datas = [rerataBerat];
-    vm.onClick = function (points, evt) {
-      console.log(points, evt);
+    function ammoniaColor (b) {
+      if (b > 20)
+        return 'indicator-red';
+      else 
+        return '';
     };
-    vm.datasetOverride = [{ yAxisID: 'y-axis-1' }];
-    vm.options = {
-      scales: {
-        yAxes: [
-          {
-            id: 'y-axis-1',
-            type: 'linear',
-            display: true,
-            position: 'left'
-          }
-        ]
-      }
+
+    function tableColor (a) {
+      if (a > 28) 
+        return 'sensor-indoor-red';
+      else 
+        return 'sensor-indoor-green';
     };
     
   }

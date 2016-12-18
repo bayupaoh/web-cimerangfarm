@@ -1,17 +1,20 @@
 'use strict'
 
 angular
-  .module('farmCimerang', ['ngMaterial', 'ui.router', 'appController'])
-
+  .module('farmCimerang', ['appController', 'ngMaterial', 'ui.router', 'firebase', 'chart.js'])
   .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider) {
-    'use strict';
 
     $stateProvider
       .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'app/views/dashboard.html'
       })
-      .state('daftar', {
+      .state('input-data', {
+        url: '/input-data',
+        templateUrl: 'app/views/admin.html'
+      })
+
+    /*  .state('daftar', {
         url: '/daftar',
         templateUrl: 'app/views/daftar.html',
         controller: 'adminController',
@@ -21,6 +24,10 @@ angular
         url: '/kandang',
         templateUrl: 'app/views/kandang.html'
       })
+      .state('sensor', {
+        url: '/sensor',
+        templateUrl: 'app/views/sensor.html'
+      }) */
       .state('android/lantai1', {
         url: '/android/lantai1',
         templateUrl: 'app/views/android/lantai1.html'
