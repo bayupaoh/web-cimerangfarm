@@ -28,10 +28,13 @@ angular
       .state('android/lantai2', {
         url: '/android/lantai2',
         templateUrl: 'app/views/android/lantai2.html'
+      }).state('pengguna', {
+        url: '/pengguna',
+        templateUrl: 'app/views/android/lantai2.html'
       });
 
     $urlRouterProvider.otherwise('/dashboard');
-  
+
     $mdThemingProvider
       .theme('default')
       .primaryPalette('amber')

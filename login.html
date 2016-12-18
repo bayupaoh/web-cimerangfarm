@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>AngularJS & Firebase Web App</title>
+
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+
+
+
+
+</head>
+
+<body ng-controller="loginCtrl">
+
+    <div class="container">
+        <div class="jumbotron" style="padding-bottom:0px;">
+            <h2>FARM CIMERANG</h2>
+        </div>
+        <form class="form-signin" role="form">
+            <input type="email" ng-model="user.email" class="form-control" placeholder="Email address" required="" name="username">
+            <input type="password"  ng-model="user.password"class="form-control" placeholder="Password" required="" name="password">
+            <label class="checkbox">
+                <a href="#"> Sign Up</>
+        </label>
+        <button ng-click = "login()" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-cookies.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+
+    </script>
+    <!-- Initialize Firebase -->
+
+    <script type="text/javascript">
+      var config = {
+        apiKey: "AIzaSyBP4u7T-4VQCAXs5aT9jOghnb4VjeO4Aoo",
+        authDomain: "cimerangfarm-421db.firebaseapp.com",
+        databaseURL: "https://cimerangfarm-421db.firebaseio.com",
+        storageBucket: "gs://cimerangfarm-421db.appspot.com",
+      };
+      firebase.initializeApp(config);
+    </script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+        <script src="app/controllers/UserController.js"></script>
+</body>
+</html>
