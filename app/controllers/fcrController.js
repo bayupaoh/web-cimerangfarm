@@ -3,25 +3,33 @@
 
   angular
     .module('appController')
-    .controller('mortalityController', mortalityController);
+    .controller('fcrController', fcrController);
 
-  function mortalityController() {
+  function fcrController() {
     var vm = this;
-    var tanggal = [];
-    var jumlahAyamMati = [];
-    var mortalityStandar = [
-      19, 11, 12, 23, 25, 17, 18, 20, 20, 23, 15, 13, 
-      14, 18, 14, 15, 10, 7, 13, 15, 9, 10, 10, 13, 20, 
-      37, 35, 18, 14, 16, 10, 24, 11, 13, 11, 20
-    ];
+    var tglBerat = [];
+    var tglPakan = [];
+    var beratAyam = [];
+    var pakanAyam = [];
+    
 
-    var ref = firebase.database().ref('percobaangrafik/lantai1/feedandmortality');
+    var pakanRef = firebase.database().ref('percobaangrafik/lantai1/feedandmortality');
     ref.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-          tanggal.push(childSnapshot.key);
-          var ayamMati = childSnapshot.val().ayamMati;
-          jumlahAyamMati.push(ayamMati);
+          tglPakan.push(childSnapshot.key);
+          var pakan = childSnapshot.val().pakan;
+          pakanAyam.push(pakan);
+        });
+      });
+
+    var beratRef = firebase.database().ref('percobaangrafik/lantai1/grid');
+    ref.once("value")
+      .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          tglBerat.push(childSnapshot.key);
+          var berat = childSnapshot.val().berat;
+          beratAyam.push(pakan);
         });
       });
 

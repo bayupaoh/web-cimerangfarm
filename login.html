@@ -1,57 +1,84 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="myApp">
-
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Cimerang Farm">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cimerang Farm | Login</title>
 
-    <title>AngularJS & Firebase Web App</title>
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
-
-
-
+  <!-- App Styling -->
+  <link rel="stylesheet" href="app/stylesheets/custom.css">
 
 </head>
+<body ng-app="farmCimerang" ng-cloak>
+  <md-content layout="row" layout-fill>
 
-<body ng-controller="loginCtrl">
+    <md-content layout-fill class="bg-left">
+      <img src="assets/chicken.png" width="35%">
+      <span>KANDANG AYAM</span>
+      <h1>CIMERANG</h1>
+    </md-content>
 
-    <div class="container">
-        <div class="jumbotron" style="padding-bottom:0px;">
-            <h2>FARM CIMERANG</h2>
-        </div>
-        <form class="form-signin" role="form">
-            <input type="email" ng-model="user.email" class="form-control" placeholder="Email address" required="" name="username">
-            <input type="password"  ng-model="user.password"class="form-control" placeholder="Password" required="" name="password">
-            <label class="checkbox">
-                <a href="#"> Sign Up</>
-        </label>
-        <button ng-click = "login()" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+    <md-content layout-fill layout-align="center" class="bg-right">
+      <div class="input-section">
+        <form ng-submit="vm.login()">
+          <div layout="column" layout-padding>
+              <md-input-container flex md-theme="input">
+                  <label>No.RFID</label>
+                  <input ng-model="vm.user.email" type="text" autofocus>
+              </md-input-container>
+          </div>
+          <div layout="column" layout-padding>
+              <md-input-container flex md-theme="input">
+                  <label>Password</label>
+                  <input ng-model="vm.user.password" type="password">
+              </md-input-container>
+          </div>
+          <div layout="column" layout-padding>
+              <md-button flex class="md-raised md-accent">
+                  LOGIN
+              </md-button>
+          </div>
+        </form>
+      </div>
+    </md-content>
 
-    </div>
+  </md-content>
 
+  <!-- Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+  <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-cookies.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  
+  <!-- My application bootstrap  -->
+  <script src="app/index.js"></script>  
+  <script src="app/app.js"></script>  
+  <script src="app/controllers/mainController.js"></script>
+  <script src="app/controllers/adminController.js"></script>
+  <script src="app/controllers/kandangController.js"></script>
+  <script src="app/controllers/beratAyamController.js"></script>
+  <script src="app/controllers/mortalityController.js"></script>
+  <script src="app/controllers/feedController.js"></script>
 
-    </script>
-    <!-- Initialize Firebase -->
+  <!-- Initialize Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+  <script src="app/scripts/config.js"></script>
 
-    <script type="text/javascript">
-      var config = {
-        apiKey: "AIzaSyBP4u7T-4VQCAXs5aT9jOghnb4VjeO4Aoo",
-        authDomain: "cimerangfarm-421db.firebaseapp.com",
-        databaseURL: "https://cimerangfarm-421db.firebaseio.com",
-        storageBucket: "gs://cimerangfarm-421db.appspot.com",
-      };
-      firebase.initializeApp(config);
-    </script>
-    <!-- AngularFire -->
-    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
-        <script src="app/controllers/UserController.js"></script>
+   <!-- Angular Chart -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  <script src="//cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
+
+  <!-- AngularFire -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angularFire/2.1.0/angularfire.min.js"></script>
+
 </body>
 </html>

@@ -2,47 +2,13 @@
   'use strict';
 
   angular
-  	.module('appController')
-  	.controller('mainController', mainController)
-  	.controller('LeftCtrl', leftCtrl)
-    .controller('BasicDemoCtrl', BasicDemoCtrl)
-    .controller('PanelDialogCtrl', PanelDialogCtrl);
+    .module('appController')
+    .controller('mainController', mainController)
+    .controller('LeftCtrl', leftCtrl);
 
-  function mainController ($scope, $timeout, $mdSidenav, $log, $firebaseArray) {
+  function mainController ($scope, $timeout, $mdSidenav, $log) {
     var vm = this;
-    // services berat Ayam
-    var ref5 = firebase.database().ref().child('kandang/g');
-    var list = $firebaseArray(ref5);
-    //list.$watch(function(event) {
-  ref5.on('child_changed',function(snapshoot){
-      const dates = new Date();
-      const now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
-      const jam = dates.getHour()+':'dates.getMinutes();
 
-      var data = {
-          tanggal : now,
-          waktu : jam
-      }
-      var update = firebase.database().ref().child('kandang/g/'+snapshoot.key());
-      update.update(data).then(function(update){
-        console.log('update column..');
-      });
-
-      if(snapshoot.val().lantai != 0){
-          var lantai = 'lantai1';
-          if(snapshoot.val().lantai == 2){
-            lantai = 'lantai2';
-          }
-          var berat = snapshoot.val().A;
-          var ref_grafik = firebase.database().ref().child('percobaangrafik'+lantai+'grid'+now);
-          ref_grafik.$add({berat : berat}).then(function(ref_grafik){
-            console.log('updated..')
-          });
-      }
-
-
-
-    });
     /* SideNav Menu */
     vm.menuItems = [
       {
@@ -51,6 +17,12 @@
         sref: 'dashboard'
       },
       {
+        name: 'Input Data',
+        icon: 'create',
+        sref: 'input-data'
+      }
+
+    /*  {
         name: 'Daftar',
         icon: 'person',
         sref: 'daftar'
@@ -61,80 +33,12 @@
         sref: 'kandang'
       },
       {
-        name: 'Pengguna',
-        icon: 'person',
-        sref: 'pengguna'
-      }
+        name: 'Sensor',
+        icon: 'settings',
+        sref: 'sensor'
+      } */
     ];
-    console.log(vm.menuItems);
-    /* Data Kandang */
-    var ref = firebase.database().ref().child('percobaantampilkandang').child('g');
-    vm.data = $firebaseArray(ref);
-
-    vm.color = function (b,d) {
-      if (b >= 20 && (d > 60 && d < 70))
-        return 'red';
-      else
-        return 'green';
-    };
-
-    vm.tableColor = function (a) {
-      if (a > 28)
-        return 'table-red';
-      else
-        return 'table-green';
-    };
-
-    /* Data Sensor */
-    var ref2 = firebase.database().ref().child('percobaantampilkandang').child('so');
-    vm.data2 = $firebaseArray(ref2);
-
-    var ref3 = firebase.database().ref().child('percobaantampilkandang').child('si');
-    vm.data3 = $firebaseArray(ref3);
-
-    /* Grafik Produktivitas Ternak */
-    var x_axis = [];
-    var rerataBerat = [];
-    var ref4 = firebase.database().ref().child('percobaangrafik').child('lantai1').child('grid');
-
-    /* Hitung Rata-Rata Berat Ayam*/
-    ref4.once("value")
-      .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          var sum = 0;
-          var count = 0;
-          x_axis.push(childSnapshot.key);
-          childSnapshot.forEach(function(childSnapshot) {
-            var snap = childSnapshot.val().berat;
-            sum += snap;
-            count += 1;
-          });
-          rerataBerat.push((sum/count).toFixed(2));
-        });
-      });
-
-    vm.labels = x_axis;
-    vm.series = ['Rata-Rata Berat Ayam'];
-    vm.datas = [rerataBerat];
-    vm.onClick = function (points, evt) {
-      console.log(points, evt);
-    };
-    vm.datasetOverride = [{ yAxisID: 'y-axis-1' }];
-    vm.options = {
-      scales: {
-        yAxes: [
-          {
-            id: 'y-axis-1',
-            type: 'linear',
-            display: true,
-            position: 'left'
-          }
-        ]
-      }
-    };
-
-
-
+   
     /* md-sidenav */
     $scope.toggleLeft = buildDelayedToggler('left');
 
@@ -182,7 +86,7 @@
       }
     }
   }
-
+  
   function leftCtrl ($scope, $timeout, $mdSidenav, $log) {
     $scope.close = function () {
       // Component lookup should always be available since we are not using `ng-if`
@@ -193,48 +97,5 @@
 
     };
   }
-
-  /* Menu Dialog Ubah Data Kandang */
-  function BasicDemoCtrl($mdPanel) {
-    this._mdPanel = $mdPanel;
-    this.disableParentScroll = false;
-  }
-
-  BasicDemoCtrl.prototype.showDialog = function() {
-    var position = this._mdPanel.newPanelPosition()
-        .absolute()
-        .center();
-
-    var config = {
-      attachTo: angular.element(document.body),
-      controller: PanelDialogCtrl,
-      controllerAs: 'ctrl',
-      disableParentScroll: this.disableParentScroll,
-      templateUrl: 'app/views/partials/panel.html',
-      hasBackdrop: true,
-      panelClass: 'demo-dialog-example',
-      position: position,
-      trapFocus: true,
-      zIndex: 150,
-      clickOutsideToClose: true,
-      escapeToClose: true,
-      focusOnOpen: true
-    };
-
-    this._mdPanel.open(config);
-  };
-
-  function PanelDialogCtrl(mdPanelRef) {
-    this._mdPanelRef = mdPanelRef;
-  }
-
-  PanelDialogCtrl.prototype.closeDialog = function() {
-    var panelRef = this._mdPanelRef;
-
-    panelRef && panelRef.close().then(function() {
-      angular.element(document.querySelector('md-grid-tile')).focus();
-      panelRef.destroy();
-    });
-  };
 
 })();

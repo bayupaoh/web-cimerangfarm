@@ -15,24 +15,17 @@
         <div layout="row">
           <md-input-container flex style="margin-top: 36px;">
             <label>Jumlah Ayam Mati</label>
-            <input ng-model="vm.data.ayamMati" type="number">
+            <input ng-model="vm.data.ayamMati" ng-init="vm.data.ayamMati=0" type="number">
           </md-input-container>
         </div>
         <div layout="row">
           <md-input-container flex>
             <label>Pakan Harian (Kg)</label>
-            <input ng-model="vm.data.pakan" type="number">
+            <input ng-model="vm.data.pakan" ng-init="vm.data.pakan=0" type="number">
           </md-input-container>
         </div>
-        <div layout="row">
-           <md-radio-group ng-model="vm.data.lantai" layout="row" style="margin-bottom: 36px;">
-            <md-radio-button value="1">Lantai 1</md-radio-button>
-            <md-radio-button value="2">Lantai 2</md-radio-button>
-          </md-radio-group>
-        </div>
         <md-button class="md-raised md-accent demo-dialog-button" 
-                   type="submit" ng-click="ctrl.closeDialog()"
-                   ng-disabled="!vm.data.ayamMati || !vm.data.pakan || !vm.data.lantai">
+                   type="submit" ng-click="ctrl.closeDialog()">
           Simpan
         </md-button>
       </form>

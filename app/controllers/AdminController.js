@@ -10,6 +10,7 @@
   function adminController($firebaseArray) {
     var vm = this;
     var ref = firebase.database().ref().child('percobaangrafik').child('lantai1').child('feedandmortality');
+    var ref2 = firebase.database().ref().child('percobaangrafik').child('lantai2').child('feedandmortality');
 
     var d = new Date();
     var year = d.getFullYear();
@@ -19,14 +20,21 @@
     var now = year + '-' + month + '-' + date;
 
     vm.data = $firebaseArray(ref);
+    vm.data2 = $firebaseArray(ref2);
     vm.tambahData = function () {
       firebase.database().ref('percobaangrafik/lantai1/feedandmortality/' + now).set({
         ayamMati: vm.data.ayamMati,
-        pakan: vm.data.pakan,
-        lantai: vm.data.lantai
+        pakan: vm.data.pakan
       })
       .then(function (ref) {
       	window.alert("Data pada tanggal " + now + " berhasil ditambahkan");
+      });
+    };
+
+    vm.hapusData = function (key) {
+      firebase.database().ref('percobaangrafik/lantai1/feedandmortality/' + key).remove()
+      .then(function (ref) {
+        window.alert("Data pada tanggal " + key + " telah dihapus");
       });
     };
     

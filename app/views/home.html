@@ -1,0 +1,22 @@
+<div ng-controller="kandangController as vm">
+	<md-content style="display: flex; justify-content: center; align-items:center;">
+
+		<a href="/#/dashboard/kandang" style="text-decoration: none;">
+			<div class="home-baloon">
+					<h1>Day {{vm.day}}</h1>
+
+					<div layout="row" style="margin: 0 0 30px 0 ;">
+						<span>IP <B>300</B></span>
+						<span>FCR <B>20</B></span>
+					</div>
+
+					<span>Suhu <B>{{vm.rerataSuhu}}&deg;C</B></span>
+					<span>Kelembaban <B>{{vm.rerataHumidity}} %</B></span>
+					<span>Feels Like <B>26&deg;C</B></span>
+					<span>NH3 <B>{{vm.rerataAmmonia}} ppm</B></span>
+
+			</div>
+		</a>
+
+	</md-content>
+</div>

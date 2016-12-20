@@ -7,11 +7,15 @@ angular
     $stateProvider
       .state('dashboard', {
         url: '/dashboard',
-        templateUrl: 'app/views/dashboard.html'
+        templateUrl: 'app/views/home.html'
       })
       .state('input-data', {
         url: '/input-data',
         templateUrl: 'app/views/admin.html'
+      })
+      .state('dashboard/kandang', {
+        url: '/dashboard/kandang',
+        templateUrl: 'app/views/dashboard.html'
       })
 
     /*  .state('daftar', {
@@ -35,13 +39,10 @@ angular
       .state('android/lantai2', {
         url: '/android/lantai2',
         templateUrl: 'app/views/android/lantai2.html'
-      }).state('pengguna', {
-        url: '/pengguna',
-        templateUrl: 'app/views/android/lantai2.html'
       });
 
     $urlRouterProvider.otherwise('/dashboard');
-
+  
     $mdThemingProvider
       .theme('default')
       .primaryPalette('amber')
