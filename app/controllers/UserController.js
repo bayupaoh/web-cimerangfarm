@@ -3,43 +3,53 @@
 
   angular
     .module('appController')
-    .controller('loginCtrl',['$firebaseAuth','$cookies',
-      function($firebaseAuth, $cookies) {
-        //var ref = new Firebase("https://cimerangfarm-421db.firebaseio.com/");
+    .controller('userController', userController);
 
+      function userController($firebaseAuth, $state) {
         var vm = this;
-        var auth = $firebaseAuth();
 
-        var current = $cookies.get('user_id');
-        console.log(auth.$currentUser)
-        // if(current != ''){
-        //   window.location.href = '/';
-        // }
-        console.log(current);
+        var ref = firebase.database().ref('admin/')
+
+        vm.addAdmin = function () {
+          var email = vm.user.email + '@gmail.com';
+          var password = vm.user.password;
+
+          firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then(function (authData) {
+            firebase.database().ref('admin/' + authData.uid).set({
+              nama: vm.user.nama,
+              role: 'petugas'
+            });
+          })
+          .catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+          });
+        }
 
         vm.login = function() {
-          console.log(vm.user);
-          var email = vm.user.email;
+          var email = vm.user.email + '@gmail.com';
           var password = vm.user.password;
-          if(email == '' || password == ''){
-            console.log('harus lengkap');
-          }else{
-            auth.$signInWithEmailAndPassword(email,password)
-            .then(function(authData) {
-              console.log('Logged in as:', authData.uid);
-              console.log('Logged in as:', authData.email);
-              $cookies.put('user_id',authData.uid);
-
-              //window.location.href = '/';
-              //$state.go('profile');
+          firebase.auth().signInWithEmailAndPassword(email, password)
+            .then (function () {
+              console.log('Logged In' + vm.user.email);
+              $state.go('menu.home');
             })
-            .catch(function(err) {
-              console.log('error:',err);
-              //$state.go('login');
-            });
-          }
-
+            .catch(function(error) {
+              
+          });
         };
-      }]
-    );
+
+        vm.logout = function() {
+          firebase.auth().signOut().then(function() {
+            console.log('Successfully Logout');
+            $state.go('login');
+          }, function(error) {
+            
+          });
+        }
+      }  
+
 })();

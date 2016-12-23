@@ -7,33 +7,44 @@
 
   function fcrController() {
     var vm = this;
-    var tglBerat = [];
-    var tglPakan = [];
+    var tglPakan  = [];
+    var tglBerat  = [];
     var beratAyam = [];
     var pakanAyam = [];
-    
+
+    var beratCount = 0;
+    var pakanCount = 0;
+
+    var beratRef = firebase.database().ref('percobaangrafik/lantai1/grid');
+    beratRef.once("value")
+      .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          childSnapshot.forEach(function (childSnapshot){
+            tglBerat.push(childSnapshot.key);
+            var berat = childSnapshot.val().berat;
+            beratAyam.push(berat);
+            beratCount++;
+          });
+        });
+      });
 
     var pakanRef = firebase.database().ref('percobaangrafik/lantai1/feedandmortality');
-    ref.once("value")
+    pakanRef.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
           tglPakan.push(childSnapshot.key);
           var pakan = childSnapshot.val().pakan;
           pakanAyam.push(pakan);
+          pakanCount++;
         });
+
+        var fcr = (pakanAyam[pakanCount-1]*50) / (beratAyam[pakanCount-1] / 100);
+        vm.fcr = fcr.toFixed(2);
       });
 
-    var beratRef = firebase.database().ref('percobaangrafik/lantai1/grid');
-    ref.once("value")
-      .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          tglBerat.push(childSnapshot.key);
-          var berat = childSnapshot.val().berat;
-          beratAyam.push(pakan);
-        });
-      });
+    
 
-    vm.labels = tanggal;
+    /*vm.labels = tglPakan;
     vm.data = [jumlahAyamMati, mortalityStandar];
     vm.onClick = function (points, evt) {
       console.log(points, evt);
@@ -55,7 +66,7 @@
       legend: { 
         display: true 
       } 
-    };
+    };*/
     
   }
 

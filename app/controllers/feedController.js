@@ -10,9 +10,8 @@
     var tanggal = [];
     var pakanHarian = [];
     var pakanStandar = [
-      250, 300, 350, 450, 500, 550, 600, 700, 800, 900, 1050, 
-      1150, 1250, 1400, 1500, 1650, 1750, 1900, 2000, 2150, 
-      2250, 2350, 2500, 2600, 2700, 2800, 2900, 3000
+      5, 6, 7, 9, 10, 11, 12, 14, 16, 18, 21, 23, 25, 28, 30,
+      33, 35, 38, 40, 43, 45, 47, 50, 52, 54, 56, 58, 60
     ];
 
     var ref = firebase.database().ref().child('percobaangrafik').child('lantai1').child('feedandmortality');
@@ -30,7 +29,7 @@
     vm.onClick = function (points, evt) {
       console.log(points, evt);
     };
-    vm.colors = ['#98fb98', '#ff6384'];
+    vm.colors = ['#ff6384', '#98fb98'];
     vm.datasetOverride = [
       {
         label: 'Pakan Harian',
@@ -46,6 +45,14 @@
     vm.options = { 
       legend: { 
         display: true 
+      },
+      scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'karung'
+          }
+        }]
       } 
     };
     

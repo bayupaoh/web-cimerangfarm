@@ -9,35 +9,90 @@
   function mainController ($scope, $timeout, $mdSidenav, $log) {
     var vm = this;
 
-    /* SideNav Menu */
-    vm.menuItems = [
-      {
-        name: 'Dashboard',
-        icon: 'dashboard',
-        sref: 'dashboard'
-      },
-      {
-        name: 'Input Data',
-        icon: 'create',
-        sref: 'input-data'
-      }
+    var user = firebase.auth().currentUser;
+    var name, email, photoUrl, uid;
 
-    /*  {
-        name: 'Daftar',
-        icon: 'person',
-        sref: 'daftar'
-      },
-      {
-        name: 'Kandang',
-        icon: 'view_module',
-        sref: 'kandang'
-      },
-      {
-        name: 'Sensor',
-        icon: 'settings',
-        sref: 'sensor'
-      } */
-    ];
+    if (user != null) {
+      uid = user.uid; 
+    }
+
+    var ref_admin = firebase.database().ref('admin/' + uid);
+
+    ref_admin.on('value', function (snapshot) {
+      var role = snapshot.val().role;
+      console.log(role);
+
+      if (role == 'admin') {
+        /* SideNav Menu */
+        vm.menuItems = [
+          {
+            name: 'Dashboard',
+            icon: 'dashboard',
+            sref: 'menu.home',
+            role: 'admin'
+          },
+          {
+            name: 'Input Data',
+            icon: 'create',
+            sref: 'menu.input-data',
+            role: 'petugas'
+          },
+          {
+            name: 'Pengaturan',
+            icon: 'settings',
+            sref: 'menu.pengaturan',
+            role: 'admin'
+          }
+        /*{
+            name: 'Daftar',
+            icon: 'person',
+            sref: 'menu.daftar',
+            role: 'admin'
+          }
+          {
+            name: 'Kandang',
+            icon: 'view_module',
+            sref: 'menu.kandang'
+          },
+          {
+            name: 'Sensor',
+            icon: 'settings',
+            sref: 'menu.sensor'
+          } */
+        ];
+      } else {
+        vm.menuItems = [
+          {
+            name: 'Dashboard',
+            icon: 'dashboard',
+            sref: 'menu.home',
+            role: 'admin'
+          },
+          {
+            name: 'Pengaturan',
+            icon: 'settings',
+            sref: 'menu.pengaturan',
+            role: 'admin'
+          }
+        /*{
+            name: 'Daftar',
+            icon: 'person',
+            sref: 'menu.daftar',
+            role: 'admin'
+          }
+          {
+            name: 'Kandang',
+            icon: 'view_module',
+            sref: 'menu.kandang'
+          },
+          {
+            name: 'Sensor',
+            icon: 'settings',
+            sref: 'menu.sensor'
+          } */
+        ];
+      }
+    });    
    
     /* md-sidenav */
     $scope.toggleLeft = buildDelayedToggler('left');

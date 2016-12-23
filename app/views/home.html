@@ -1,22 +1,44 @@
 <div ng-controller="kandangController as vm">
-	<md-content style="display: flex; justify-content: center; align-items:center;">
 
-		<a href="/#/dashboard/kandang" style="text-decoration: none;">
-			<div class="home-baloon">
-					<h1>Day {{vm.day}}</h1>
+	<md-content layout-padding>
+		<md-content style="display: flex; justify-content: center; align-items:center;">
 
-					<div layout="row" style="margin: 0 0 30px 0 ;">
-						<span>IP <B>300</B></span>
-						<span>FCR <B>20</B></span>
-					</div>
+			<a ui-sref="menu.dashboard" style="text-decoration: none;">
+				<div class="home-baloon">
+						<span>Lantai 1</span>
+						<span style="margin-bottom: 24px;">Hari ke-{{vm.dateLantai1}}</span>
 
-					<span>Suhu <B>{{vm.rerataSuhu}}&deg;C</B></span>
-					<span>Kelembaban <B>{{vm.rerataHumidity}} %</B></span>
-					<span>Feels Like <B>26&deg;C</B></span>
-					<span>NH3 <B>{{vm.rerataAmmonia}} ppm</B></span>
+						<div layout="row">
+							<span>IP <B>300</B></span>
+							<span>FCR <B>{{vm.fcr}}</B></span>
+						</div>
 
-			</div>
-		</a>
+						<span>Suhu <B>{{vm.rerataSuhu}} &deg;C</B></span>
+						<span>Kelembaban <B>{{vm.rerataHumidity}} %</B></span>
+						<span>Feels Like <B>{{vm.rerataFeelsLike}} &deg;C</B></span>
+						<span>NH3 <B>{{vm.rerataAmmonia}} ppm</B></span>
 
+				</div>
+			</a>
+
+			<a ui-sref="menu.dashboard" style="text-decoration: none;">
+				<div class="home-baloon">
+						<span>Lantai 2</span>
+						<span style="margin-bottom: 24px;">Hari ke-{{vm.dateLantai2}}</span>
+
+						<div layout="row">
+							<span>IP <B>300</B></span>
+							<span>FCR <B>20</B></span>
+						</div>
+
+						<span>Suhu <B>{{vm.rerataSuhu}} &deg;C</B></span>
+						<span>Kelembaban <B>{{vm.rerataHumidity}} %</B></span>
+						<span>Feels Like <B>{{vm.rerataFeelsLike}} &deg;C</B></span>
+						<span>NH3 <B>{{vm.rerataAmmonia}} ppm</B></span>
+
+				</div>
+			</a>
+
+		</md-content>
 	</md-content>
 </div>

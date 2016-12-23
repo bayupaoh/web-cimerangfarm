@@ -3,9 +3,9 @@
 
   angular
     .module('appController')
-    .controller('mortalityController', mortalityController);
+    .controller('mortalityL2Controller', mortalityL2Controller);
 
-  function mortalityController() {
+  function mortalityL2Controller() {
     var vm = this;
     var tanggal = [];
     var jumlahAyamMati = [];
@@ -15,7 +15,7 @@
       37, 35, 18, 14, 16, 10, 24, 11, 13, 11, 20
     ];
 
-    var ref = firebase.database().ref('percobaangrafik/lantai1/feedandmortality');
+    var ref = firebase.database().ref('percobaangrafik/lantai2/feedandmortality');
     ref.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {

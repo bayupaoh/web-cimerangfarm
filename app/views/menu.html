@@ -1,0 +1,56 @@
+<div ng-controller="mainController as vm" layout="column" layout-fill ng-cloak>
+
+    <section layout="row" flex>
+
+      <md-sidenav
+          class="md-sidenav-left"
+          md-component-id="left"
+          md-is-locked-open="$mdMedia('gt-md')"
+          md-whiteframe="4">
+
+        <md-toolbar>
+        </md-toolbar>
+        <md-content ng-controller="LeftCtrl" layout-padding>
+          <md-button ng-repeat="item in vm.menuItems" layout="column" layout-align="center center"
+                     class="capitalize"
+                     ui-sref-active="md-warn" ui-sref="{{item.sref}}">
+            <div hide-sm hide-md class="md-tile-content">
+              <i class="material-icons md-32">{{item.icon}}</i>
+            </div>
+            <div class="md-tile-content">
+              {{item.name}}
+            </div>
+          </md-button>
+        </md-content>
+
+      </md-sidenav>
+
+      <md-content flex>
+
+        <div layout="column" layout-align="top center">
+          <md-toolbar class="navbar">
+            <div class="md-toolbar-tools">
+              <md-button class="md-icon-button" aria-label="Menu" hide-gt-md ng-click="toggleLeft()">
+                <md-icon md-svg-icon="assets/icons/menu.svg"></md-icon>
+              </md-button>
+              <h2>
+                <span style="margin: 10px; color: white;">Cimerang Farm</span>
+              </h2>
+              <span flex></span>
+              <div ng-controller="userController as vm">
+                <md-button aria-label="Logout" ng-click="vm.logout()">
+                  <span style="color:white;">Logout</span>
+                </md-button>
+              </div>
+            </div>
+          </md-toolbar>
+
+        </div>
+
+        <div ui-view layout-padding></div>
+
+      </md-content>
+
+    </section>
+
+  </div>

@@ -11,11 +11,11 @@
     </md-toolbar>
 
     <div class="demo-dialog-content">
-      <form name="form" ng-submit="vm.tambahData()">
+      <form name="form" ng-submit="vm.tambahData2()">
         <div layout="row">
           <md-input-container flex style="margin-top: 36px;">
             <label>Jumlah Ayam Mati (ekor)</label>
-            <input ng-model="vm.data.ayamMati" ng-init="vm.data.ayamMati=0" type="number" name="ayamMati" min="0">
+            <input ng-model="vm.data.ayamMati" ng-init="vm.data.ayamMati=0" type="number" name="ayamMati" min=0>
 
             <div ng-messages="form.ayamMati.$error" multiple md-auto-hide="false">
               <div ng-message="min">
@@ -27,7 +27,7 @@
         <div layout="row">
           <md-input-container flex>
             <label>Pakan Harian (kg/bag)</label>
-            <input ng-model="vm.data.pakan" ng-init="vm.data.pakan=50" type="number" name="pakan" min="0">
+            <input ng-model="vm.data.pakan" ng-init="vm.data.pakan=50" type="number" name="pakan" min=0>
 
             <div ng-messages="form.pakan.$error" multiple md-auto-hide="false">
               <div ng-message="min">

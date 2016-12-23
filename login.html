@@ -1,20 +1,4 @@
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Cimerang Farm">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cimerang Farm | Login</title>
-
-  <!-- Angular Material style sheet -->
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-  <!-- App Styling -->
-  <link rel="stylesheet" href="app/stylesheets/custom.css">
-
-</head>
-<body ng-app="farmCimerang" ng-cloak>
+<div ng-controller="userController as vm">
   <md-content layout="row" layout-fill>
 
     <md-content layout-fill class="bg-left">
@@ -27,58 +11,25 @@
       <div class="input-section">
         <form ng-submit="vm.login()">
           <div layout="column" layout-padding>
-              <md-input-container flex md-theme="input">
+              <md-input-container flex>
                   <label>No.RFID</label>
                   <input ng-model="vm.user.email" type="text" autofocus>
               </md-input-container>
           </div>
           <div layout="column" layout-padding>
-              <md-input-container flex md-theme="input">
+              <md-input-container flex>
                   <label>Password</label>
                   <input ng-model="vm.user.password" type="password">
               </md-input-container>
           </div>
           <div layout="column" layout-padding>
-              <md-button flex class="md-raised md-accent">
-                  LOGIN
-              </md-button>
+            <md-button flex class="md-raised md-accent" type="submit">
+              LOGIN
+            </md-button>
           </div>
         </form>
       </div>
     </md-content>
 
   </md-content>
-
-  <!-- Angular.js Libraries -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-  <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
-
-  <!-- Angular Material Library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-  
-  <!-- My application bootstrap  -->
-  <script src="app/index.js"></script>  
-  <script src="app/app.js"></script>  
-  <script src="app/controllers/mainController.js"></script>
-  <script src="app/controllers/adminController.js"></script>
-  <script src="app/controllers/kandangController.js"></script>
-  <script src="app/controllers/beratAyamController.js"></script>
-  <script src="app/controllers/mortalityController.js"></script>
-  <script src="app/controllers/feedController.js"></script>
-
-  <!-- Initialize Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
-  <script src="app/scripts/config.js"></script>
-
-   <!-- Angular Chart -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-  <script src="//cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
-
-  <!-- AngularFire -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angularFire/2.1.0/angularfire.min.js"></script>
-
-</body>
-</html>
+</div>

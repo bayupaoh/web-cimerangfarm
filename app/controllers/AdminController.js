@@ -18,9 +18,15 @@
     var date = d.getDate();
 
     var now = year + '-' + month + '-' + date;
+    vm.now = now;
 
     vm.data = $firebaseArray(ref);
     vm.data2 = $firebaseArray(ref2);
+
+    vm.onTabChanges = function (key) {
+      vm.lantai = key;
+    }
+
     vm.tambahData = function () {
       firebase.database().ref('percobaangrafik/lantai1/feedandmortality/' + now).set({
         ayamMati: vm.data.ayamMati,
@@ -31,8 +37,25 @@
       });
     };
 
+    vm.tambahData2 = function () {
+      firebase.database().ref('percobaangrafik/lantai2/feedandmortality/' + now).set({
+        ayamMati: vm.data.ayamMati,
+        pakan: vm.data.pakan
+      })
+      .then(function (ref) {
+        window.alert("Data pada tanggal " + now + " berhasil ditambahkan");
+      });
+    };
+
     vm.hapusData = function (key) {
       firebase.database().ref('percobaangrafik/lantai1/feedandmortality/' + key).remove()
+      .then(function (ref) {
+        window.alert("Data pada tanggal " + key + " telah dihapus");
+      });
+    };
+
+    vm.hapusData2 = function (key) {
+      firebase.database().ref('percobaangrafik/lantai2/feedandmortality/' + key).remove()
       .then(function (ref) {
         window.alert("Data pada tanggal " + key + " telah dihapus");
       });
@@ -57,6 +80,30 @@
       controllerAs: 'ctrl',
       disableParentScroll: this.disableParentScroll,
       templateUrl: 'app/views/partials/panel.html',
+      hasBackdrop: true,
+      panelClass: 'demo-dialog-example',
+      position: position,
+      trapFocus: true,
+      zIndex: 150,
+      clickOutsideToClose: true,
+      escapeToClose: true,
+      focusOnOpen: true
+    };
+
+    this._mdPanel.open(config);
+  };
+
+  BasicDemoCtrl.prototype.showDialog2 = function() {
+    var position = this._mdPanel.newPanelPosition()
+        .absolute()
+        .center();
+
+    var config = {
+      attachTo: angular.element(document.body),
+      controller: PanelDialogCtrl,
+      controllerAs: 'ctrl',
+      disableParentScroll: this.disableParentScroll,
+      templateUrl: 'app/views/partials/panel2.html',
       hasBackdrop: true,
       panelClass: 'demo-dialog-example',
       position: position,

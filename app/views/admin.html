@@ -1,19 +1,18 @@
-<div ng-controller="adminController as vm">
+<div ng-controller="adminController as vm" md-theme="tabs">
   <div ng-controller="BasicDemoCtrl as ctrl">
     <md-content layout-padding>
       <span class="md-headline">Data Ayam Mati dan Pakan Harian</span>
     </md-content>
     <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" class="tabs-lantai">
-      <md-tab label="Lantai 1">        
-        <div style="padding: 12px;">
-          <div class="table-responsive-vertical md-whiteframe-z1" style="margin-top: 12px;">
-            <table id="table" class="table table-hover table-bordered">
+      <md-tab label="Lantai 1" md-on-select="vm.onTabChanges(1)">        
+          <div class="table-responsive-vertical md-whiteframe-z1">
+            <table id="table" class="table table-hover table-bordered" md-theme="default">
               <thead>
                 <tr>
                   <th>Tanggal</th>
-                  <th>Jumlah Ayam Mati</th>
-                  <th>Pakan Harian (Kg)</th>
-                  <th></th>                
+                  <th>Jumlah Ayam Mati (ekor)</th>
+                  <th>Pakan Harian (Karung)</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -22,27 +21,27 @@
                   <td data-title="Ayam Mati">{{data.ayamMati}}</td>
                   <td data-title="Pakan Harian">{{data.pakan}}</td>
                   <td>
-                    <md-button class="md-raised md-accent" ng-click="vm.hapusData(data.$id)">
-                      Hapus
-                    </md-button>
+                    <div ng-show="data.$id == vm.now">
+                      <md-button class="md-raised md-accent" ng-click="vm.hapusData(data.$id)">
+                        Hapus
+                      </md-button>
+                    </div>
                   </td>            
                 </tr>
               </tbody>
             </table>
-          </div>
-        </div>        
+          </div>       
       </md-tab>
 
-      <md-tab label="Lantai 2">
-        <div style="padding: 12px;">
-          <div class="table-responsive-vertical md-whiteframe-z1" style="margin-top: 12px;">
-            <table id="table" class="table table-hover table-bordered">
+      <md-tab label="Lantai 2" md-on-select="vm.onTabChanges(2)">
+          <div class="table-responsive-vertical md-whiteframe-z1">
+            <table id="table" class="table table-hover table-bordered" md-theme="default">
               <thead>
                 <tr>
                   <th>Tanggal</th>
                   <th>Jumlah Ayam Mati</th>
                   <th>Pakan Harian (Kg)</th>
-                  <th></th>                
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -51,19 +50,27 @@
                   <td data-title="Ayam Mati">{{data2.ayamMati}}</td>
                   <td data-title="Pakan Harian">{{data2.pakan}}</td>
                   <td>
-                    <md-button class="md-raised md-accent">
-                      Hapus
-                    </md-button>
+                    <div ng-show="data2.$id == vm.now">
+                      <md-button class="md-raised md-accent" ng-click="vm.hapusData2(data2.$id)">
+                        Hapus
+                      </md-button>
+                    </div>
                   </td>            
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
       </md-tab>      
     </md-tabs>
-    <md-button class="md-fab" aria-label="Tambah" ng-click="ctrl.showDialog($event)">
-      <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
-    </md-button>
+    <div ng-show="vm.lantai == 1">
+      <md-button class="md-fab" aria-label="Tambah" ng-click="ctrl.showDialog($event)" md-theme="default">
+        <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
+      </md-button>
+    </div>
+    <div ng-show="vm.lantai == 2">
+      <md-button class="md-fab" aria-label="Tambah" ng-click="ctrl.showDialog2($event)" md-theme="default">
+        <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
+      </md-button>
+    </div>
   </div>
 </div>    

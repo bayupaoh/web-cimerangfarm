@@ -1,37 +1,54 @@
 'use strict'
 
 angular
-  .module('farmCimerang', ['appController', 'ngMaterial', 'ui.router', 'firebase', 'chart.js'])
+  .module('farmCimerang', ['appController', 'ngMaterial', 'ngMessages', 'ui.router', 'firebase', 'chart.js'])
   .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider) {
 
     $stateProvider
-      .state('dashboard', {
-        url: '/dashboard',
+      .state('menu', {
+        url: '/menu',
+        templateUrl: 'app/views/menu.html'
+      })
+      .state('menu.home', {
+        url: '/home',
         templateUrl: 'app/views/home.html'
       })
-      .state('input-data', {
+      .state('menu.input-data', {
         url: '/input-data',
         templateUrl: 'app/views/admin.html'
       })
-      .state('dashboard/kandang', {
-        url: '/dashboard/kandang',
+      .state('menu.dashboard', {
+        url: '/dashboard',
         templateUrl: 'app/views/dashboard.html'
       })
-
-    /*  .state('daftar', {
+      .state('login', {
+        url: '/login',
+        templateUrl: 'login.html'
+      })
+      .state('menu.daftar', {
         url: '/daftar',
         templateUrl: 'app/views/daftar.html',
-        controller: 'adminController',
+        controller: 'userController',
         controllerAs: 'vm'
       })
-      .state('kandang', {
+      .state('menu.kandang', {
         url: '/kandang',
-        templateUrl: 'app/views/kandang.html'
+        templateUrl: 'app/views/kandang.html',
+        controller: 'kandangController',
+        controllerAs: 'vm'
       })
-      .state('sensor', {
+      .state('menu.sensor', {
         url: '/sensor',
-        templateUrl: 'app/views/sensor.html'
-      }) */
+        templateUrl: 'app/views/sensor.html',
+        controller: 'kandangController',
+        controllerAs: 'vm'
+      })
+      .state('menu.pengaturan', {
+        url: '/pengaturan',
+        templateUrl: 'app/views/setting.html',
+        controller: 'kandangController',
+        controllerAs: 'vm'
+      })
       .state('android/lantai1', {
         url: '/android/lantai1',
         templateUrl: 'app/views/android/lantai1.html'
@@ -39,9 +56,17 @@ angular
       .state('android/lantai2', {
         url: '/android/lantai2',
         templateUrl: 'app/views/android/lantai2.html'
+      })
+      .state('android/dashboard1', {
+        url: '/android/dashboard1',
+        templateUrl: 'app/views/android/dashboard1.html'
+      })
+      .state('android/dashboard2', {
+        url: '/android/dashboard2',
+        templateUrl: 'app/views/android/dashboard2.html'
       });
-
-    $urlRouterProvider.otherwise('/dashboard');
+    
+    $urlRouterProvider.otherwise('/login');
   
     $mdThemingProvider
       .theme('default')

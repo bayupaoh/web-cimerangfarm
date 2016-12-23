@@ -3,42 +3,41 @@
 
   angular
     .module('appController')
-    .controller('mortalityController', mortalityController);
+    .controller('feedL2Controller', feedL2Controller);
 
-  function mortalityController() {
+  function feedL2Controller() {
     var vm = this;
     var tanggal = [];
-    var jumlahAyamMati = [];
-    var mortalityStandar = [
-      19, 11, 12, 23, 25, 17, 18, 20, 20, 23, 15, 13, 
-      14, 18, 14, 15, 10, 7, 13, 15, 9, 10, 10, 13, 20, 
-      37, 35, 18, 14, 16, 10, 24, 11, 13, 11, 20
+    var pakanHarian = [];
+    var pakanStandar = [
+      5, 6, 7, 9, 10, 11, 12, 14, 16, 18, 21, 23, 25, 28, 30,
+      33, 35, 38, 40, 43, 45, 47, 50, 52, 54, 56, 58, 60
     ];
 
-    var ref = firebase.database().ref('percobaangrafik/lantai1/feedandmortality');
+    var ref = firebase.database().ref().child('percobaangrafik').child('lantai2').child('feedandmortality');
     ref.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
           tanggal.push(childSnapshot.key);
-          var ayamMati = childSnapshot.val().ayamMati;
-          jumlahAyamMati.push(ayamMati);
+          var pakan = childSnapshot.val().pakan;
+          pakanHarian.push(pakan);
         });
       });
 
     vm.labels = tanggal;
-    vm.data = [jumlahAyamMati, mortalityStandar];
+    vm.data = [pakanHarian, pakanStandar];
     vm.onClick = function (points, evt) {
       console.log(points, evt);
     };
     vm.colors = ['#ff6384', '#98fb98'];
     vm.datasetOverride = [
       {
-        label: 'Jumlah Ayam Mati',
+        label: 'Pakan Harian',
         borderWidth: 3,
         type: 'line'
       },
       {
-        label: 'Standar Kematian Ayam',
+        label: 'Pakan Standar',
         borderWidth: 3,
         type: 'line'
       }
@@ -51,7 +50,7 @@
         yAxes: [{
           scaleLabel: {
             display: true,
-            labelString: 'ekor'
+            labelString: 'karung'
           }
         }]
       } 
