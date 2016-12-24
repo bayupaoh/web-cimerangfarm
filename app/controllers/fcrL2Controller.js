@@ -3,9 +3,9 @@
 
   angular
     .module('appController')
-    .controller('fcrController', fcrController);
+    .controller('fcrL2Controller', fcrL2Controller);
 
-  function fcrController() {
+  function fcrL2Controller() {
     var vm = this;
     var tglPakan  = [];
     var tglBerat  = [];
@@ -22,7 +22,7 @@
     var pakanCount = 0;
     var totalPakan = 0;
 
-    var beratRef = firebase.database().ref('percobaangrafik/lantai1/grid');
+    var beratRef = firebase.database().ref('percobaangrafik/lantai2/grid');
     beratRef.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
@@ -35,7 +35,7 @@
         });
       });
 
-    var pakanRef = firebase.database().ref('percobaangrafik/lantai1/feedandmortality');
+    var pakanRef = firebase.database().ref('percobaangrafik/lantai2/feedandmortality');
     pakanRef.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {

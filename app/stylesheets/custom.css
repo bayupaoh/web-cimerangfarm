@@ -325,8 +325,8 @@ md-grid-tile md-icon {
 }
 
 .base {
-  width: 33.333%;
-  height: 50%;
+  width: 50%;
+  height: 33.3333%;
 
   position: relative;
   justify-content: center;
@@ -372,8 +372,8 @@ md-grid-tile md-icon {
 }
 
 .home-baloon {
-  width: 425px;
-  height: 425px;
+  width: 400px;
+  height: 400px;
   background-color: #4CAF50;
   border-radius: 100%;
   margin: 20px;
@@ -385,13 +385,18 @@ md-grid-tile md-icon {
   color: white;
 }
 
+.non-error {
+  width: 350px;
+  height: 350px;
+}
+
 .home-baloon h1 {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: bold;
 }
 
 .home-baloon span {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bolder;
   margin: 15px 15px 0 15px;
 }
@@ -413,6 +418,11 @@ md-grid-tile md-icon {
     flex-direction: column;
     align-items: center;
     color: white;
+  }
+
+  .non-error {
+    width: 150px;
+    height: 150px;
   }
 
   .home-baloon h1 {

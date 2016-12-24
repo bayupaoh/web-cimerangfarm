@@ -9,15 +9,15 @@
 
                         <div ng-controller="fcrController as vm">
                           <div layout="row">
-                            <span>IP <B>300</B></span>                          
+                            <span>IP <B>{{vm.IP}}</B></span>                          
                             <span>FCR <B>{{vm.fcr}}</B></span>
                           </div>
                         </div>
 
-                        <span>Suhu <B>{{vm.rerataSuhu}} &deg;C</B></span>
-                        <span>Kelembaban <B>{{vm.rerataHumidity}} %</B></span>
+                        <span>Suhu <B>{{vm.rerataSuhuNE}} &deg;C</B></span>
+                        <span>Kelembaban <B>{{vm.rerataHumidityNE}} %</B></span>
                         <span>Feels Like <B>{{vm.rerataFeelsLike}} &deg;C</B></span>
-                        <span>NH3 <B>{{vm.rerataAmmonia}} ppm</B></span>
+                        <span>NH3 <B>{{vm.rerataAmmoniaNE}} ppm</B></span>
 
                     </div>
                   </a>

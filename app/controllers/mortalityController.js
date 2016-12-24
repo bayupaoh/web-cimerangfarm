@@ -8,37 +8,56 @@
   function mortalityController() {
     var vm = this;
     var tanggal = [];
-    var jumlahAyamMati = [];
-    var mortalityStandar = [
-      19, 11, 12, 23, 25, 17, 18, 20, 20, 23, 15, 13, 
-      14, 18, 14, 15, 10, 7, 13, 15, 9, 10, 10, 13, 20, 
-      37, 35, 18, 14, 16, 10, 24, 11, 13, 11, 20
-    ];
+    var mortalitasHarian = [];
+    var mortalitasTotal  = [];
+    var mortalitasBatas  = [];
 
-    var ref = firebase.database().ref('percobaangrafik/lantai1/feedandmortality');
-    ref.once("value")
+    var total = 0;
+    var count = 0;
+    var batasCount = 0;
+
+    var refSetting = firebase.database().ref().child('setting');  
+    refSetting.on("value", function (snapshot) {
+        vm.totalAyam = snapshot.val().jumlahAwalAyamLantai1;
+      });  
+
+    var refMortality = firebase.database().ref('percobaangrafik/lantai1/feedandmortality');
+    refMortality.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
           tanggal.push(childSnapshot.key);
           var ayamMati = childSnapshot.val().ayamMati;
-          jumlahAyamMati.push(ayamMati);
+          mortalitasHarian.push(ayamMati);
+          count++;
+          total += ayamMati;
+          mortalitasTotal.push(total);
         });
+
+        for (var i=0; i <= count-1; i++) {
+          var batasCount = (vm.totalAyam * 2)/100;
+          mortalitasBatas.push(batasCount);
+        }
       });
 
     vm.labels = tanggal;
-    vm.data = [jumlahAyamMati, mortalityStandar];
+    vm.data = [mortalitasHarian, mortalitasTotal, mortalitasBatas];
     vm.onClick = function (points, evt) {
       console.log(points, evt);
     };
-    vm.colors = ['#ff6384', '#98fb98'];
+    vm.colors = ['#ff6384', '#FFC107', '#98fb98'];
     vm.datasetOverride = [
       {
-        label: 'Jumlah Ayam Mati',
+        label: 'Mortalitas Harian',
         borderWidth: 3,
         type: 'line'
       },
       {
-        label: 'Standar Kematian Ayam',
+        label: 'Mortalitas Total',
+        borderWidth: 3,
+        type: 'line'
+      },
+      {
+        label: 'Batas',
         borderWidth: 3,
         type: 'line'
       }
