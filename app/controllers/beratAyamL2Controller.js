@@ -27,8 +27,19 @@
         var count = 0;
         childSnapshot.forEach(function (childSnapshot) {
           var berat = childSnapshot.val().berat;
-          sum += berat;
-          count ++;
+
+          if (berat > 0) {
+            sum += berat;
+            count ++;
+
+          }
+
+          if (count == 0) {
+            beratAktual.push(0);
+          } else {
+            beratAktual.push((sum/count).toFixed(2));
+          }
+
         });
 
         beratAktual.push((sum/count).toFixed(2));

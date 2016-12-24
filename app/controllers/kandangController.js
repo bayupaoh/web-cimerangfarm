@@ -11,7 +11,7 @@
           return 0;
         else if ((input < 20 || input > 40) || input.match(/.*er/))
           return 'ERROR';
-        else
+        else 
           return input + ' \xB0C';
       }
     })
@@ -29,10 +29,12 @@
       return function (input) {
         if (input == null)
           return 0;
-        else if (input.match(/.*er/))
+        else if (input < 0 || input.match(/.*er/))
           return 'ERROR';
-        else
-          return input + ' ppm';
+        else {
+          var kalibrasi = (-0.0357)*parseInt(input)+12.843;
+          return kalibrasi.toFixed(2) + ' ppm';
+        }
       }
     })
     .filter('filterAngin', function () {
@@ -62,10 +64,8 @@
     var refGrid = firebase.database().ref('kandangmirror/g');
     var refSensor = firebase.database().ref('kandangmirror/s');
     var refSetting = firebase.database().ref().child('setting');
-    var refBerat = firebase.database().ref('percobaangrafik/lantai1/grid');
     var refPakan = firebase.database().ref('percobaangrafik/lantai1/feedandmortality');
-    var refBeratL2 = firebase.database().ref('percobaangrafik/lantai1/grid');
-    var refPakanL2 = firebase.database().ref('percobaangrafik/lantai1/feedandmortality');
+    var refPakanL2 = firebase.database().ref('percobaangrafik/lantai2/feedandmortality');
 
     const dates = new Date();
     const year = dates.getFullYear();
@@ -73,80 +73,6 @@
     const date = dates.getDate();
 
     var now = year + '-' + month + '-' + date;
-    
-    refBerat.once("value")
-      .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          childSnapshot.forEach(function (childSnapshot){
-            if (childSnapshot.key == now) {
-              vm.berat = childSnapshot.val().berat;
-            } else {
-              vm.berat = 0;
-            }
-          });
-        });
-      });
-
-    refBeratL2.once("value")
-      .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          childSnapshot.forEach(function (childSnapshot){
-            if (childSnapshot.key == now) {
-              vm.beratL2 = childSnapshot.val().berat;
-            } else {
-              vm.beratL2 = 0;
-            }
-          });
-        });
-      });
-    
-    vm.ayamMati = 0;
-    vm.totalPakan = 0;
-
-    refPakan.once("value")
-      .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          if (childSnapshot.key == now) {
-            vm.pakan = childSnapshot.val().pakan;
-          } else {
-            vm.pakan = 0;
-          }
-
-          vm.ayamMati += childSnapshot.val().ayamMati;
-          vm.totalPakan += childSnapshot.val().pakan;
-        });
-
-        var fcr = 0;
-
-        if (vm.berat == 0) {
-          fcr = 0;
-        } else {
-          fcr = vm.pakan / vm.berat;
-        }
-
-        vm.fcr = fcr.toFixed(2);
-      });
-
-     refPakanL2.once("value")
-      .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          if (childSnapshot.key == now) {
-            vm.pakanL2 = childSnapshot.val().pakan;
-          } else {
-            vm.pakanL2 = 0;
-          }
-        });
-
-        var fcrL2 = 0;
-
-        if (vm.beratL2 == 0) {
-          fcrL2 = 0;
-        } else {
-          fcrL2 = vm.pakanL2 / vm.beratL2;
-        }
-
-        vm.fcrL2 = fcrL2.toFixed(2);
-      });
     
     vm.grid = $firebaseArray(refGrid);
     vm.sensor = $firebaseArray(refSensor);
@@ -161,33 +87,6 @@
         vm.setPanenLantai2 = snapshot.val().panenLantai2;
         vm.setMulaiLantai1 = snapshot.val().tanggalMulaiLantai1;
         vm.setMulaiLantai2 = snapshot.val().tanggalMulaiLantai2;
-
-
-
-        /* Hitung IP */
-
-        //function hitung BB
-        var berat_bobot = 337 / 100; 
-        var jumlah_ayam = vm.setAyamLantai1; 
-        var BB =  ((jumlah_ayam * berat_bobot) / jumlah_ayam).toFixed(2);
-
-        //function hitung deplesi
-        var jumlah_panen = vm.ayamMati;
-        var D = ((jumlah_ayam-jumlah_panen)/(jumlah_ayam)).toFixed(2);
-
-        //function hitung fcr
-        var total_pakan = vm.totalPakan;
-
-        var FCR = total_pakan/berat_bobot;
-
-        //function hitung AU
-        var AU = (15 * jumlah_panen)  / jumlah_panen;
-
-        vm.IP = ((100-D) * BB/(FCR*AU)*100).toFixed(2);
-
-        /* */
-
-
 
         var date = now;
         var dateL1 = vm.setMulaiLantai1;
@@ -205,38 +104,28 @@
 
         vm.dateLantai1 = newDateL1.getDate() - 1;
         vm.dateLantai2 = newDateL2.getDate() - 1;
-      });
-    
+      });    
 
     refGrid.on("value", function (snapshot) {
 
         var totalAmmonia = 0;
         var totalHumidity = 0;
         var totalSuhu = 0;
-        var count = 0;
+        var totalBerat = 0;
+
+        var countAmmonia = 0;
+        var countHumidity = 0;
+        var countSuhu = 0;
+        var countBerat = 0;
 
         var totalAmmoniaL2 = 0;
         var totalHumidityL2 = 0;
         var totalSuhuL2 = 0;
-        var countL2 = 0;
-
-        var totalAmmoniaNE = 0;
-        var totalHumidityNE = 0;
-        var totalSuhuNE = 0;
-        var totalBeratNE = 0;
-        var countAmmoniaNE = 0;
-        var countHumidityNE = 0;
-        var countSuhuNE = 0;
-        var countBeratNE = 0;
-
-        var totalAmmoniaNE2 = 0;
-        var totalHumidityNE2 = 0;
-        var totalSuhuNE2 = 0;
-        var totalBeratNE2 = 0;
-        var countAmmoniaNE2 = 0;
-        var countHumidityNE2 = 0;
-        var countSuhuNE2 = 0;
-        var countBeratNE2 = 0;
+        var totalBeratL2 = 0;
+        var countAmmoniaL2 = 0;
+        var countHumidityL2 = 0;
+        var countSuhuL2 = 0;
+        var countBeratL2 = 0;
 
         snapshot.forEach(function (childSnapshot) {
 
@@ -245,151 +134,75 @@
               var ammonia = childSnapshot.val().b;
               var humidity = childSnapshot.val().c;
               var suhu = childSnapshot.val().d;
+
+              if (berat > 0) {
+                totalBerat += parseFloat(berat);
+                countBerat++;
+              }
+
+              if (ammonia > 0) {
+                totalAmmonia += (-0.0357)*parseInt(ammonia)+12.843;
+                countAmmonia++;
+              }
+
+              if (suhu >= 20 && suhu <= 40) {
+                totalSuhu += parseInt(suhu);
+                countSuhu++;
+              }
+
+              if(humidity > 0) {
+                totalHumidity += parseInt(humidity);
+                countHumidity++;
+              }  
+
             } else if (childSnapshot.val().lantai == 2) {
               var beratL2 = childSnapshot.val().a;
               var ammoniaL2 = childSnapshot.val().b;
               var humidityL2 = childSnapshot.val().c;
               var suhuL2 = childSnapshot.val().d;
-            }            
 
-            if (berat == null)
-              berat = 0;
+              if (beratL2 > 0) {
+                totalBeratL2 += parseFloat(beratL2);
+                countBeratL2++;
+              }
 
-            if (ammonia == null)
-              ammonia = 0;
+              if (ammoniaL2 > 0) {
+                totalAmmoniaL2 += (-0.0357)*parseInt(ammoniaL2)+12.843;
+                countAmmoniaL2++;
+              }
 
-            if (humidity == null)
-              humidity = 0;
+              if (suhuL2 >= 20 && suhuL2 <= 40) {
+                totalSuhuL2 += parseInt(suhuL2);
+                countSuhuL2++;
+              }
 
-            if (suhu == null)
-              suhu = 0;
+              if(humidityL2 > 0) {
+                totalHumidityL2 += parseInt(humidityL2);
+                countHumidityL2++;
+              }
 
-            if (beratL2 == null)
-              beratL2 = 0;
-
-            if (ammoniaL2 == null)
-              ammoniaL2 = 0;
-
-            if (humidityL2 == null)
-              humidityL2 = 0;
-
-            if (suhuL2 == null)
-              suhuL2 = 0;
-
-            /*Rata-Rata Non Error*/
-            if (berat >= 0) {
-              totalBeratNE += parseInt(berat);
-              countBeratNE++;
             }
-
-            if (suhu >= 20 && suhu <= 40) {
-              totalSuhuNE += parseInt(suhu);
-              countSuhuNE++;
-            }
-
-            if (ammonia >= 0) {
-              totalAmmoniaNE += parseInt(-0.0357*ammonia+12.843);
-              countAmmoniaNE++;
-            }
-
-            if (humidity >= 0) {
-              totalHumidityNE += parseInt(humidity);
-              countHumidityNE++;
-            }
-
-            if (suhuL2 >= 20 && suhuL2 <= 40) {
-              totalSuhuNE2 += parseInt(suhuL2);
-              countSuhuNE2++;
-            }
-
-            if (beratL2 >= 0) {
-              totalBeratNE2 += parseInt(beratL2);
-              countBeratNE2++;
-            }
-
-            if (ammoniaL2 >= 0) {
-              totalAmmoniaNE2 += parseInt(-0.0357*ammoniaL2+12.843);
-              countAmmoniaNE2++;
-            }
-
-            if (humidityL2 >= 0) {
-              totalHumidityNE2 += parseInt(humidityL2);
-              countHumidityNE2++;
-            }
-
-            /* */
-
-            totalAmmonia += parseInt(ammonia);
-            totalHumidity += parseInt(humidity);
-            totalSuhu += parseInt(suhu);
-            count++;
-
-            totalAmmoniaL2 += parseInt(ammoniaL2);
-            totalHumidityL2 += parseInt(humidityL2);
-            totalSuhuL2 += parseInt(suhuL2);
-            countL2++;
+            
         });
 
-        vm.rerataAmmonia = (totalAmmonia / count).toFixed(2);
-        vm.rerataHumidity = (totalHumidity / count).toFixed(2);
-        vm.rerataSuhu = (totalSuhu / count).toFixed(2);
+        vm.rerataBerat = (totalBerat / countBerat).toFixed(2);
+        vm.rerataAmmonia = (totalAmmonia / countAmmonia).toFixed(2);
+        vm.rerataHumidity = (totalHumidity / countHumidity).toFixed(2);
+        vm.rerataSuhu = (totalSuhu / countSuhu).toFixed(2);
 
-        vm.rerataAmmoniaL2 = (totalAmmoniaL2 / countL2).toFixed(2);
-        vm.rerataHumidityL2 = (totalHumidityL2 / countL2).toFixed(2);
-        vm.rerataSuhuL2 = (totalSuhuL2 / countL2).toFixed(2);
+        vm.rerataBeratL2 = (totalBeratL2 / countBeratL2).toFixed(2);
+        vm.rerataAmmoniaL2 = (totalAmmoniaL2 / countAmmoniaL2).toFixed(2);
+        vm.rerataHumidityL2 = (totalHumidityL2 / countHumidityL2).toFixed(2);
+        vm.rerataSuhuL2 = (totalSuhuL2 / countSuhuL2).toFixed(2);
 
-        /* Rata-rata Non Error */
+        var updatesBerat = {};
+        updatesBerat['/percobaangrafik/lantai1/feedandmortality/' + now + '/berat'] = vm.rerataBerat;
+        firebase.database().ref().update(updatesBerat);
 
-        if (countBeratNE == 0) {
-          vm.rerataBeratNE = 0;
-        } else {
-          vm.rerataBeratNE = (totalBeratNE / countBeratNE).toFixed(2);
-        }
-
-        if (countAmmoniaNE == 0) {
-          vm.rerataAmmoniaNE = 0;
-        } else {
-          vm.rerataAmmoniaNE = (totalAmmoniaNE / countAmmoniaNE).toFixed(2);
-        }
-
-        if (countHumidityNE == 0) {
-          vm.rerataHumidityNE = 0;
-        } else {
-          vm.rerataHumidityNE = (totalHumidityNE / countHumidityNE).toFixed(2);
-        }
-
-        if (countSuhuNE == 0) {
-          vm.rerataSuhuNE = 0;
-        } else {
-          vm.rerataSuhuNE = (totalSuhuNE / countSuhuNE).toFixed(2);
-        }
-
-        if (countBeratNE2 == 0) {
-          vm.rerataBeratNE2 = 0;
-        } else {
-          vm.rerataBeratNE2 = (totalBeratNE2 / countBeratNE2).toFixed(2);
-        }
-
-        if (countAmmoniaNE2 == 0) {
-          vm.rerataAmmoniaNE2 = 0;
-        } else {
-          vm.rerataAmmoniaNE2 = (totalAmmoniaNE2 / countAmmoniaNE2).toFixed(2);
-        }
-
-        if (countHumidityNE2 == 0) {
-          vm.rerataHumidityNE2 = 0;
-        } else {
-          vm.rerataHumidityNE2 = (totalHumidityNE2 / countHumidityNE2).toFixed(2);
-        }
-
-        if (countSuhuNE2 == 0) {
-          vm.rerataSuhuNE2 = 0;
-        } else {
-          vm.rerataSuhuNE2 = (totalSuhuNE2 / countSuhuNE2).toFixed(2);
-        }
-
-        /* */
-
+        var updatesBeratL2 = {};
+        updatesBeratL2['/percobaangrafik/lantai2/feedandmortality/' + now + '/berat'] = vm.rerataBeratL2;
+        firebase.database().ref().update(updatesBeratL2);
+        
         var feelsLike = 0;
 
           if (vm.rerataHumidity < 50) {
@@ -421,7 +234,7 @@
               feelsLike = 27;
             } else if (vm.rerataSuhu <= 31.2) {
               feelsLike = 28;
-            } else if (vm.rerataSuhu > 33.2) {
+            } else if (vm.rerataSuhu > 31.2) {
               feelsLike = 30;
             }
           } else if (vm.rerataHumidity < 70) {
@@ -437,7 +250,7 @@
               feelsLike = 27;
             } else if (vm.rerataSuhu <= 28.9) {
               feelsLike = 28;
-            } else if (vm.rerataSuhu > 30.8) {
+            } else if (vm.rerataSuhu > 28.9) {
               feelsLike = 30;
             }
           } else if (vm.rerataHumidity < 80) {
@@ -453,7 +266,7 @@
               feelsLike = 27;
             } else if (vm.rerataSuhu <= 27.3) {
               feelsLike = 28;
-            } else if (vm.rerataSuhu > 29.2) {
+            } else if (vm.rerataSuhu > 27.3) {
               feelsLike = 30;
             }
           } else if (vm.rerataHumidity >= 80) {
@@ -469,7 +282,7 @@
               feelsLike = 27;
             } else if (vm.rerataSuhu <= 26.0) {
               feelsLike = 28;
-            } else if (vm.rerataSuhu > 27.0) {
+            } else if (vm.rerataSuhu > 26.0) {
               feelsLike = 30;
             }
           }
@@ -480,7 +293,7 @@
 
           if (vm.rerataHumidityL2 < 50) {
             if (vm.rerataSuhuL2 == 0) {
-              feelsLike = 0;
+              feelsLikeL2 = 0;
             } else if (vm.rerataSuhuL2 <= 29.0) {
               feelsLikeL2 = 24;
             } else if (vm.rerataSuhuL2 <= 30.2) {
@@ -496,7 +309,7 @@
             }
           } else if (vm.rerataHumidityL2 < 60) {
             if (vm.rerataSuhuL2 == 0) {
-              feelsLike = 0;
+              feelsLikeL2 = 0;
             } else if (vm.rerataSuhuL2 <= 26.8) {
               feelsLikeL2 = 24;
             } else if (vm.rerataSuhuL2 <= 27.8) {
@@ -507,12 +320,12 @@
               feelsLikeL2 = 27;
             } else if (vm.rerataSuhuL2 <= 31.2) {
               feelsLikeL2 = 28;
-            } else if (vm.rerataSuhuL2 > 33.2) {
+            } else if (vm.rerataSuhuL2 > 31.2) {
               feelsLikeL2 = 30;
             }
           } else if (vm.rerataHumidityL2 < 70) {
             if (vm.rerataSuhuL2 == 0) {
-              feelsLike = 0;
+              feelsLikeL2 = 0;
             } else if (vm.rerataSuhuL2 <= 24.8) {
               feelsLikeL2 = 24;
             } else if (vm.rerataSuhuL2 <= 25.7) {
@@ -523,12 +336,12 @@
               feelsLikeL2 = 27;
             } else if (vm.rerataSuhuL2 <= 28.9) {
               feelsLikeL2 = 28;
-            } else if (vm.rerataSuhuL2 > 30.8) {
+            } else if (vm.rerataSuhuL2 > 28.9) {
               feelsLikeL2 = 30;
             }
           } else if (vm.rerataHumidityL2 < 80) {
             if (vm.rerataSuhuL2 == 0) {
-              feelsLike = 0;
+              feelsLikeL2 = 0;
             } else if (vm.rerataSuhuL2 <= 23.0) {
               feelsLikeL2 = 24;
             } else if (vm.rerataSuhuL2 <= 24.0) {
@@ -539,12 +352,12 @@
               feelsLikeL2 = 27;
             } else if (vm.rerataSuhuL2 <= 27.3) {
               feelsLikeL2 = 28;
-            } else if (vm.rerataSuhuL2 > 29.2) {
+            } else if (vm.rerataSuhuL2 > 27.3) {
               feelsLikeL2 = 30;
             }
           } else if (vm.rerataHumidityL2 >= 80) {
             if (vm.rerataSuhuL2 == 0) {
-              feelsLike = 0;
+              feelsLikeL2 = 0;
             } else if (vm.rerataSuhuL2 <= 22.0) {
               feelsLikeL2 = 24;
             } else if (vm.rerataSuhuL2 <= 23.0) {
@@ -555,14 +368,102 @@
               feelsLikeL2 = 27;
             } else if (vm.rerataSuhuL2 <= 26.0) {
               feelsLikeL2 = 28;
-            } else if (vm.rerataSuhuL2 > 27.0) {
+            } else if (vm.rerataSuhuL2 > 26.0) {
               feelsLikeL2 = 30;
             }
           }
 
         vm.rerataFeelsLikeL2 = feelsLikeL2;
 
-      });   
+      });
+
+    refPakan.on("value", function (snapshot) {
+      var totalPakan = 0;
+      var ayamMati   = 0;
+      var rataBerat  = 0;
+
+      snapshot.forEach(function (childSnapshot) {
+        var tanggal = childSnapshot.key;
+        var pakan = childSnapshot.val().pakan;
+        var mati  = childSnapshot.val().ayamMati;
+
+        if (pakan == null) {
+          pakan = 0;
+        }
+
+        if (mati == null) {
+          mati = 0;
+        }
+        
+        if (tanggal == now) {
+          rataBerat = (childSnapshot.val().berat)/1000;
+        }
+
+        totalPakan += pakan * 50;
+        ayamMati += mati;
+
+      })
+
+      //function hitung FCR
+      var ayamHidup = vm.setAyamLantai1 - ayamMati;
+
+      if (rataBerat == 0) {
+        var fcr = 0; 
+      } else {
+        var fcr = totalPakan / (ayamHidup * rataBerat);
+      }
+      
+      vm.fcr  = fcr.toFixed(2);
+
+      //function hitung IP
+      var percentMortality = ayamMati / vm.setAyamLantai1;
+
+      var ip = (1 - percentMortality) * rataBerat / (fcr * vm.dateLantai1) * 1000;
+      vm.ip = ip.toFixed(2);
+    });
+
+    refPakanL2.on("value", function (snapshot) {
+      var totalPakanL2 = 0;
+      var ayamMatiL2   = 0;
+      var rataBeratL2  = 0;
+
+      snapshot.forEach(function (childSnapshot) {
+        var tanggalL2 = childSnapshot.key;
+        var pakanL2 = childSnapshot.val().pakan;
+        var matiL2  = childSnapshot.val().ayamMati;
+
+        if (tanggalL2 == now) {
+          rataBeratL2 = (childSnapshot.val().berat)/1000;
+        }
+
+        if (pakanL2 == null) {
+          pakanL2 = 0;
+        }
+
+        if (matiL2 == null) {
+          matiL2 = 0;
+        }
+
+        totalPakanL2 += pakanL2 * 50;
+        ayamMatiL2 += matiL2;
+      })
+
+      var ayamHidupL2 = vm.setAyamLantai2 - ayamMatiL2;
+
+      if (rataBeratL2 == 0) {
+        var fcrL2 = 0; 
+      } else {
+        var fcrL2 = totalPakanL2 / (ayamHidupL2 * rataBeratL2);
+      }
+
+      vm.fcrL2  = fcrL2.toFixed(2);
+
+      //function hitung IP
+      var percentMortalityL2 = ayamMatiL2 / vm.setAyamLantai2;
+
+      var ipL2 = (1 - percentMortalityL2) * rataBeratL2 / (fcrL2 * vm.dateLantai2) * 1000;
+      vm.ipL2 = ipL2.toFixed(2);
+    });
 
     vm.beratColor = beratColor;
     vm.ammoniaColor = ammoniaColor;
@@ -594,7 +495,8 @@
     };
 
     function ammoniaColor (b) {
-      if (b > 20  || b == 'ERROR')
+      var a = (-0.0357)*parseInt(b)+12.843;
+      if (a > 20.00 || b == 'ERROR')
         return 'indicator-red';
       else 
         return '';

@@ -28,37 +28,31 @@
     }
 
     vm.tambahData = function () {
-      firebase.database().ref('percobaangrafik/lantai1/feedandmortality/' + now).set({
-        ayamMati: vm.data.ayamMati,
-        pakan: vm.data.pakan
-      })
-      .then(function (ref) {
-      	window.alert("Data pada tanggal " + now + " berhasil ditambahkan");
-      });
+      var updates = {};
+        updates['/percobaangrafik/lantai1/feedandmortality/' + now + '/ayamMati'] = vm.data.ayamMati;
+        updates['/percobaangrafik/lantai1/feedandmortality/' + now + '/pakan'] = vm.data.pakan;
+        firebase.database().ref().update(updates);
     };
 
     vm.tambahData2 = function () {
-      firebase.database().ref('percobaangrafik/lantai2/feedandmortality/' + now).set({
-        ayamMati: vm.data.ayamMati,
-        pakan: vm.data.pakan
-      })
-      .then(function (ref) {
-        window.alert("Data pada tanggal " + now + " berhasil ditambahkan");
-      });
+      var updates = {};
+        updates['/percobaangrafik/lantai2/feedandmortality/' + now + '/ayamMati'] = vm.data.ayamMati;
+        updates['/percobaangrafik/lantai2/feedandmortality/' + now + '/pakan'] = vm.data.pakan;
+        firebase.database().ref().update(updates);
     };
 
     vm.hapusData = function (key) {
-      firebase.database().ref('percobaangrafik/lantai1/feedandmortality/' + key).remove()
-      .then(function (ref) {
-        window.alert("Data pada tanggal " + key + " telah dihapus");
-      });
+      var updates = {};
+        updates['/percobaangrafik/lantai1/feedandmortality/' + now + '/ayamMati'] = 0;
+        updates['/percobaangrafik/lantai1/feedandmortality/' + now + '/pakan'] = 0;
+        firebase.database().ref().update(updates);
     };
 
     vm.hapusData2 = function (key) {
-      firebase.database().ref('percobaangrafik/lantai2/feedandmortality/' + key).remove()
-      .then(function (ref) {
-        window.alert("Data pada tanggal " + key + " telah dihapus");
-      });
+      var updates = {};
+        updates['/percobaangrafik/lantai2/feedandmortality/' + now + '/ayamMati'] = 0;
+        updates['/percobaangrafik/lantai2/feedandmortality/' + now + '/pakan'] = 0;
+        firebase.database().ref().update(updates);
     };
     
   }

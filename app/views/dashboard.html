@@ -71,7 +71,7 @@
                             <th>No. Sensor</th>
                             <th>Suhu</th>
                             <th>Kelembaban</th>
-                            <th>Posisi</th>
+                            <th>Last Update</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -79,7 +79,7 @@
                             <td data-title="No. Sensor">{{si.$id}}</td>
                             <td data-title="Suhu">{{si.a | filterSuhu}}</td>
                             <td data-title="Kelembaban">{{si.b | filterHumidity}}</td>
-                            <td data-title="Posisi">{{si.posisi}}</td>
+                            <td data-title="Posisi">{{si.tanggal}} {{si.waktu}}</td>
                         </tr>
                         </tbody>
                   </table>
@@ -212,7 +212,7 @@
                             <th>No. Sensor</th>
                             <th>Suhu</th>
                             <th>Kelembaban</th>
-                            <th>Posisi</th>
+                            <th>Last Update</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -220,7 +220,7 @@
                             <td data-title="No. Sensor">{{si.$id}}</td>
                             <td data-title="Suhu">{{si.a | filterSuhu}}</td>
                             <td data-title="Kelembaban">{{si.b | filterHumidity}}</td>
-                            <td data-title="Posisi">{{si.posisi}}</td>
+                            <td data-title="Posisi">{{si.tanggal}} {{si.waktu}}</td>
                         </tr>
                         </tbody>
                   </table>
