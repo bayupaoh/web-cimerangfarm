@@ -54,7 +54,12 @@
           var fcr = totalPakan / (ayamHidup * rataBerat);
         }
 
-        tanggal.push(tgl);
+        var date = childSnapshot.key;
+        var split = date.split('-');
+
+        var push = split[2] + '-' + split[1] + '-' + split[0];
+
+        tanggal.push(push);
         nilaiFcr.push(fcr.toFixed(2));
       })
     });

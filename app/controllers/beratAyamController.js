@@ -19,8 +19,13 @@
     ref.once('value')
     .then(function (snapshot) {
 
-      snapshot.forEach(function (childSnapshot) {          
-        tanggal.push(childSnapshot.key);
+      snapshot.forEach(function (childSnapshot) {
+        var date = childSnapshot.key;
+        var split = date.split('-');
+
+        var tgl = split[2] + '-' + split[1] + '-' + split[0];
+
+        tanggal.push(tgl);
 
         /* Hitung Total Berat Ayam per Hari */
         var sum = 0;

@@ -17,22 +17,23 @@
                             <h4>{{grid.idtampilan}}</h4>
                             <h3 class="icon">
                               <md-icon md-svg-icon="assets/icons/scale.svg" class="svg-icon"></md-icon> 
-                              <span ng-class="vm.beratColor(grid.a)">{{grid.a | filterBerat}}</span>
+                              <span ng-class="vm.beratColor(grid.a, grid.tanggal)">{{grid.a | filterBerat}}</span>
                             </h3>
                             <h3 class="icon">
                               <md-icon md-svg-icon="assets/icons/poison.svg" class="svg-icon"></md-icon> 
-                              <span ng-class="vm.ammoniaColor(grid.b)">{{grid.b | filterAmmonia}}</span>
+                              <span ng-class="vm.ammoniaColor(grid.b, grid.tanggal)">{{grid.b | filterAmmonia}}</span>
                             </h3>
                             <h3 class="icon">
                               <md-icon md-svg-icon="assets/icons/drop.svg" class="svg-icon"></md-icon> 
-                              <span ng-class="vm.humidityColor(grid.c)">{{grid.c | filterHumidity}}</span>
+                              <span ng-class="vm.humidityColor(grid.c, grid.tanggal)">{{grid.c | filterHumidity}}</span>
                             </h3>
                             <h3 class="icon">
                               <md-icon md-svg-icon="assets/icons/thermometer.svg" class="svg-icon"></md-icon>
-                              <span ng-class="vm.temperatureColor(grid.d)">
+                              <span ng-class="vm.temperatureColor(grid.d, grid.tanggal)">
                                 {{grid.d | filterSuhu}}
                               </span>
                             </h3>
+                            <h6>{{grid.tanggal}} {{grid.waktu}}</h6>
                           </md-grid-tile-footer>
                         </md-grid-tile>
 
@@ -129,7 +130,20 @@
             <md-content layout="column" style="padding-top:18px">
               <div ng-controller="fcrController as vm">                
                 <md-content class="md-padding" style="background-color: white;">
-                  <span class="md-headline">Grafik FCR (Feed Conversation Ratio)</span>
+                  <span class="md-headline">Grafik Nilai FCR (Feed Conversation Ratio)</span>
+                  <canvas id="base" class="chart chart-line" chart-data="vm.data"
+                          chart-labels="vm.labels"  chart-colors="vm.colors"
+                          chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 
+                          chart-options="vm.options">
+                  </canvas>
+                </md-content>
+              </div>
+            </md-content>
+
+            <md-content layout="column" style="padding-top:18px">
+              <div ng-controller="eefController as vm">                
+                <md-content class="md-padding" style="background-color: white;">
+                  <span class="md-headline">Grafik Nilai IP</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"
                           chart-labels="vm.labels"  chart-colors="vm.colors"
                           chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 
@@ -158,22 +172,23 @@
                             <h4>{{grid.idtampilan}}</h4>
                             <h3 class="icon">
                               <md-icon md-svg-icon="assets/icons/scale.svg" class="svg-icon"></md-icon> 
-                              <span ng-class="vm.beratColor(grid.a)">{{grid.a | filterBerat}}</span>
+                              <span ng-class="vm.beratColor(grid.a, grid.tanggal)">{{grid.a | filterBerat}}</span>
                               </h3>
                             <h3 class="icon">
                               <md-icon md-svg-icon="assets/icons/poison.svg" class="svg-icon"></md-icon> 
-                              <span ng-class="vm.ammoniaColor(grid.b)">{{grid.b | filterAmmonia}}</span>
+                              <span ng-class="vm.ammoniaColor(grid.b, grid.tanggal)">{{grid.b | filterAmmonia}}</span>
                             </h3>
                             <h3 class="icon">
                               <md-icon md-svg-icon="assets/icons/drop.svg" class="svg-icon"></md-icon> 
-                              <span ng-class="vm.humidityColor(grid.c)">{{grid.c | filterHumidity}}</span>
+                              <span ng-class="vm.humidityColor(grid.c, grid.tanggal)">{{grid.c | filterHumidity}}</span>
                             </h3>
                             <h3 class="icon">
                               <md-icon md-svg-icon="assets/icons/thermometer.svg" class="svg-icon"></md-icon>
-                              <span ng-class="vm.temperatureColor(grid.d)">
+                              <span ng-class="vm.temperatureColor(grid.d, grid.tanggal)">
                                 {{grid.d | filterSuhu}}
                               </span>
                             </h3>
+                            <h6>{{grid.tanggal}} {{grid.waktu}}</h6>
                           </md-grid-tile-footer>
                         </md-grid-tile>
 
@@ -271,6 +286,19 @@
               <div ng-controller="fcrL2Controller as vm">                
                 <md-content class="md-padding" style="background-color: white;">
                   <span class="md-headline">Grafik FCR (Feed Conversation Ratio)</span>
+                  <canvas id="base" class="chart chart-line" chart-data="vm.data"
+                          chart-labels="vm.labels"  chart-colors="vm.colors"
+                          chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 
+                          chart-options="vm.options">
+                  </canvas>
+                </md-content>
+              </div>
+            </md-content>
+
+            <md-content layout="column" style="padding-top:18px">
+              <div ng-controller="eefL2Controller as vm">                
+                <md-content class="md-padding" style="background-color: white;">
+                  <span class="md-headline">Grafik Nilai IP</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"
                           chart-labels="vm.labels"  chart-colors="vm.colors"
                           chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 

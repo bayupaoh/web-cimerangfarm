@@ -18,7 +18,9 @@
 </head>
 <body ng-app="farmCimerang" ng-cloak>
   
-  <div ui-view></div>
+  <div ng-controller="mainController as vm">
+    <div ui-view></div>
+  </div>
 
   <!-- Angular.js Libraries -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
@@ -45,6 +47,8 @@
   <script src="app/controllers/userController.js"></script>  
   <script src="app/controllers/fcrController.js"></script>
   <script src="app/controllers/fcrL2Controller.js"></script>
+  <script src="app/controllers/eefController.js"></script>
+  <script src="app/controllers/eefL2Controller.js"></script>
 
   <!-- Initialize Firebase -->
   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>

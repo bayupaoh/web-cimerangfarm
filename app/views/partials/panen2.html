@@ -1,8 +1,8 @@
 <div ng-controller="adminController as vm">
-  <div role="dialog" aria-label="Tambah Data" layout="column" layout-align="center center">
+  <div role="dialog" aria-label="Form Ayam Panen" layout="column" layout-align="center center">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2 style="color: white;">Tambah Data Lantai 2</h2>
+        <h2 style="color: white;">Tambah Data Ayam Panen Lantai 2</h2>
         <span flex></span>
         <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.closeDialog()">
           <md-icon md-svg-icon="assets/icons/close.svg"></md-icon>
@@ -11,7 +11,7 @@
     </md-toolbar>
 
     <div class="demo-dialog-content">
-      <form name="form" ng-submit="vm.tambahData2()">
+      <form name="form" ng-submit="vm.panenLantai2()">
         <div layout="row">
           <div style="margin-top: 24px;">
             <md-datepicker ng-model="vm.tanggal" ng-change="vm.change()" md-placeholder="Tanggal"></md-datepicker>
@@ -20,24 +20,12 @@
         </div>
         <div layout="row">
           <md-input-container flex style="margin-top: 36px;">
-            <label>Jumlah Ayam Mati (ekor)</label>
-            <input ng-model="vm.data.ayamMati" ng-init="vm.data.ayamMati=0" type="number" name="ayamMati" min=0>
+            <label>Jumlah Ayam Panen (ekor)</label>
+            <input ng-model="vm.data.ayamPanen" ng-init="vm.data.ayamPanen=0" type="number" name="ayamPanen" min="0">
 
-            <div ng-messages="form.ayamMati.$error" multiple md-auto-hide="false">
+            <div ng-messages="form.ayamPanen.$error" multiple md-auto-hide="false">
               <div ng-message="min">
-                Jumlah ayam mati tidak boleh kurang dari nol.
-              </div>
-            </div>
-          </md-input-container>
-        </div>
-        <div layout="row">
-          <md-input-container flex>
-            <label>Pakan Harian (kg/bag)</label>
-            <input ng-model="vm.data.pakan" ng-init="vm.data.pakan=0" type="number" name="pakan" min=0>
-
-            <div ng-messages="form.pakan.$error" multiple md-auto-hide="false">
-              <div ng-message="min">
-                Pakan harian tidak boleh kurang dari nol.
+                Jumlah ayam panen tidak boleh kurang dari nol.
               </div>
             </div>
           </md-input-container>

@@ -6,12 +6,14 @@
                     <div class="home-baloon">
                         <span>Lantai 1</span>
                         <span style="margin-bottom: 24px;">Hari ke-{{vm.dateLantai1}}</span>
+                        <span class="time">Last Update : {{vm.tglUpdate}} {{vm.waktuUpdate}}</span>
 
                           <div layout="row">
                             <span>IP <B>{{vm.ip}}</B></span>                          
                             <span>FCR <B>{{vm.fcr}}</B></span>
                           </div>
 
+                        <span>Berat <B>{{vm.rerataBerat}} gram</B></span>
                         <span>Suhu <B>{{vm.rerataSuhu}} &deg;C</B></span>
                         <span>Kelembaban <B>{{vm.rerataHumidity}} %</B></span>
                         <span>Feels Like <B>{{vm.rerataFeelsLike}} &deg;C</B></span>

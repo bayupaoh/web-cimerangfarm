@@ -9,6 +9,10 @@ angular
         url: '/menu',
         templateUrl: 'app/views/menu.html'
       })
+      .state('menu.dashboard', {
+        url: '/dashboard',
+        templateUrl: 'app/views/dashboard.html'
+      })
       .state('menu.home', {
         url: '/home',
         templateUrl: 'app/views/home.html'
@@ -17,9 +21,11 @@ angular
         url: '/input-data',
         templateUrl: 'app/views/admin.html'
       })
-      .state('menu.dashboard', {
-        url: '/dashboard',
-        templateUrl: 'app/views/dashboard.html'
+      .state('menu.panen', {
+        url: '/panen',
+        templateUrl: 'app/views/panen.html',
+        controller: 'adminController',
+        controllerAs: 'vm'
       })
       .state('login', {
         url: '/login',

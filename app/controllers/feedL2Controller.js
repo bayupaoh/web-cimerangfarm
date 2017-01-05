@@ -18,7 +18,13 @@
     ref.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-          tanggal.push(childSnapshot.key);
+          var date = childSnapshot.key;
+          var split = date.split('-');
+
+          var tgl = split[2] + '-' + split[1] + '-' + split[0];
+
+          tanggal.push(tgl);
+        
           var pakan = childSnapshot.val().pakan;
           pakanHarian.push(pakan);
         });

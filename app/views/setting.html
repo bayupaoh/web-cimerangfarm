@@ -1,3 +1,4 @@
+<div ng-controller="BasicDemoCtrl as ctrl">
   <md-content style="background: white;">
     <md-list>
       <md-subheader class="md-no-sticky">Kalibrasi</md-subheader>
@@ -27,10 +28,10 @@
       </md-list-item>
       <md-list-item>
         <span flex></span>
-        <md-button class="md-accent md-raised" ng-click="vm.panenLantai1()" ng-disabled="vm.setPanenLantai1 == true">
+        <md-button class="md-accent md-raised" ng-click="ctrl.showDialogPanen1()">
           PANEN
         </md-button>
-        <md-button class="md-accent md-raised" ng-click="vm.mulaiLantai1()" ng-disabled="vm.setPanenLantai1 == false">
+        <md-button class="md-accent md-raised" ng-click="ctrl.showDialogMulai1()" ng-disabled="vm.setPanenLantai1 == false">
           MULAI
         </md-button>
       </md-list-item>
@@ -46,12 +47,13 @@
       </md-list-item>
       <md-list-item>
         <span flex></span>
-        <md-button class="md-accent md-raised" ng-click="vm.panenLantai2()" ng-disabled="vm.setPanenLantai2 == true">
+        <md-button class="md-accent md-raised" ng-click="ctrl.showDialogPanen2()">
           PANEN
         </md-button>
-        <md-button class="md-accent md-raised" ng-click="vm.mulaiLantai2()" ng-disabled="vm.setPanenLantai2 == false">
+        <md-button class="md-accent md-raised" ng-click="ctrl.showDialogMulai2()" ng-disabled="vm.setPanenLantai2 == false">
           MULAI
         </md-button>
       </md-list-item>
     </md-list>
   </md-content>
+</div>

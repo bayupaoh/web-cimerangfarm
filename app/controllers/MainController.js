@@ -10,7 +10,8 @@
     var vm = this;
 
     var user = firebase.auth().currentUser;
-    var name, email, photoUrl, uid;
+    var role;
+    var uid = '';
 
     if (user != null) {
       uid = user.uid; 
@@ -18,9 +19,13 @@
 
     var ref_admin = firebase.database().ref('admin/' + uid);
 
-    ref_admin.on('value', function (snapshot) {
+    ref_admin.once('value').then(function (snapshot) {
       var role = snapshot.val().role;
-      console.log(role);
+    });   
+
+    if (role == null) {
+      role = 'admin';
+    }
 
       if (role == 'admin') {
         /* SideNav Menu */
@@ -35,7 +40,13 @@
             name: 'Input Data',
             icon: 'create',
             sref: 'menu.input-data',
-            role: 'petugas'
+            role: 'admin'
+          },
+          {
+            name: 'Panen',
+            icon: 'archive',
+            sref: 'menu.panen',
+            role: 'admin'
           },
           {
             name: 'Pengaturan',
@@ -69,6 +80,12 @@
             role: 'admin'
           },
           {
+            name: 'Data Panen',
+            icon: 'create',
+            sref: 'menu.panen',
+            role: 'admin'
+          },
+          {
             name: 'Pengaturan',
             icon: 'settings',
             sref: 'menu.pengaturan',
@@ -91,8 +108,7 @@
             sref: 'menu.sensor'
           } */
         ];
-      }
-    });    
+      } 
    
     /* md-sidenav */
     $scope.toggleLeft = buildDelayedToggler('left');

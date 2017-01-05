@@ -209,7 +209,7 @@ md-grid-tile md-icon {
 }
 
 .footer h3 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: black;
 }
@@ -224,14 +224,27 @@ md-grid-tile md-icon {
   right: 0;
 }
 
+.footer h6 {
+  font-size: 11px;
+  color: rgba(0, 0, 0, .6);
+  margin: 4px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 @media all and (max-width: 768px) {
   .footer h3 {
-     font-size: 6px;
-     margin-top: 2px;
+     font-size: 4.5px;
+     margin-top: 1.5px;
   }
 
   .footer h4 {
      font-size: 8px;
+  }
+
+  .footer h6 {
+    display:none;
   }
 }
 
@@ -265,6 +278,12 @@ md-grid-tile md-icon {
   background: rgba(41, 121, 255, .9);
 }
 
+.sensor-luar h5 {
+  font-size: 11px;
+  color: white;
+  margin: 0;
+}
+
 .sensor-angin {
   padding: 10px;
   height: 65px;
@@ -291,6 +310,10 @@ md-grid-tile md-icon {
   float: right;
   position: relative;
   top: 20;
+}
+
+.indicator-grey {
+  color: grey;
 }
 
 .indicator-red {
@@ -376,7 +399,7 @@ md-grid-tile md-icon {
   height: 400px;
   background-color: #4CAF50;
   border-radius: 100%;
-  margin: 20px;
+  margin: 18px;
 
   display: flex;
   justify-content: flex-start;
@@ -391,18 +414,22 @@ md-grid-tile md-icon {
 }
 
 .home-baloon h1 {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: bold;
 }
 
 .home-baloon span {
-  font-size: 26px;
+  font-size: 21px;
   font-weight: bolder;
-  margin: 15px 15px 0 15px;
+  margin: 13px 13px 0 13px;
 }
 
 .home-baloon span B {
   color: yellow;
+}
+
+.home-baloon .time {
+  font-size: 14px;
 }
 
 @media all and (max-width: 768px) {
@@ -411,7 +438,7 @@ md-grid-tile md-icon {
     height: 200px;
     background-color: #4CAF50;
     border-radius: 100%;
-    margin: 10px;
+    margin: 8px;
 
     display: flex;
     justify-content: flex-start;
@@ -426,14 +453,18 @@ md-grid-tile md-icon {
   }
 
   .home-baloon h1 {
-    font-size: 18px;
+    font-size: 12px;
     font-weight: bold;
   }
 
   .home-baloon span {
-    font-size: 13px;
+    font-size: 10px;
     font-weight: bolder;
-    margin: 7px 7px 0 7px;
+    margin: 5px 5px 0 5px;
+  }
+
+  .home-baloon .time {
+    font-size: 6px;
   }
 }
 
@@ -450,6 +481,10 @@ md-grid-tile md-icon {
     flex-direction: column;
     align-items: center;
     color: white;
+  }
+
+  .home-baloon .time {
+    font-size: 12px;
   }
 
   .home-baloon h1 {

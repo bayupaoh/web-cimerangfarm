@@ -20,7 +20,12 @@
     .then(function (snapshot) {
 
       snapshot.forEach(function (childSnapshot) {          
-        tanggal.push(childSnapshot.key);
+        var date = childSnapshot.key;
+        var split = date.split('-');
+
+        var tgl = split[2] + '-' + split[1] + '-' + split[0];
+
+        tanggal.push(tgl);
 
         /* Hitung Total Berat Ayam per Hari */
         var sum = 0;
@@ -33,18 +38,16 @@
             count ++;
 
           }
-
-          if (count == 0) {
-            beratAktual.push(0);
-          } else {
-            beratAktual.push((sum/count).toFixed(2));
-          }
-
         });
 
-        beratAktual.push((sum/count).toFixed(2));
-
+        if (count == 0) {
+          beratAktual.push(0);
+        } else {
+          beratAktual.push((sum/count).toFixed(2));
+        }
+        
       });
+
     });
 
     vm.labels = tanggal;
@@ -76,7 +79,7 @@
             labelString: 'gram'
           }
         }]
-      } 
+      }    
     };
     
   }

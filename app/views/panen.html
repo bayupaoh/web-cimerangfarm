@@ -1,0 +1,70 @@
+<div ng-controller="adminController as vm" md-theme="tabs">
+  <div ng-controller="BasicDemoCtrl as ctrl">
+    <md-content layout-padding>
+      <div layout="row">
+        <span class="md-headline">Data Ayam Panen</span>
+        <span flex></span>
+        <div ng-show="vm.lantai == 1">
+          <md-button class="md-accent md-raised" ng-click="vm.mulaiLantai1()" ng-disabled="vm.setPanenLantai1 == false">
+            MULAI ULANG SIKLUS
+          </md-button>
+        </div>
+        <div ng-show="vm.lantai == 2">
+          <md-button class="md-accent md-raised" ng-click="vm.mulaiLantai2()" ng-disabled="vm.setPanenLantai2 == false">
+            MULAI ULANG SIKLUS
+          </md-button>
+        </div>
+      </div>
+
+    </md-content>
+    <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" class="tabs-lantai">
+      <md-tab label="Lantai 1" md-on-select="vm.onTabChanges(1)">        
+          <div class="table-responsive-vertical md-whiteframe-z1">
+            <table id="table" class="table table-hover table-bordered" md-theme="default">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Jumlah Ayam Panen (ekor)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="data in vm.panen">
+                  <td data-title="Tanggal">{{data.$id}}</td>
+                  <td data-title="Ayam Panen">{{data.ayamPanen}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>       
+      </md-tab>
+
+      <md-tab label="Lantai 2" md-on-select="vm.onTabChanges(2)">
+          <div class="table-responsive-vertical md-whiteframe-z1">
+            <table id="table" class="table table-hover table-bordered" md-theme="default">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Jumlah Ayam Panen (ekor)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="data2 in vm.panen2">
+                  <td data-title="Tanggal">{{data2.$id}}</td>
+                  <td data-title="Ayam Panen">{{data2.ayamPanen}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </md-tab>      
+    </md-tabs>
+    <div ng-show="vm.lantai == 1">
+      <md-button class="md-fab" aria-label="Tambah" ng-click="ctrl.showDialogPanen1($event)" md-theme="default">
+        <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
+      </md-button>
+    </div>
+    <div ng-show="vm.lantai == 2">
+      <md-button class="md-fab" aria-label="Tambah" ng-click="ctrl.showDialogPanen2($event)" md-theme="default">
+        <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
+      </md-button>
+    </div>
+  </div>
+</div>    
