@@ -3,32 +3,30 @@
 
   angular
     .module('appController')
-    .controller('eefL2Controller', eefL2Controller);
+    .controller('fcrL4Controller', fcrL4Controller);
 
-  function eefL2Controller() {
+  function fcrL4Controller() {
     var vm = this;
     var tanggal   = [];
-    var nilaiEef  = [];
-    var standarEef = [
-      0, 0, 0, 0, 0, 0, 271, 282, 288, 291, 291, 290, 288, 285, 294, 301, 305, 308, 310, 311, 310, 317, 322, 326, 329,
-      331, 333, 334, 337, 339, 341, 342, 343, 343, 343, 343, 343, 342, 341, 340, 339, 337
+    var nilaiFcr  = [];
+    var standarFcr = [
+      0, 0, 0, 0, 0, 0, 0.856, 0.885, 0.914, 0.943, 0.972, 1.001, 1.030, 1.059, 1.088, 1.117, 1.145, 1.174, 1.203, 1.232, 
+      1.261, 1.287, 1.314, 1.340, 1.367, 1.393, 1.419, 1.446, 1.470, 1.493, 1.517, 1.540, 1.564, 1.587, 1.611, 1.632, 1.653, 
+      1.675, 1.696, 1.717, 1.738, 1.760, 1.780, 1.8, 1.821, 1.841, 1.861, 1.881, 1.902, 1.922, 1.943, 1.963, 1.984, 2.004
     ];
 
     var refSetting = firebase.database().ref().child('setting');
-    var refPakan = firebase.database().ref('grafik/kandang2/feedandmortality');
+    var refPakan = firebase.database().ref('grafik/kandang4/feedandmortality');
 
     refSetting.on("value", function (snapshot) {
-        vm.totalAyam = snapshot.val().jumlahAwalAyamLantai2;
-        vm.tglMulai = snapshot.val().tanggalMulaiLantai2;
-
+        vm.totalAyam = snapshot.val().jumlahAwalAyamLantai4;
     });
 
     refPakan.once("value")
     .then(function (snapshot) {
       var totalPakan = 0;
-      var ayamHidup  = 0;
       var ayamMati   = 0;
-      var percentMortality  = 0;
+      var ayamHidup  = 0;
       var rataBerat  = 0;
 
       snapshot.forEach(function (childSnapshot) {
@@ -36,18 +34,6 @@
         var berat = childSnapshot.val().berat;
         var pakan = childSnapshot.val().pakan;
         var mati  = childSnapshot.val().ayamMati;
-
-        var date = vm.tglMulai;
-        var dateL2 = tgl;
-
-        var timestamp = new Date(date).getTime();
-        var timestampL2 = new Date(dateL2).getTime();
-
-        var diff = timestampL2 - timestamp;
-
-        var newDate = new Date(diff);
-
-        vm.date = newDate.getDate() - 1;
 
         var date = childSnapshot.key;
         var split = date.split('-');
@@ -70,7 +56,6 @@
         totalPakan += pakan * 50;
         ayamMati += mati;
 
-        // Hitung FCR
         ayamHidup = vm.totalAyam - ayamMati;
 
         if (rataBerat == 0) {
@@ -79,33 +64,24 @@
           var fcr = totalPakan / (ayamHidup * rataBerat);
         }
 
-        // Hitung EEF
-        percentMortality = (ayamMati / vm.totalAyam)*100;  
-
-        if (fcr == 0) {
-          var eef = 0
-        } else {
-          var eef = ((100 - percentMortality) * rataBerat * 100) / (fcr * vm.date);
-        }        
-
-        nilaiEef.push(eef.toFixed(2));
+        nilaiFcr.push(fcr.toFixed(2));
       })
     });
 
     vm.labels = tanggal;
-    vm.data = [nilaiEef, standarEef];
+    vm.data = [nilaiFcr, standarFcr];
     vm.onClick = function (points, evt) {
       console.log(points, evt);
     };
     vm.colors = ['#ff6384', '#98fb98'];
     vm.datasetOverride = [
       {
-        label: 'Nilai IP Aktual',
+        label: 'Nilai FCR',
         borderWidth: 3,
         type: 'line'
       },
       {
-        label: 'Nilai IP Standar',
+        label: 'FCR Standar',
         borderWidth: 3,
         type: 'line'
       }

@@ -9,7 +9,7 @@
                         md-row-height="2:3"
                         md-gutter="12px">
 
-                        <md-grid-tile ng-repeat="grid in vm.grid | orderBy:'posisi' | filter: { idKandang: 2 }">
+                        <md-grid-tile ng-repeat="grid in vm.grid | orderBy:'posisi' | filter: { idKandang: 4 }">
                           <md-grid-tile-footer class="footer">
                             <h4>{{grid.idtampilan}}</h4>
                             <h3 class="icon">
@@ -158,7 +158,7 @@
             </md-content>
 
             <md-content layout="column" style="padding-top:18px">
-              <div ng-controller="beratAyamL2Controller as vm">                
+              <div ng-controller="beratAyamL4Controller as vm">                
                 <md-content class="md-padding" style="background-color: white;">
                   <span class="md-headline">Grafik Produktivitas Berat Ayam</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -171,7 +171,7 @@
             </md-content>
 
             <md-content layout="column" style="padding-top:18px">
-              <div ng-controller="mortalityL2Controller as vm">                
+              <div ng-controller="mortalityL4Controller as vm">                
                 <md-content class="md-padding" style="background-color: white;">
                   <span class="md-headline">Grafik Akumulasi Kematian Ayam</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -184,7 +184,7 @@
             </md-content>
 
             <md-content layout="column" style="padding-top:18px">
-              <div ng-controller="feedL2Controller as vm">                
+              <div ng-controller="feedL4Controller as vm">                
                 <md-content class="md-padding" style="background-color: white;">
                   <span class="md-headline">Grafik Pakan Ayam Harian</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -197,7 +197,7 @@
             </md-content>
 
             <md-content layout="column" style="padding-top:18px">
-              <div ng-controller="fcrL2Controller as vm">                
+              <div ng-controller="fcrL4Controller as vm">                
                 <md-content class="md-padding" style="background-color: white;">
                   <span class="md-headline">Grafik FCR (Feed Conversation Ratio)</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -210,7 +210,7 @@
             </md-content>
 
             <md-content layout="column" style="padding-top:18px">
-              <div ng-controller="eefL2Controller as vm">                
+              <div ng-controller="eefL4Controller as vm">                
                 <md-content class="md-padding" style="background-color: white;">
                   <span class="md-headline">Grafik Nilai IP</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"

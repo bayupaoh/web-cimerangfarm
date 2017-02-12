@@ -1,47 +1,91 @@
 	<div ng-controller="kandangController as vm">
 		<md-content layout-padding>
 			<md-content style="display: flex; justify-content: center; align-items:center;">
+				<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
+					<a ui-sref="menu.dashboard1" style="text-decoration: none;">
+						<div class="home-baloon">
+								<h1>Kandang 1</h1>
+								<h1>Lantai Bawah</h1>
+								<span style="margin-bottom: 24px;">Hari ke-{{vm.dateLantai1}}</span>
+								<span class="time">Last Update : {{vm.updateDate}} {{vm.updateTime}}</span>
 
-				<a ui-sref="menu.dashboard" style="text-decoration: none;">
-					<div class="home-baloon">
-							<span>Lantai 1</span>
-							<span style="margin-bottom: 24px;">Hari ke-{{vm.dateLantai1}}</span>
-							<span class="time">Last Update : {{vm.tglUpdate}} {{vm.waktuUpdate}}</span>
+								<div layout="row">
+									<span>IP <B>{{vm.ip}}</B></span>
+									<span>FCR <B>{{vm.fcr}}</B></span>
+								</div>
 
-							<div layout="row">
-								<span>IP <B>{{vm.ip}}</B></span>
-								<span>FCR <B>{{vm.fcr}}</B></span>
-							</div>
+								<span>Berat <B>{{vm.rerataBerat}} gram</B></span>
+								<span>Suhu <B>{{vm.rerataSuhu}} &deg;C</B></span>
+								<span>Kelembaban <B>{{vm.rerataHumidity}} %</B></span>
+								<span>Feels Like <B>{{vm.rerataFeelsLike}} &deg;C</B></span>
+								<span>NH3 <B>{{vm.rerataAmmonia}} ppm</B></span>
 
-							<span>Berat <B>{{vm.rerataBerat}} gram</B></span>
-							<span>Suhu <B>{{vm.rerataSuhu}} &deg;C</B></span>
-							<span>Kelembaban <B>{{vm.rerataHumidity}} %</B></span>
-							<span>Feels Like <B>{{vm.rerataFeelsLike}} &deg;C</B></span>
-							<span>NH3 <B>{{vm.rerataAmmonia}} ppm</B></span>
+						</div>
+					</a>
 
-					</div>
-				</a>
+					<a ui-sref="menu.dashboard2" style="text-decoration: none;">
+						<div class="home-baloon">
+								<h1>Kandang 1</h1>
+								<h1>Lantai Atas</h1>
+								<span style="margin-bottom: 24px;">Hari ke-{{vm.dateLantai2}}</span>
+								<span class="time">Last Update : {{vm.updateDateL2}} {{vm.updateTimeL2}}</span>
 
-				<a ui-sref="menu.dashboard" style="text-decoration: none;">
-					<div class="home-baloon">
-							<span>Lantai 2</span>
-							<span style="margin-bottom: 24px;">Hari ke-{{vm.dateLantai2}}</span>
-							<span class="time">Last Update : {{vm.tglUpdateL2}} {{vm.waktuUpdateL2}}</span>
+								<div layout="row">
+									<span>IP <B>{{vm.ipL2}}</B></span>
+									<span>FCR <B>{{vm.fcrL2}}</B></span>
+								</div>
 
-							<div layout="row">
-								<span>IP <B>{{vm.ipL2}}</B></span>
-								<span>FCR <B>{{vm.fcrL2}}</B></span>
-							</div>
+								<span>Berat <B>{{vm.rerataBeratL2}} gram</B></span>
+								<span>Suhu <B>{{vm.rerataSuhuL2}} &deg;C</B></span>
+								<span>Kelembaban <B>{{vm.rerataHumidityL2}} %</B></span>
+								<span>Feels Like <B>{{vm.rerataFeelsLikeL2}} &deg;C</B></span>
+								<span>NH3 <B>{{vm.rerataAmmoniaL2}} ppm</B></span>
 
-							<span>Berat <B>{{vm.rerataBeratL2}} gram</B></span>
-							<span>Suhu <B>{{vm.rerataSuhuL2}} &deg;C</B></span>
-							<span>Kelembaban <B>{{vm.rerataHumidityL2}} %</B></span>
-							<span>Feels Like <B>{{vm.rerataFeelsLikeL2}} &deg;C</B></span>
-							<span>NH3 <B>{{vm.rerataAmmoniaL2}} ppm</B></span>
+						</div>
+					</a>
 
-					</div>
-				</a>
+					<a ui-sref="menu.dashboard3" style="text-decoration: none;">
+						<div class="home-baloon">
+								<h1>Kandang 2</h1>
+								<h1>Lantai Bawah</h1>
+								<span style="margin-bottom: 24px;">Hari ke-{{vm.dateLantai3}}</span>
+								<span class="time">Last Update : {{vm.updateDateL3}} {{vm.updateTimeL3}}</span>
 
+								<div layout="row">
+									<span>IP <B>{{vm.ipL3}}</B></span>
+									<span>FCR <B>{{vm.fcrL3}}</B></span>
+								</div>
+
+								<span>Berat <B>{{vm.rerataBeratL3}} gram</B></span>
+								<span>Suhu <B>{{vm.rerataSuhuL3}} &deg;C</B></span>
+								<span>Kelembaban <B>{{vm.rerataHumidityL3}} %</B></span>
+								<span>Feels Like <B>{{vm.rerataFeelsLikeL3}} &deg;C</B></span>
+								<span>NH3 <B>{{vm.rerataAmmoniaL3}} ppm</B></span>
+
+						</div>
+					</a>
+
+					<a ui-sref="menu.dashboard4" style="text-decoration: none;">
+						<div class="home-baloon">
+								<h1>Kandang 2</h1>
+								<h1>Lantai Atas</h1>
+								<span style="margin-bottom: 24px;">Hari ke-{{vm.dateLantai4}}</span>
+								<span class="time">Last Update : {{vm.updateDateL4}} {{vm.updateTimeL4}}</span>
+
+								<div layout="row">
+									<span>IP <B>{{vm.ipL4}}</B></span>
+									<span>FCR <B>{{vm.fcrL4}}</B></span>
+								</div>
+
+								<span>Berat <B>{{vm.rerataBeratL4}} gram</B></span>
+								<span>Suhu <B>{{vm.rerataSuhuL4}} &deg;C</B></span>
+								<span>Kelembaban <B>{{vm.rerataHumidityL4}} %</B></span>
+								<span>Feels Like <B>{{vm.rerataFeelsLikeL4}} &deg;C</B></span>
+								<span>NH3 <B>{{vm.rerataAmmoniaL4}} ppm</B></span>
+
+						</div>
+					</a>
+				</div>
 			</md-content>
 		</md-content>
 	</div>

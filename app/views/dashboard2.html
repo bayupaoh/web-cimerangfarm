@@ -1,0 +1,228 @@
+<md-content class="md-padding" layout="column" style="background-color: white;">
+  <div ng-controller="kandangController as vm">
+    <div layout="column" style="border: 1px solid #ddd">
+      <center>
+        <div style="margin:12px;"><B>Pintu Masuk</B></div>
+      </center>
+      <md-grid-list
+            md-cols="6"
+            md-row-height="2:3"
+            md-gutter="12px">
+
+        <md-grid-tile ng-repeat="grid in vm.grid | orderBy:'posisi' | filter: { idKandang: 2 }">
+          <md-grid-tile-footer class="footer">
+            <h4>{{grid.idGrid}}</h4>
+            <h3 class="icon">
+              <md-icon md-svg-icon="assets/icons/scale.svg" class="svg-icon"></md-icon> 
+              <span ng-class="vm.beratColor(grid.a, grid.tanggal)">{{grid.a | filterBerat}}</span>
+            </h3>
+            <h3 class="icon">
+              <md-icon md-svg-icon="assets/icons/poison.svg" class="svg-icon"></md-icon> 
+              <span ng-class="vm.ammoniaColor(grid.b, grid.tanggal)">{{grid.b | filterAmmonia}}</span>
+            </h3>
+            <h3 class="icon">
+              <md-icon md-svg-icon="assets/icons/drop.svg" class="svg-icon"></md-icon> 
+              <span ng-class="vm.humidityColor(grid.c, grid.tanggal)">{{grid.c | filterHumidity}}</span>
+            </h3>
+            <h3 class="icon">
+              <md-icon md-svg-icon="assets/icons/thermometer.svg" class="svg-icon"></md-icon>
+              <span ng-class="vm.temperatureColor(grid.d, grid.tanggal)">
+                {{grid.d | filterSuhu}}
+              </span>
+            </h3>
+            <h6>
+              <div ng-init="tanggal = vm.setTanggal(grid.tanggal)">
+                {{tanggal}} {{grid.waktu}}                              
+              </div>
+            </h6>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+
+        <div class="flex-sensor">
+          <div class="flex-sensor base" 
+               ng-repeat="si in vm.sensor | filter: { tipe: 'si', lantai: 1 } | orderBy:'urutan'" >
+            <div ng-class="vm.sensorColor(si.a)">
+              <h4>{{si.$id}}</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-angin">
+          <div class="flex-angin base-angin" 
+               ng-repeat="sa in vm.sensor | filter: { tipe: 'sa', lantai: 1 } | orderBy:'urutan'" >
+            <div class="sensor-angin-red">
+              <h4>{{sa.$id}}</h4>
+            </div>
+          </div>
+        </div>
+
+      </md-grid-list>
+                
+      <center>
+        <div style="margin:12px;"><B>Blower</B></div>
+      </center>               
+    </div>
+
+    <div layout="column" style="margin: 12px 0 12px 0;">                    
+      <div layout="row">
+        <table id="table" class="table table-hover table-bordered" 
+               style="border: 1px solid #ddd; width: 48%;">
+          <thead>
+            <tr>
+              <th colspan="4">
+                <center>  
+                  <b>Sensor Indoor</b>
+                </center>
+              </th>
+            </tr>
+            <tr>
+              <th>No. Sensor</th>
+              <th>Suhu</th>
+              <th>Kelembaban</th>
+              <th>Last Update</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="si in vm.sensor | filter: { tipe: 'si', lantai: 1 }">
+              <td data-title="No. Sensor">{{si.$id}}</td>
+              <td data-title="Suhu">{{si.a | filterSuhu}}</td>
+              <td data-title="Kelembaban">{{si.b | filterHumidity}}</td>
+              <td data-title="Update">
+                <div ng-init="tanggal = vm.setTanggal(si.tanggal)">
+                  {{tanggal}} {{si.waktu}}                              
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="width: 4%;"></div>
+
+        <div layout="column" style="width: 48%";>
+          <table id="table" class="table table-hover table-bordered" 
+                 style="border: 1px solid #ddd; margin-bottom:0; padding-bottom:0;">
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <center>  
+                    <b>Sensor Outdoor</b>
+                  </center>
+                </th>
+              </tr>
+              <tr>
+                <th>Suhu Luar</th>
+                <th>Kelembaban</th>
+                <th>Last Update</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="so in vm.sensor | filter: { $id: 'S13'  }">
+                <td>{{so.a | filterSuhu}}</td>
+                <td>{{so.b | filterHumidity}}</td>
+                <td>
+                  <div ng-init="tanggal = vm.setTanggal(so.tanggal)">
+                    {{tanggal}} {{so.waktu}}                              
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>                      
+
+          <table id="table" class="table table-hover table-bordered" 
+                 style="border: 1px solid #ddd; margin-top:0; padding-top:0;">
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <center>  
+                    <b>Sensor Angin</b>
+                  </center>
+                </th>
+              </tr>
+              <tr>
+                <th>No. Sensor</th>
+                <th>Kecepatan</th>
+                <th>Last Update</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="sa in vm.sensor | filter: { tipe: 'sa', lantai: 1 }">
+                <td data-title="No. Sensor">{{sa.$id}}</td>
+                <td data-title="Kecepatan">{{sa.a | filterAngin}}</td>
+                <td data-title="Update">
+                  <div ng-init="tanggal = vm.setTanggal(sa.tanggal)">
+                    {{tanggal}} {{sa.waktu}}                              
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</md-content>
+
+<md-content layout="column" style="padding-top:18px">
+  <div ng-controller="beratAyamL2Controller as vm">                
+    <md-content class="md-padding" style="background-color: white;">
+      <span class="md-headline">Grafik Produktivitas Berat Ayam</span>
+      <canvas id="base" class="chart chart-line" chart-data="vm.data"
+              chart-labels="vm.labels"  chart-colors="vm.colors"
+              chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 
+              chart-options="vm.options">
+      </canvas>
+    </md-content>
+  </div>
+</md-content>
+
+<md-content layout="column" style="padding-top:18px">
+  <div ng-controller="mortalityL2Controller as vm">                
+    <md-content class="md-padding" style="background-color: white;">
+      <span class="md-headline">Grafik Akumulasi Kematian Ayam</span>
+      <canvas id="base" class="chart chart-line" chart-data="vm.data"
+              chart-labels="vm.labels"  chart-colors="vm.colors"
+              chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 
+              chart-options="vm.options">
+      </canvas>
+    </md-content>   
+  </div>
+</md-content>
+
+<md-content layout="column" style="padding-top:18px">
+  <div ng-controller="feedL2Controller as vm">                
+    <md-content class="md-padding" style="background-color: white;">
+      <span class="md-headline">Grafik Pakan Ayam Harian</span>
+      <canvas id="base" class="chart chart-line" chart-data="vm.data"
+              chart-labels="vm.labels"  chart-colors="vm.colors"
+              chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 
+              chart-options="vm.options">
+      </canvas>
+    </md-content>
+  </div>
+</md-content>
+
+<md-content layout="column" style="padding-top:18px">
+  <div ng-controller="fcrL2Controller as vm">                
+    <md-content class="md-padding" style="background-color: white;">
+      <span class="md-headline">Grafik Nilai FCR (Feed Conversation Ratio)</span>
+      <canvas id="base" class="chart chart-line" chart-data="vm.data"
+              chart-labels="vm.labels"  chart-colors="vm.colors"
+              chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 
+              chart-options="vm.options">
+      </canvas>
+    </md-content>
+  </div>
+</md-content>
+
+<md-content layout="column" style="padding-top:18px">
+  <div ng-controller="eefL2Controller as vm">                
+    <md-content class="md-padding" style="background-color: white;">
+      <span class="md-headline">Grafik Nilai IP</span>
+      <canvas id="base" class="chart chart-line" chart-data="vm.data"
+              chart-labels="vm.labels"  chart-colors="vm.colors"
+              chart-dataset-override="vm.datasetOverride" chart-click="vm.onClick" 
+              chart-options="vm.options">
+      </canvas>
+    </md-content>
+  </div>
+</md-content>

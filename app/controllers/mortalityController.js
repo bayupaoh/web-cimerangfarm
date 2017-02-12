@@ -21,7 +21,7 @@
         vm.totalAyam = snapshot.val().jumlahAwalAyamLantai1;
       });  
 
-    var refMortality = firebase.database().ref('percobaangrafik/lantai1/feedandmortality');
+    var refMortality = firebase.database().ref('grafik/kandang1/feedandmortality');
     refMortality.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
@@ -29,10 +29,13 @@
           var split = date.split('-');
 
           var tgl = split[2] + '-' + split[1] + '-' + split[0];
-
-          tanggal.push(tgl);
           
           var ayamMati = childSnapshot.val().ayamMati;
+
+          if (ayamMati != null) {
+            tanggal.push(tgl);
+          }
+
           mortalitasHarian.push(ayamMati);
           count++;
           total += ayamMati;

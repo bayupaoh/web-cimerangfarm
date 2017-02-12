@@ -3,9 +3,9 @@
 
   angular
     .module('appController')
-    .controller('feedL2Controller', feedL2Controller);
+    .controller('feedL3Controller', feedL3Controller);
 
-  function feedL2Controller() {
+  function feedL3Controller() {
     var vm = this;
     var tanggal = [];
     var pakanHarian = [];
@@ -17,7 +17,7 @@
 
     var total = 0;
 
-    var ref = firebase.database().ref().child('grafik').child('kandang2').child('feedandmortality');
+    var ref = firebase.database().ref().child('grafik').child('kandang3').child('feedandmortality');
     ref.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {

@@ -1,59 +1,27 @@
 <div ng-controller="BasicDemoCtrl as ctrl">
-  <md-content style="background: white;">
-    <md-list>
-      <md-subheader class="md-no-sticky">Kalibrasi</md-subheader>
-      <md-list-item>
-          <p>Ammonia</p>
-          <p class="md-secondary">{{vm.setAmmonia}}</p>
-      </md-list-item>
-      <md-list-item>
-          <p>Anemometer</p>
-          <p class="md-secondary">{{vm.setAnemometer}}</p>
-      </md-list-item>
-      <md-divider></md-divider>
-      <md-subheader class="md-no-sticky">Sensor</md-subheader>
-      <md-list-item>
-          <p>Interval Check Sensor</p>
-          <p class="md-secondary">{{vm.setInterval}}</p>
-      </md-list-item>
-      <md-divider></md-divider>
-      <md-subheader class="md-no-sticky">Lantai 1</md-subheader>
-      <md-list-item>
-          <p>Jumlah Ayam</p>
-          <p class="md-secondary">{{vm.setAyamLantai1}}</p>
-      </md-list-item>
-      <md-list-item>
-          <p>Tanggal Mulai</p>
-          <p class="md-secondary">{{vm.setMulaiLantai1}}</p>          
-      </md-list-item>
-      <md-list-item>
-        <span flex></span>
-        <md-button class="md-accent md-raised" ng-click="ctrl.showDialogPanen1()">
-          PANEN
-        </md-button>
-        <md-button class="md-accent md-raised" ng-click="ctrl.showDialogMulai1()" ng-disabled="vm.setPanenLantai1 == false">
-          MULAI
-        </md-button>
-      </md-list-item>
-      <md-divider></md-divider>
-      <md-subheader class="md-no-sticky">Lantai 2</md-subheader>
-      <md-list-item>
-          <p>Jumlah Ayam</p>
-          <p class="md-secondary">{{vm.setAyamLantai2}}</p>
-      </md-list-item>
-      <md-list-item>
-          <p>Tanggal Mulai</p>
-          <p class="md-secondary">{{vm.setMulaiLantai2}}</p>
-      </md-list-item>
-      <md-list-item>
-        <span flex></span>
-        <md-button class="md-accent md-raised" ng-click="ctrl.showDialogPanen2()">
-          PANEN
-        </md-button>
-        <md-button class="md-accent md-raised" ng-click="ctrl.showDialogMulai2()" ng-disabled="vm.setPanenLantai2 == false">
-          MULAI
-        </md-button>
-      </md-list-item>
-    </md-list>
-  </md-content>
-</div>
+  <div ng-repeat="kd in grafik">
+    <div style="width: 100%;flex-direction: row;flex-wrap: wrap; background: white;">
+      <span class="md-headline" style="font-size: 18px;margin: 8px;">{{kd.namaKandang}}</span>
+      <div layout="column" style="border: 1px solid #ddd;width:49%;margin:6px;">
+        <md-grid-list
+          md-cols="{{kd.jmlKolom}}"
+          md-row-height="2:3"
+          md-gutter="12px">
+
+          <md-grid-tile ng-repeat="grid in kandang | orderBy:'posisi' | filter: { idKandang: $index+1 }"
+                        ng-click="ubahGrid(grid.$id, grid.idGrid, grid.idKandang, grid.namaKandang, grid.posisi, $event)">
+
+            <md-grid-tile-footer class="footer">
+              <h4>{{grid.idGrid}}</h4>
+            </md-grid-tile-footer>
+
+          </md-grid-tile>
+        </md-grid-list>
+      </div>
+    </div>
+  </div>
+   
+  <md-button class="md-fab" aria-label="Tambah" ng-click="ctrl.showDialogTambahKandang($event)" md-theme="default">
+    <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
+  </md-button>
+</div>  

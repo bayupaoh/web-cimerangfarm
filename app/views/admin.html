@@ -17,7 +17,11 @@
               </thead>
               <tbody>
                 <tr ng-repeat="data in vm.data">
-                  <td data-title="Tanggal">{{data.$id}}</td>
+                  <td data-title="Tanggal">
+                    <div ng-init="tanggal = vm.setTanggal(data.$id)">
+                      {{tanggal}}                              
+                    </div>
+                  </td>
                   <td data-title="Ayam Mati">{{data.ayamMati}}</td>
                   <td data-title="Pakan Harian">{{data.pakan}}</td>
                   <td>
@@ -46,7 +50,11 @@
               </thead>
               <tbody>
                 <tr ng-repeat="data2 in vm.data2">
-                  <td data-title="Tanggal">{{data2.$id}}</td>
+                  <td data-title="Tanggal">
+                    <div ng-init="tanggal = vm.setTanggal(data2.$id)">
+                      {{tanggal}}                              
+                    </div>
+                  </td>
                   <td data-title="Ayam Mati">{{data2.ayamMati}}</td>
                   <td data-title="Pakan Harian">{{data2.pakan}}</td>
                   <td>

@@ -3,9 +3,9 @@
 
   angular
     .module('appController')
-    .controller('mortalityL2Controller', mortalityL2Controller);
+    .controller('mortalityL3Controller', mortalityL3Controller);
 
-  function mortalityL2Controller() {
+  function mortalityL3Controller() {
     var vm = this;
     var tanggal = [];
     var mortalitasHarian = [];
@@ -18,10 +18,10 @@
 
     var refSetting = firebase.database().ref().child('setting');  
     refSetting.on("value", function (snapshot) {
-        vm.totalAyam = snapshot.val().jumlahAwalAyamLantai2;
+        vm.totalAyam = snapshot.val().jumlahAwalAyamLantai3;
       });
 
-    var refMortality = firebase.database().ref('grafik/kandang2/feedandmortality');
+    var refMortality = firebase.database().ref('grafik/kandang3/feedandmortality');
     refMortality.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {

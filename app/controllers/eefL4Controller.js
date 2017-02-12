@@ -3,9 +3,9 @@
 
   angular
     .module('appController')
-    .controller('eefL2Controller', eefL2Controller);
+    .controller('eefL4Controller', eefL4Controller);
 
-  function eefL2Controller() {
+  function eefL4Controller() {
     var vm = this;
     var tanggal   = [];
     var nilaiEef  = [];
@@ -15,11 +15,11 @@
     ];
 
     var refSetting = firebase.database().ref().child('setting');
-    var refPakan = firebase.database().ref('grafik/kandang2/feedandmortality');
+    var refPakan = firebase.database().ref('grafik/kandang4/feedandmortality');
 
     refSetting.on("value", function (snapshot) {
-        vm.totalAyam = snapshot.val().jumlahAwalAyamLantai2;
-        vm.tglMulai = snapshot.val().tanggalMulaiLantai2;
+        vm.totalAyam = snapshot.val().jumlahAwalAyamLantai4;
+        vm.tglMulai = snapshot.val().tanggalMulaiLantai4;
 
     });
 

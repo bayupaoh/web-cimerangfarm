@@ -340,6 +340,19 @@ md-grid-tile md-icon {
   position: absolute;
   height: 100%;
   width: 100%;
+  z-index: 99;
+
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.flex-angin {
+  display: flex;
+
+  position: absolute;
+  height: 100%;
+  width: 100%;
   z-index: 999;
 
   justify-content: center;
@@ -352,6 +365,16 @@ md-grid-tile md-icon {
   height: 33.3333%;
 
   position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.base-angin {
+  width: 100%;
+  height: 33.3333%;
+
+  position: relative;
+  top:0;
   justify-content: center;
   align-items: center;
 }
@@ -369,6 +392,18 @@ md-grid-tile md-icon {
   height: 65px;
 
   border-radius: 100%;
+}
+
+.sensor-angin-red {
+  background: rgba(0, 0, 0, .2);
+  width: 65px;
+  height: 65px;
+  border-radius: 25%;
+}
+
+.sensor-angin-red h4 {
+  text-align: center;
+  margin-bottom: 0;
 }
 
 .sensor-indoor-red h4 {
@@ -414,14 +449,15 @@ md-grid-tile md-icon {
 }
 
 .home-baloon h1 {
-  font-size: 26px;
+  font-size: 21px;
   font-weight: bold;
+  margin: 13px 11px 0 11px;
 }
 
 .home-baloon span {
-  font-size: 21px;
+  font-size: 18px;
   font-weight: bolder;
-  margin: 13px 13px 0 13px;
+  margin: 11px 11px 0 11px;
 }
 
 .home-baloon span B {
@@ -460,7 +496,7 @@ md-grid-tile md-icon {
   .home-baloon span {
     font-size: 10px;
     font-weight: bolder;
-    margin: 5px 5px 0 5px;
+    margin: 4px 5px 0 5px;
   }
 
   .home-baloon .time {

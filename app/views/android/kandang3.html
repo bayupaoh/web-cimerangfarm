@@ -9,13 +9,13 @@
                         md-row-height="2:3"
                         md-gutter="12px">
 
-                        <md-grid-tile ng-repeat="grid in vm.grid | orderBy:'posisi' | filter: { idKandang: 2 }">
+                        <md-grid-tile ng-repeat="grid in vm.grid | orderBy:'posisi' | filter: { idKandang: 3 }">
                           <md-grid-tile-footer class="footer">
-                            <h4>{{grid.idtampilan}}</h4>
+                            <h4>{{grid.idGrid}}</h4>
                             <h3 class="icon">
                               <md-icon md-svg-icon="assets/icons/scale.svg" class="svg-icon"></md-icon> 
                               <span ng-class="vm.beratColor(grid.a, grid.tanggal)">{{grid.a | filterBerat}}</span>
-                              </h3>
+                            </h3>
                             <h3 class="icon">
                               <md-icon md-svg-icon="assets/icons/poison.svg" class="svg-icon"></md-icon> 
                               <span ng-class="vm.ammoniaColor(grid.b, grid.tanggal)">{{grid.b | filterAmmonia}}</span>
@@ -33,14 +33,14 @@
                             <h6>
                               <div ng-init="tanggal = vm.setTanggal(grid.tanggal)">
                                 {{tanggal}} {{grid.waktu}}                              
-                              </div>                              
+                              </div>
                             </h6>
                           </md-grid-tile-footer>
                         </md-grid-tile>
 
                         <div class="flex-sensor">
                           <div class="flex-sensor base" 
-                               ng-repeat="si in vm.sensor | filter: { tipe: 'si', lantai: 2 } | orderBy:'urutan'" >
+                               ng-repeat="si in vm.sensor | filter: { tipe: 'si', lantai: 1 } | orderBy:'urutan'" >
                             <div ng-class="vm.sensorColor(si.a)">
                               <h4>{{si.$id}}</h4>
                             </div>
@@ -49,7 +49,7 @@
 
                         <div class="flex-angin">
                           <div class="flex-angin base-angin" 
-                               ng-repeat="sa in vm.sensor | filter: { tipe: 'sa', lantai: 2 } | orderBy:'urutan'" >
+                               ng-repeat="sa in vm.sensor | filter: { tipe: 'sa', lantai: 1 } | orderBy:'urutan'" >
                             <div class="sensor-angin-red">
                               <h4>{{sa.$id}}</h4>
                             </div>
@@ -60,7 +60,7 @@
                   
                   <center>
                     <div style="margin:12px;"><B>Blower</B></div>
-                  </center>           
+                  </center>               
                 </div>
 
                 <div layout="column" style="margin: 12px 0 12px 0;">
@@ -105,18 +105,18 @@
                         </th>
                       </tr>
                       <tr>
-                          <th>No. Sensor</th>
-                          <th>Suhu</th>
-                          <th>Kelembaban</th>
-                          <th>Last Update</th>
+                        <th>No. Sensor</th>
+                        <th>Suhu</th>
+                        <th>Kelembaban</th>
+                        <th>Last Update</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="si in vm.sensor | filter: { tipe: 'si', lantai: 2 }">
+                      <tr ng-repeat="si in vm.sensor | filter: { tipe: 'si', lantai: 1 }">
                         <td data-title="No. Sensor">{{si.$id}}</td>
                         <td data-title="Suhu">{{si.a | filterSuhu}}</td>
                         <td data-title="Kelembaban">{{si.b | filterHumidity}}</td>
-                        <td data-title="Posisi">
+                        <td data-title="Update">
                           <div ng-init="tanggal = vm.setTanggal(si.tanggal)">
                             {{tanggal}} {{si.waktu}}                              
                           </div>
@@ -142,7 +142,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="sa in vm.sensor | filter: { tipe: 'sa', lantai: 2 }">
+                      <tr ng-repeat="sa in vm.sensor | filter: { tipe: 'sa', lantai: 1 }">
                         <td data-title="No. Sensor">{{sa.$id}}</td>
                         <td data-title="Kecepatan">{{sa.a | filterAngin}}</td>
                         <td data-title="Update">
@@ -153,12 +153,13 @@
                       </tr>
                     </tbody>
                   </table>
+
                 </div>
               </div>
             </md-content>
 
             <md-content layout="column" style="padding-top:18px">
-              <div ng-controller="beratAyamL2Controller as vm">                
+              <div ng-controller="beratAyamController as vm">                
                 <md-content class="md-padding" style="background-color: white;">
                   <span class="md-headline">Grafik Produktivitas Berat Ayam</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -171,7 +172,7 @@
             </md-content>
 
             <md-content layout="column" style="padding-top:18px">
-              <div ng-controller="mortalityL2Controller as vm">                
+              <div ng-controller="mortalityController as vm">                
                 <md-content class="md-padding" style="background-color: white;">
                   <span class="md-headline">Grafik Akumulasi Kematian Ayam</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -184,7 +185,7 @@
             </md-content>
 
             <md-content layout="column" style="padding-top:18px">
-              <div ng-controller="feedL2Controller as vm">                
+              <div ng-controller="feedController as vm">                
                 <md-content class="md-padding" style="background-color: white;">
                   <span class="md-headline">Grafik Pakan Ayam Harian</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -197,7 +198,7 @@
             </md-content>
 
             <md-content layout="column" style="padding-top:18px">
-              <div ng-controller="fcrL2Controller as vm">                
+              <div ng-controller="fcrController as vm">                
                 <md-content class="md-padding" style="background-color: white;">
                   <span class="md-headline">Grafik FCR (Feed Conversation Ratio)</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -210,7 +211,7 @@
             </md-content>
 
             <md-content layout="column" style="padding-top:18px">
-              <div ng-controller="eefL2Controller as vm">                
+              <div ng-controller="eefController as vm">                
                 <md-content class="md-padding" style="background-color: white;">
                   <span class="md-headline">Grafik Nilai IP</span>
                   <canvas id="base" class="chart chart-line" chart-data="vm.data"

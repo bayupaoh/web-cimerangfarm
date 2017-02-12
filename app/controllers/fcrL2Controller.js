@@ -16,7 +16,7 @@
     ];
 
     var refSetting = firebase.database().ref().child('setting');
-    var refPakan = firebase.database().ref('percobaangrafik/lantai2/feedandmortality');
+    var refPakan = firebase.database().ref('grafik/kandang2/feedandmortality');
 
     refSetting.on("value", function (snapshot) {
         vm.totalAyam = snapshot.val().jumlahAwalAyamLantai2;
@@ -31,8 +31,18 @@
 
       snapshot.forEach(function (childSnapshot) {
         var tgl = childSnapshot.key;
+        var berat = childSnapshot.val().berat;
         var pakan = childSnapshot.val().pakan;
         var mati  = childSnapshot.val().ayamMati;
+
+        var date = childSnapshot.key;
+        var split = date.split('-');
+
+        var push = split[2] + '-' + split[1] + '-' + split[0];
+
+        if (berat != null) {
+          tanggal.push(push);
+        }
 
         if (pakan == null) {
           pakan = 0;
@@ -54,12 +64,6 @@
           var fcr = totalPakan / (ayamHidup * rataBerat);
         }
 
-        var date = childSnapshot.key;
-        var split = date.split('-');
-
-        var push = split[2] + '-' + split[1] + '-' + split[0];
-
-        tanggal.push(push);
         nilaiFcr.push(fcr.toFixed(2));
       })
     });

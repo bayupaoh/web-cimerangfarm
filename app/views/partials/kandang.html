@@ -1,0 +1,77 @@
+<div ng-controller="adminController">
+  <div role="dialog" aria-label="Form Ayam Panen" layout="column" layout-align="center center">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 style="color: white;">Tambah Kandang</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.closeDialog()">
+          <md-icon md-svg-icon="assets/icons/close.svg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <div class="demo-dialog-content">
+      <form name="form" ng-submit="tambahKandang()">
+        <div layout="row">
+          <md-input-container flex style="margin-top: 36px;">
+            <label>Nama Kandang</label>
+            <input ng-model="data.namaKandang">
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-input-container flex style="margin-top: 36px;">
+            <label>Jumlah Grid</label>
+            <input ng-model="data.jumlahGrid" ng-init="data.jumlahGrid=0" type="number" name="jumlahGrid" min="0">
+
+            <div ng-messages="form.jumlahGrid.$error" multiple md-auto-hide="false">
+              <div ng-message="min">
+                Jumlah grid tidak boleh kurang dari nol.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <span class="md-headline" style="font-size: 14px;">Ukuran Grid</span>
+        <div layout="row">
+          <md-input-container flex style="margin-top: 36px;">
+            <label>Baris</label>
+            <input ng-model="data.jumlahBaris" ng-init="data.jumlahBaris=0" type="number" name="jumlahBaris" min="0">
+
+            <div ng-messages="form.jumlahBaris.$error" multiple md-auto-hide="false">
+              <div ng-message="min">
+                Jumlah baris tidak boleh kurang dari nol.
+              </div>
+            </div>
+          </md-input-container>
+
+          <md-input-container flex style="margin-top: 36px;">
+            <label>Kolom</label>
+            <input ng-model="data.jumlahKolom" ng-init="data.jumlahKolom=0" type="number" name="jumlahKolom" min="0">
+
+            <div ng-messages="form.jumlahKolom.$error" multiple md-auto-hide="false">
+              <div ng-message="min">
+                Jumlah kolom tidak boleh kurang dari nol.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-input-container flex style="margin-top: 36px;">
+            <label>Jumlah Ayam</label>
+            <input ng-model="data.jumlahAyam" ng-init="data.jumlahAyam=0" type="number" name="jumlahAyam" min="0">
+
+            <div ng-messages="form.jumlahAyam.$error" multiple md-auto-hide="false">
+              <div ng-message="min">
+                Jumlah ayam tidak boleh kurang dari nol.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <span flex></span>
+        <md-button class="md-raised md-accent" 
+                   type="submit" ng-click="ctrl.closeDialog()">
+          Simpan
+        </md-button>
+      </form>
+    </div>
+  </div>
+</div>
