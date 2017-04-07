@@ -1,4 +1,4 @@
-	<div ng-controller="kandangController as vm">
+<div ng-controller="kandangController as vm">
 		<md-content layout-padding>
 			<md-content style="display: flex; justify-content: center; align-items:center;">
 				<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
@@ -82,6 +82,48 @@
 								<span>Kelembaban <B>{{vm.rerataHumidityL4}} %</B></span>
 								<span>Feels Like <B>{{vm.rerataFeelsLikeL4}} &deg;C</B></span>
 								<span>NH3 <B>{{vm.rerataAmmoniaL4}} ppm</B></span>
+
+						</div>
+					</a>
+
+					<a ui-sref="menu.dashboard5" style="text-decoration: none;">
+						<div class="home-baloon">
+								<h1>Kandang 3</h1>
+								<h1>Lantai Bawah</h1>
+								<span style="margin-bottom: 24px;">Hari ke-{{vm.dateLantai5}}</span>
+								<span class="time">Last Update : {{vm.updateDateL5}} {{vm.updateTimeL5}}</span>
+
+								<div layout="row">
+									<span>IP <B>{{vm.ipL5}}</B></span>
+									<span>FCR <B>{{vm.fcrL5}}</B></span>
+								</div>
+
+								<span>Berat <B>{{vm.rerataBeratL5}} gram</B></span>
+								<span>Suhu <B>{{vm.rerataSuhuL5}} &deg;C</B></span>
+								<span>Kelembaban <B>{{vm.rerataHumidityL5}} %</B></span>
+								<span>Feels Like <B>{{vm.rerataFeelsLikeL5}} &deg;C</B></span>
+								<span>NH3 <B>{{vm.rerataAmmoniaL5}} ppm</B></span>
+
+						</div>
+					</a>
+
+					<a ui-sref="menu.dashboard6" style="text-decoration: none;">
+						<div class="home-baloon">
+								<h1>Kandang 3</h1>
+								<h1>Lantai Atas</h1>
+								<span style="margin-bottom: 24px;">Hari ke-{{vm.dateLantai6}}</span>
+								<span class="time">Last Update : {{vm.updateDateL6}} {{vm.updateTimeL6}}</span>
+
+								<div layout="row">
+									<span>IP <B>{{vm.ipL6}}</B></span>
+									<span>FCR <B>{{vm.fcrL6}}</B></span>
+								</div>
+
+								<span>Berat <B>{{vm.rerataBeratL6}} gram</B></span>
+								<span>Suhu <B>{{vm.rerataSuhuL6}} &deg;C</B></span>
+								<span>Kelembaban <B>{{vm.rerataHumidityL6}} %</B></span>
+								<span>Feels Like <B>{{vm.rerataFeelsLikeL6}} &deg;C</B></span>
+								<span>NH3 <B>{{vm.rerataAmmoniaL6}} ppm</B></span>
 
 						</div>
 					</a>

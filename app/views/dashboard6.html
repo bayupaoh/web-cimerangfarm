@@ -5,11 +5,11 @@
         <div style="margin:12px;"><B>Pintu Masuk</B></div>
       </center>
       <md-grid-list
-            md-cols="{{vm.kolom4}}"
+            md-cols="{{vm.kolom6}}"
             md-row-height="2:3"
             md-gutter="12px">
 
-        <md-grid-tile ng-repeat="grid in vm.grid | orderBy:'posisi' | filter: { idKandang: 4 }">
+        <md-grid-tile ng-repeat="grid in vm.grid | orderBy:'posisi' | filter: { idKandang: 6 }">
           <md-grid-tile-footer class="footer">
             <h4>{{grid.idGrid}}</h4>
             <h3 class="icon">

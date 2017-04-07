@@ -2,7 +2,7 @@
   <div role="dialog" aria-label="Tambah Data" layout="column" layout-align="center center">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2 style="color: white;">Tambah Data Lantai 1</h2>
+        <h2 style="color: white;">Tambah Data Kandang 2 Lantai Atas</h2>
         <span flex></span>
         <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.closeDialog()">
           <md-icon md-svg-icon="assets/icons/close.svg"></md-icon>
@@ -11,12 +11,12 @@
     </md-toolbar>
 
     <div class="demo-dialog-content">
-      <form name="form" ng-submit="vm.tambahData()">
+      <form name="form" ng-submit="vm.tambahDataK2()">
         <div layout="row">
           <div style="margin-top: 24px;">
             <md-datepicker ng-model="vm.tanggal" ng-change="vm.change()" md-placeholder="Tanggal"></md-datepicker>
           </div>
-          <h4 style="font-weight:400;margin:36px;">Hari ke- : {{vm.dateLantai1}}</h4>
+          <h4 style="font-weight:400;margin:36px;">Hari ke- : {{vm.dateKandang4}}</h4>
         </div>
         <div layout="row">
           <md-input-container flex style="margin-top: 36px;">

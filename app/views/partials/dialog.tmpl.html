@@ -1,0 +1,41 @@
+  <md-dialog aria-label="Form Ayam Panen" layout="column" layout-align="center center">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 style="color: white;">Ubah Data Grid</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Close" ng-click="closeDialog()">
+          <md-icon md-svg-icon="assets/icons/close.svg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="demo-dialog-content">
+        <form name="form" ng-submit="simpanGrid()">
+          <div layout="row">
+            <md-input-container flex style="margin-top: 36px;">
+              <label>Nomor RFID</label>
+              <input ng-model="noRfid">
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex style="margin-top: 36px;">
+              <label>Nomor Grid</label>
+              <input ng-model="noGrid" type="number">
+            </md-input-container>
+          </div>
+          
+          <input ng-show="false" ng-model="id">
+          <input ng-show="false" ng-model="idKandang">
+          <input ng-show="false" ng-model="namaKandang">
+          <input ng-show="false" ng-model="posisi">
+
+          
+          <span flex></span>
+          <md-button class="md-raised md-accent" 
+                     type="submit" ng-click="closeDialog()">
+            Simpan
+          </md-button>
+        </form>
+      </div>
+    </md-dialog-content>
+  </md-dialog>

@@ -25,6 +25,14 @@ angular
         url: '/dashboard/kandang4',
         templateUrl: 'app/views/dashboard4.html'
       })
+      .state('menu.dashboard5', {
+        url: '/dashboard/kandang5',
+        templateUrl: 'app/views/dashboard5.html'
+      })
+      .state('menu.dashboard6', {
+        url: '/dashboard/kandang6',
+        templateUrl: 'app/views/dashboard6.html'
+      })
       .state('menu.home', {
         url: '/dashboard',
         templateUrl: 'app/views/home.html'

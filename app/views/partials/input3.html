@@ -1,0 +1,53 @@
+<div ng-controller="adminController as vm">
+  <div role="dialog" aria-label="Tambah Data" layout="column" layout-align="center center">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 style="color: white;">Tambah Data Kandang 2 Lantai Bawah</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.closeDialog()">
+          <md-icon md-svg-icon="assets/icons/close.svg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <div class="demo-dialog-content">
+      <form name="form" ng-submit="vm.tambahDataK2()">
+        <div layout="row">
+          <div style="margin-top: 24px;">
+            <md-datepicker ng-model="vm.tanggal" ng-change="vm.change()" md-placeholder="Tanggal"></md-datepicker>
+          </div>
+          <h4 style="font-weight:400;margin:36px;">Hari ke- : {{vm.dateKandang3}}</h4>
+        </div>
+        <div layout="row">
+          <md-input-container flex style="margin-top: 36px;">
+            <label>Jumlah Ayam Mati (ekor)</label>
+            <input ng-model="vm.data.ayamMati" ng-init="vm.data.ayamMati=0" type="number" name="ayamMati" min="0">
+
+            <div ng-messages="form.ayamMati.$error" multiple md-auto-hide="false">
+              <div ng-message="min">
+                Jumlah ayam mati tidak boleh kurang dari nol.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-input-container flex>
+            <label>Pakan Harian (kg/bag)</label>
+            <input ng-model="vm.data.pakan" ng-init="vm.data.pakan=0" type="number" name="pakan" min="0">
+
+            <div ng-messages="form.pakan.$error" multiple md-auto-hide="false">
+              <div ng-message="min">
+                Pakan harian tidak boleh kurang dari nol.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <span flex></span>
+        <md-button class="md-raised md-accent" 
+                   type="submit" ng-click="ctrl.closeDialog()">
+          Simpan
+        </md-button>
+      </form>
+    </div>
+  </div>
+</div>
