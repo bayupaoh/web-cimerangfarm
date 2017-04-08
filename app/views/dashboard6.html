@@ -5,7 +5,7 @@
         <div style="margin:12px;"><B>Pintu Masuk</B></div>
       </center>
       <md-grid-list
-            md-cols="{{vm.kolom6}}"
+            md-cols="6"
             md-row-height="2:3"
             md-gutter="12px">
 
@@ -163,7 +163,7 @@
 </md-content>
 
 <md-content layout="column" style="padding-top:18px">
-  <div ng-controller="beratAyamL4Controller as vm">                
+  <div ng-controller="beratAyamL3Controller as vm">                
     <md-content class="md-padding" style="background-color: white;">
       <span class="md-headline">Grafik Produktivitas Berat Ayam</span>
       <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -176,7 +176,7 @@
 </md-content>
 
 <md-content layout="column" style="padding-top:18px">
-  <div ng-controller="mortalityL4Controller as vm">                
+  <div ng-controller="mortalityL3Controller as vm">                
     <md-content class="md-padding" style="background-color: white;">
       <span class="md-headline">Grafik Akumulasi Kematian Ayam</span>
       <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -189,7 +189,7 @@
 </md-content>
 
 <md-content layout="column" style="padding-top:18px">
-  <div ng-controller="feedL4Controller as vm">                
+  <div ng-controller="feedL3Controller as vm">                
     <md-content class="md-padding" style="background-color: white;">
       <span class="md-headline">Grafik Pakan Ayam Harian</span>
       <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -202,7 +202,7 @@
 </md-content>
 
 <md-content layout="column" style="padding-top:18px">
-  <div ng-controller="fcrL4Controller as vm">                
+  <div ng-controller="fcrL3Controller as vm">                
     <md-content class="md-padding" style="background-color: white;">
       <span class="md-headline">Grafik Nilai FCR (Feed Conversation Ratio)</span>
       <canvas id="base" class="chart chart-line" chart-data="vm.data"
@@ -215,7 +215,7 @@
 </md-content>
 
 <md-content layout="column" style="padding-top:18px">
-  <div ng-controller="eefL4Controller as vm">                
+  <div ng-controller="eefL3Controller as vm">                
     <md-content class="md-padding" style="background-color: white;">
       <span class="md-headline">Grafik Nilai IP</span>
       <canvas id="base" class="chart chart-line" chart-data="vm.data"

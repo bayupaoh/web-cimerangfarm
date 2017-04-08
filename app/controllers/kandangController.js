@@ -78,7 +78,6 @@
     // Database Reference
     var refGrid    = firebase.database().ref('kandangmirror/g');
     var refSensor  = firebase.database().ref('kandangmirror/s');
-    var refSetting = firebase.database().ref('setting');
     var refKandang = firebase.database().ref('grafik');
     var refPakan   = firebase.database().ref('grafik/kandang1/feedandmortality');
     var refPakanL2 = firebase.database().ref('grafik/kandang2/feedandmortality');
@@ -86,6 +85,7 @@
     var refPakanL4 = firebase.database().ref('grafik/kandang4/feedandmortality');
     var refPakanL5 = firebase.database().ref('grafik/kandang5/feedandmortality');
     var refPakanL6 = firebase.database().ref('grafik/kandang6/feedandmortality');
+    var refSetting = firebase.database().ref('setting');
 
 
     // Read Data
@@ -300,17 +300,17 @@
                   lastTime = sec;
                   vm.updateTime = updateTime;  
                 }      
-              }
-              
-                 
+              }   
 
               if (berat > 0) {
                 totalBerat += berat;
                 countBerat++;
               }
 
-              if (ammonia > 0) {
-                totalAmmonia += (-0.1545)*ammonia+26.664;
+              var kalibrasi = (-0.1545)*ammonia+26.664;
+
+              if (kalibrasi > 0) {
+                totalAmmonia += kalibrasi;
                 countAmmonia++;
               }
 
@@ -352,7 +352,6 @@
             }
 
             tsL2 = year + '-' + month + '-' + date;
-          
 
             if (tanggal == tsL2) {
 
@@ -366,27 +365,28 @@
               var updateTimeL2 = childSnapshot.val().waktu;
 
               if (tanggal != null) {
-                var splits = updateDateL2.split('-');
                 var timeSplit = updateTimeL2.split(':');
+                var split = updateDateL2.split('-');
 
                 var sec = timeSplit[1]*1 + timeSplit[0]*60
 
-                vm.updateDateL2 = splits[2] + '-' + splits[1] + '-' + splits[0];
+                vm.updateDateL2 = split[2] + '-' + split[1] + '-' + split[0];
 
                 if (sec > lastTimeL2) {
                   lastTimeL2 = sec;
                   vm.updateTimeL2 = updateTimeL2;  
-                }
-              }
-              
+                }      
+              }   
 
               if (beratL2 > 0) {
                 totalBeratL2 += beratL2;
                 countBeratL2++;
               }
 
-              if (ammoniaL2 > 0) {
-                totalAmmoniaL2 += (-0.1545)*ammoniaL2+26.664;
+              var kalibrasiL2 = (-0.1545)*ammoniaL2+26.664;
+
+              if (kalibrasiL2 > 0) {
+                totalAmmoniaL2 += kalibrasiL2;
                 countAmmoniaL2++;
               }
 
@@ -404,7 +404,7 @@
 
           }
 
-        } 
+        }
 
         if (childSnapshot.val().idKandang == 3) {
 
@@ -428,7 +428,6 @@
             }
 
             tsL3 = year + '-' + month + '-' + date;
-          
 
             if (tanggal == tsL3) {
 
@@ -442,27 +441,28 @@
               var updateTimeL3 = childSnapshot.val().waktu;
 
               if (tanggal != null) {
-                var splits = updateDateL3.split('-');
                 var timeSplit = updateTimeL3.split(':');
+                var split = updateDateL3.split('-');
 
                 var sec = timeSplit[1]*1 + timeSplit[0]*60
 
-                vm.updateDateL3 = splits[2] + '-' + splits[1] + '-' + splits[0];
+                vm.updateDateL3 = split[2] + '-' + split[1] + '-' + split[0];
 
                 if (sec > lastTimeL3) {
                   lastTimeL3 = sec;
                   vm.updateTimeL3 = updateTimeL3;  
-                }
-              }
-              
+                }      
+              }   
 
               if (beratL3 > 0) {
                 totalBeratL3 += beratL3;
                 countBeratL3++;
               }
 
-              if (ammoniaL3 > 0) {
-                totalAmmoniaL3 += (-0.1545)*ammoniaL3+26.664;
+              var kalibrasiL3 = (-0.1545)*ammoniaL3+26.664;
+
+              if (kalibrasiL3 > 0) {
+                totalAmmoniaL3 += kalibrasiL3;
                 countAmmoniaL3++;
               }
 
@@ -478,9 +478,9 @@
 
             }
 
-          }  
+          }
 
-        }
+        } 
 
         if (childSnapshot.val().idKandang == 4) {
 
@@ -504,7 +504,6 @@
             }
 
             tsL4 = year + '-' + month + '-' + date;
-          
 
             if (tanggal == tsL4) {
 
@@ -518,27 +517,28 @@
               var updateTimeL4 = childSnapshot.val().waktu;
 
               if (tanggal != null) {
-                var splits = updateDateL4.split('-');
                 var timeSplit = updateTimeL4.split(':');
+                var split = updateDateL4.split('-');
 
                 var sec = timeSplit[1]*1 + timeSplit[0]*60
 
-                vm.updateDateL4 = splits[2] + '-' + splits[1] + '-' + splits[0];
+                vm.updateDateL4 = split[2] + '-' + split[1] + '-' + split[0];
 
                 if (sec > lastTimeL4) {
                   lastTimeL4 = sec;
                   vm.updateTimeL4 = updateTimeL4;  
-                }
-              }
-              
+                }      
+              }   
 
               if (beratL4 > 0) {
                 totalBeratL4 += beratL4;
                 countBeratL4++;
               }
 
-              if (ammoniaL4 > 0) {
-                totalAmmoniaL4 += (-0.1545)*ammoniaL4+26.664;
+              var kalibrasiL4 = (-0.1545)*ammoniaL4+26.664;
+
+              if (kalibrasiL4 > 0) {
+                totalAmmoniaL4 += kalibrasiL4;
                 countAmmoniaL4++;
               }
 
@@ -552,7 +552,8 @@
                 countHumidityL4++;
               }
 
-            }            
+
+            }
 
           }
 
@@ -580,7 +581,6 @@
             }
 
             tsL5 = year + '-' + month + '-' + date;
-          
 
             if (tanggal == tsL5) {
 
@@ -594,26 +594,28 @@
               var updateTimeL5 = childSnapshot.val().waktu;
 
               if (tanggal != null) {
-                var splits = updateDateL5.split('-');
                 var timeSplit = updateTimeL5.split(':');
+                var split = updateDateL5.split('-');
 
                 var sec = timeSplit[1]*1 + timeSplit[0]*60
 
-                vm.updateDateL5 = splits[2] + '-' + splits[1] + '-' + splits[0];
+                vm.updateDateL5 = split[2] + '-' + split[1] + '-' + split[0];
 
                 if (sec > lastTimeL5) {
                   lastTimeL5 = sec;
                   vm.updateTimeL5 = updateTimeL5;  
-                }
-              }              
+                }      
+              }   
 
               if (beratL5 > 0) {
                 totalBeratL5 += beratL5;
                 countBeratL5++;
               }
 
-              if (ammoniaL5 > 0) {
-                totalAmmoniaL5 += (-0.1545)*ammoniaL5+26.664;
+              var kalibrasiL5 = (-0.1545)*ammoniaL5+26.664;
+
+              if (kalibrasiL5 > 0) {
+                totalAmmoniaL5 += kalibrasiL5;
                 countAmmoniaL5++;
               }
 
@@ -627,7 +629,7 @@
                 countHumidityL5++;
               }
 
-            }            
+            }
 
           }
 
@@ -655,7 +657,6 @@
             }
 
             tsL6 = year + '-' + month + '-' + date;
-          
 
             if (tanggal == tsL6) {
 
@@ -669,27 +670,28 @@
               var updateTimeL6 = childSnapshot.val().waktu;
 
               if (tanggal != null) {
-                var splits = updateDateL6.split('-');
                 var timeSplit = updateTimeL6.split(':');
+                var split = updateDateL6.split('-');
 
                 var sec = timeSplit[1]*1 + timeSplit[0]*60
 
-                vm.updateDateL6 = splits[2] + '-' + splits[1] + '-' + splits[0];
+                vm.updateDateL6 = split[2] + '-' + split[1] + '-' + split[0];
 
                 if (sec > lastTimeL6) {
                   lastTimeL6 = sec;
                   vm.updateTimeL6 = updateTimeL6;  
-                }
-              }
-              
+                }      
+              }   
 
               if (beratL6 > 0) {
                 totalBeratL6 += beratL6;
                 countBeratL6++;
               }
 
-              if (ammoniaL6 > 0) {
-                totalAmmoniaL6 += (-0.1545)*ammoniaL6+26.664;
+              var kalibrasiL6 = (-0.1545)*ammoniaL6+26.664;
+
+              if (kalibrasiL6 > 0) {
+                totalAmmoniaL6 += kalibrasiL6;
                 countAmmoniaL6++;
               }
 
@@ -707,7 +709,7 @@
 
           }
 
-        }
+        }        
 
       });
 
@@ -744,7 +746,6 @@
       updates['/grafik/kandang1/perhitungan/kelembapan'] = parseFloat(vm.rerataHumidity);
       updates['/grafik/kandang1/perhitungan/suhu'] = parseFloat(vm.rerataSuhu);
       updates['/grafik/kandang1/perhitungan/feelslike'] = parseFloat(vm.rerataFeelsLike);
-      updates['/grafik/kandang1/perhitungan/hari'] = vm.dateLantai1;
       updates['/grafik/kandang1/perhitungan/lastupdate'] = vm.updateDate;
       firebase.database().ref().update(updates); 
 
@@ -781,85 +782,10 @@
       updates2['/grafik/kandang2/perhitungan/kelembapan'] = parseFloat(vm.rerataHumidityL2);
       updates2['/grafik/kandang2/perhitungan/suhu'] = parseFloat(vm.rerataSuhuL2);
       updates2['/grafik/kandang2/perhitungan/feelslike'] = parseFloat(vm.rerataFeelsLikeL2);
-      updates2['/grafik/kandang2/perhitungan/hari'] = vm.dateLantai2;
       updates2['/grafik/kandang2/perhitungan/lastupdate'] = vm.updateDateL2;
       firebase.database().ref().update(updates2);
 
-      // Hitung Rata-Rata Non-Error Lantai 3
-      if (countBeratL3 == 0) {
-        vm.rerataBeratL3 = 0;
-      } else {
-        vm.rerataBeratL3 = (totalBeratL3 / countBeratL3).toFixed(2);
-      }
-      
-      if (countAmmoniaL3 == 0) {
-        vm.rerataAmmoniaL3 = 0;
-      } else {
-        vm.rerataAmmoniaL3 = (totalAmmoniaL3 / countAmmoniaL3).toFixed(2);
-      }
-
-      if (countHumidityL3 == 0) {
-        vm.rerataHumidityL3 = 0;
-      } else {
-        vm.rerataHumidityL3 = (totalHumidityL3 / countHumidityL3).toFixed(2);
-      }
-
-      if (countSuhuL3 == 0) {
-        vm.rerataSuhuL3 = 0;
-      } else {
-        vm.rerataSuhuL3 = (totalSuhuL3 / countSuhuL3).toFixed(2);
-      }          
-                         
-      vm.rerataFeelsLikeL3 = feelsLikeL3(vm.rerataHumidityL3, vm.rerataSuhuL3);
-
-      var updates3 = {};
-      updates3['/grafik/kandang3/perhitungan/berat'] = parseFloat(vm.rerataBeratL3);
-      updates3['/grafik/kandang3/perhitungan/NH3'] = parseFloat(vm.rerataAmmoniaL3);
-      updates3['/grafik/kandang3/perhitungan/kelembapan'] = parseFloat(vm.rerataHumidityL3);
-      updates3['/grafik/kandang3/perhitungan/suhu'] = parseFloat(vm.rerataSuhuL3);
-      updates3['/grafik/kandang3/perhitungan/feelslike'] = parseFloat(vm.rerataFeelsLikeL3);
-      updates3['/grafik/kandang3/perhitungan/hari'] = vm.dateLantai3;
-      updates3['/grafik/kandang3/perhitungan/lastupdate'] = vm.updateDateL3;
-      firebase.database().ref().update(updates3);
-
-      // Hitung Rata-Rata Non-Error Lantai 4
-      if (countBeratL4 == 0) {
-        vm.rerataBeratL4 = 0;
-      } else {
-        vm.rerataBeratL4 = (totalBeratL4 / countBeratL4).toFixed(2);
-      }
-      
-      if (countAmmoniaL4 == 0) {
-        vm.rerataAmmoniaL4 = 0;
-      } else {
-        vm.rerataAmmoniaL4 = (totalAmmoniaL4 / countAmmoniaL4).toFixed(2);
-      }
-
-      if (countHumidityL4 == 0) {
-        vm.rerataHumidityL4 = 0;
-      } else {
-        vm.rerataHumidityL4 = (totalHumidityL4 / countHumidityL4).toFixed(2);
-      }
-
-      if (countSuhuL4 == 0) {
-        vm.rerataSuhuL4 = 0;
-      } else {
-        vm.rerataSuhuL4 = (totalSuhuL4 / countSuhuL4).toFixed(2);
-      }          
-              
-      vm.rerataFeelsLikeL4 = feelsLikeL4(vm.rerataHumidityL4, vm.rerataSuhuL4);
-
-      var updates4 = {};
-      updates4['/grafik/kandang4/perhitungan/berat'] = parseFloat(vm.rerataBeratL4);
-      updates4['/grafik/kandang4/perhitungan/NH3'] = parseFloat(vm.rerataAmmoniaL4);
-      updates4['/grafik/kandang4/perhitungan/kelembapan'] = parseFloat(vm.rerataHumidityL4);
-      updates4['/grafik/kandang4/perhitungan/suhu'] = parseFloat(vm.rerataSuhuL4);
-      updates4['/grafik/kandang4/perhitungan/feelslike'] = parseFloat(vm.rerataFeelsLikeL4);
-      updates4['/grafik/kandang4/perhitungan/hari'] = vm.dateLantai4;
-      updates4['/grafik/kandang4/perhitungan/lastupdate'] = vm.updateDateL4;
-      firebase.database().ref().update(updates4);
-
-      // Hitung Rata-Rata Non-Error Lantai 5
+      // Hitung Rata-Rata Non-Error Lantai 5 
       if (countBeratL5 == 0) {
         vm.rerataBeratL5 = 0;
       } else {
@@ -883,7 +809,7 @@
       } else {
         vm.rerataSuhuL5 = (totalSuhuL5 / countSuhuL5).toFixed(2);
       }          
-              
+             
       vm.rerataFeelsLikeL5 = feelsLikeL5(vm.rerataHumidityL5, vm.rerataSuhuL5);
 
       var updates5 = {};
@@ -891,12 +817,11 @@
       updates5['/grafik/kandang5/perhitungan/NH3'] = parseFloat(vm.rerataAmmoniaL5);
       updates5['/grafik/kandang5/perhitungan/kelembapan'] = parseFloat(vm.rerataHumidityL5);
       updates5['/grafik/kandang5/perhitungan/suhu'] = parseFloat(vm.rerataSuhuL5);
-      updates5['/grafik/kandang5/perhitungan/feelslike'] = parseFloat(vm.rerataFeelsLikeL4);
-      updates5['/grafik/kandang5/perhitungan/hari'] = vm.dateLantai4;
+      updates5['/grafik/kandang5/perhitungan/feelslike'] = parseFloat(vm.rerataFeelsLikeL5);
       updates5['/grafik/kandang5/perhitungan/lastupdate'] = vm.updateDateL5;
       firebase.database().ref().update(updates5);
 
-      // Hitung Rata-Rata Non-Error Lantai 6
+      // Hitung Rata-Rata Non-Error Lantai 6 
       if (countBeratL6 == 0) {
         vm.rerataBeratL6 = 0;
       } else {
@@ -920,8 +845,8 @@
       } else {
         vm.rerataSuhuL6 = (totalSuhuL6 / countSuhuL6).toFixed(2);
       }          
-              
-      vm.rerataFeelsLikeL6 = feelsLikeL6(vm.rerataHumidityL6, vm.rerataSuhuL6);
+             
+      vm.rerataFeelsLikeL6 = feelsLikeL5(vm.rerataHumidityL6, vm.rerataSuhuL6);
 
       var updates6 = {};
       updates6['/grafik/kandang6/perhitungan/berat'] = parseFloat(vm.rerataBeratL6);
@@ -929,10 +854,81 @@
       updates6['/grafik/kandang6/perhitungan/kelembapan'] = parseFloat(vm.rerataHumidityL6);
       updates6['/grafik/kandang6/perhitungan/suhu'] = parseFloat(vm.rerataSuhuL6);
       updates6['/grafik/kandang6/perhitungan/feelslike'] = parseFloat(vm.rerataFeelsLikeL6);
-      updates6['/grafik/kandang6/perhitungan/hari'] = vm.dateLantai6;
       updates6['/grafik/kandang6/perhitungan/lastupdate'] = vm.updateDateL6;
       firebase.database().ref().update(updates6);
 
+      // Hitung Rata-Rata Non-Error Lantai 3 
+      if (countBeratL3 == 0) {
+        vm.rerataBeratL3 = 0;
+      } else {
+        vm.rerataBeratL3 = (totalBeratL3 / countBeratL3).toFixed(2);
+      }
+      
+      if (countAmmoniaL3 == 0) {
+        vm.rerataAmmoniaL3 = 0;
+      } else {
+        vm.rerataAmmoniaL3 = (totalAmmoniaL3 / countAmmoniaL3).toFixed(2);
+      }
+
+      if (countHumidityL3 == 0) {
+        vm.rerataHumidityL3 = 0;
+      } else {
+        vm.rerataHumidityL3 = (totalHumidityL3 / countHumidityL3).toFixed(2);
+      }
+
+      if (countSuhuL3 == 0) {
+        vm.rerataSuhuL3 = 0;
+      } else {
+        vm.rerataSuhuL3 = (totalSuhuL3 / countSuhuL3).toFixed(2);
+      }          
+             
+      vm.rerataFeelsLikeL3 = feelsLikeL3(vm.rerataHumidityL3, vm.rerataSuhuL3);
+
+      var updates3 = {};
+      updates3['/grafik/kandang3/perhitungan/berat'] = parseFloat(vm.rerataBeratL3);
+      updates3['/grafik/kandang3/perhitungan/NH3'] = parseFloat(vm.rerataAmmoniaL3);
+      updates3['/grafik/kandang3/perhitungan/kelembapan'] = parseFloat(vm.rerataHumidityL3);
+      updates3['/grafik/kandang3/perhitungan/suhu'] = parseFloat(vm.rerataSuhuL3);
+      updates3['/grafik/kandang3/perhitungan/feelslike'] = parseFloat(vm.rerataFeelsLikeL3);
+      updates3['/grafik/kandang3/perhitungan/lastupdate'] = vm.updateDateL3;
+      firebase.database().ref().update(updates3);
+
+      // Hitung Rata-Rata Non-Error Lantai 4 
+      if (countBeratL4 == 0) {
+        vm.rerataBeratL4 = 0;
+      } else {
+        vm.rerataBeratL4 = (totalBeratL4 / countBeratL4).toFixed(2);
+      }
+      
+      if (countAmmoniaL4 == 0) {
+        vm.rerataAmmoniaL4 = 0;
+      } else {
+        vm.rerataAmmoniaL4 = (totalAmmoniaL4 / countAmmoniaL4).toFixed(2);
+      }
+
+      if (countHumidityL4 == 0) {
+        vm.rerataHumidityL4 = 0;
+      } else {
+        vm.rerataHumidityL4 = (totalHumidityL4 / countHumidityL4).toFixed(2);
+      }
+
+      if (countSuhuL4 == 0) {
+        vm.rerataSuhuL4 = 0;
+      } else {
+        vm.rerataSuhuL4 = (totalSuhuL4 / countSuhuL4).toFixed(2);
+      }       
+             
+      vm.rerataFeelsLikeL4 = feelsLikeL4(vm.rerataHumidityL4, vm.rerataSuhuL4);
+
+      var updates4 = {};
+      updates4['/grafik/kandang4/perhitungan/berat'] = parseFloat(vm.rerataBeratL4);
+      updates4['/grafik/kandang4/perhitungan/NH3'] = parseFloat(vm.rerataAmmoniaL4);
+      updates4['/grafik/kandang4/perhitungan/kelembapan'] = parseFloat(vm.rerataHumidityL4);
+      updates4['/grafik/kandang4/perhitungan/suhu'] = parseFloat(vm.rerataSuhuL4);
+      updates4['/grafik/kandang4/perhitungan/feelslike'] = parseFloat(vm.rerataFeelsLikeL4);
+      updates4['/grafik/kandang4/perhitungan/lastupdate'] = vm.updateDateL4;
+      firebase.database().ref().update(updates4);
+      
     });
 
     function feelsLike (rerataHumidity, rerataSuhu) {
@@ -1468,7 +1464,6 @@
         if (mati == null) {
           mati = 0;
         }
-
         
         if (tanggal == vm.updateTemp) {
           rataBerat = parseFloat(childSnapshot.val().berat)/1000;
@@ -1481,8 +1476,6 @@
 
       //function hitung FCR
       var ayamHidup = vm.jumlahAyamL1 - ayamMati;
-
-      console.log(vm.jumlahAyamL1, ayamMati);
 
       vm.totalPakan = totalPakan/50;
       if (rataBerat == 0) {
