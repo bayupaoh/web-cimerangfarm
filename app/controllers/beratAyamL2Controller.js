@@ -31,7 +31,7 @@
         var sum = 0;
         var count = 0;
         childSnapshot.forEach(function (childSnapshot) {
-          var berat = childSnapshot.val().berat;
+          var berat = childSnapshot.val().berat * 3;
 
           if (berat > 0) {
             sum += berat;

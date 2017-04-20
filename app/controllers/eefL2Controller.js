@@ -14,12 +14,12 @@
       331, 333, 334, 337, 339, 341, 342, 343, 343, 343, 343, 343, 342, 341, 340, 339, 337
     ];
 
-    var refSetting = firebase.database().ref().child('setting');
+    var refSetting = firebase.database().ref('grafik/kandang2/setting');
     var refPakan = firebase.database().ref('grafik/kandang2/feedandmortality');
 
     refSetting.on("value", function (snapshot) {
-        vm.totalAyam = snapshot.val().jumlahAwalAyamLantai2;
-        vm.tglMulai = snapshot.val().tanggalMulaiLantai2;
+        vm.totalAyam = snapshot.val().jumlahAwalAyamLantai;
+        vm.tglMulai = snapshot.val().tanggalMulaiLantai;
 
     });
 
@@ -31,6 +31,9 @@
       var percentMortality  = 0;
       var rataBerat  = 0;
 
+      vm.fcr = 0;
+      vm.ip = 0;
+
       snapshot.forEach(function (childSnapshot) {
         var tgl = childSnapshot.key;
         var berat = childSnapshot.val().berat;
@@ -38,12 +41,12 @@
         var mati  = childSnapshot.val().ayamMati;
 
         var date = vm.tglMulai;
-        var dateL2 = tgl;
+        var dateL1 = tgl;
 
         var timestamp = new Date(date).getTime();
-        var timestampL2 = new Date(dateL2).getTime();
+        var timestampL1 = new Date(dateL1).getTime();
 
-        var diff = timestampL2 - timestamp;
+        var diff = timestampL1 - timestamp;
 
         var newDate = new Date(diff);
 
@@ -56,7 +59,7 @@
 
         if (berat != null) {
           tanggal.push(push);
-        }
+        } 
 
         if (pakan == null) {
           pakan = 0;
@@ -81,15 +84,21 @@
 
         // Hitung EEF
         percentMortality = (ayamMati / vm.totalAyam)*100;  
+        if (vm.date != 0 ) {
+          if (fcr == 0) {
+            var eef = 0
+          } else {
+            var eef = ((100 - percentMortality) * rataBerat * 100) / (fcr * vm.date);
+          }
 
-        if (fcr == 0) {
-          var eef = 0
-        } else {
-          var eef = ((100 - percentMortality) * rataBerat * 100) / (fcr * vm.date);
-        }        
+          console.log(eef, percentMortality, rataBerat, fcr, vm.date);
 
-        nilaiEef.push(eef.toFixed(2));
-      })
+          vm.ip = eef;
+          nilaiEef.push(eef.toFixed(2));
+        }     
+           
+      })      
+
     });
 
     vm.labels = tanggal;

@@ -26,7 +26,7 @@
         else if (input == 0)
           return 0.00 + ' gr';
         else {
-          input = parseFloat(input);
+          input = parseFloat(input) * 3;
           return input.toFixed(2) + ' gr';
         }
       }
@@ -279,7 +279,7 @@
 
             if (tanggal == ts) {
 
-              var berat    = parseFloat(childSnapshot.val().a);
+              var berat    = parseFloat(childSnapshot.val().a) * 3;
               var ammonia  = parseFloat(childSnapshot.val().b);
               var humidity = parseFloat(childSnapshot.val().c);
               var suhu     = parseFloat(childSnapshot.val().d);
@@ -355,7 +355,7 @@
 
             if (tanggal == tsL2) {
 
-              var beratL2    = parseFloat(childSnapshot.val().a);
+              var beratL2    = parseFloat(childSnapshot.val().a) * 3;
               var ammoniaL2  = parseFloat(childSnapshot.val().b);
               var humidityL2 = parseFloat(childSnapshot.val().c);
               var suhuL2     = parseFloat(childSnapshot.val().d);
@@ -431,7 +431,7 @@
 
             if (tanggal == tsL3) {
 
-              var beratL3    = parseFloat(childSnapshot.val().a);
+              var beratL3    = parseFloat(childSnapshot.val().a) * 3;
               var ammoniaL3  = parseFloat(childSnapshot.val().b);
               var humidityL3 = parseFloat(childSnapshot.val().c);
               var suhuL3     = parseFloat(childSnapshot.val().d);
@@ -507,7 +507,7 @@
 
             if (tanggal == tsL4) {
 
-              var beratL4    = parseFloat(childSnapshot.val().a);
+              var beratL4    = parseFloat(childSnapshot.val().a) * 3;
               var ammoniaL4  = parseFloat(childSnapshot.val().b);
               var humidityL4 = parseFloat(childSnapshot.val().c);
               var suhuL4     = parseFloat(childSnapshot.val().d);
@@ -1475,7 +1475,7 @@
       })
 
       //function hitung FCR
-      var ayamHidup = vm.jumlahAyamL1 - ayamMati;
+      var ayamHidup = 23336 - ayamMati;
 
       vm.totalPakan = totalPakan/50;
       if (rataBerat == 0) {
@@ -1487,12 +1487,12 @@
       vm.fcr  = fcr.toFixed(2);
 
       //function hitung IP
-      var percentMortality = (ayamMati / vm.jumlahAyamL1)*100;
+      var percentMortality = (ayamMati / 23336)*100;
 
       if (fcr == 0.00) {
         var ip = 0;
       } else {
-        var ip = ((100 - percentMortality) * rataBerat * 100) / (fcr * vm.dateLantai1);
+        var ip = ((100 - percentMortality) * rataBerat * 100) / (fcr * 32);
       }
       
       vm.ip = ip.toFixed(2);
@@ -1529,7 +1529,7 @@
         ayamMatiL2 += matiL2;
       })
 
-      var ayamHidupL2 = vm.jumlahAyamL2 - ayamMatiL2;
+      var ayamHidupL2 = 23327 - ayamMatiL2;
 
       vm.totalPakanL2 = totalPakanL2/50;
       if (rataBeratL2 == 0) {
@@ -1541,12 +1541,12 @@
       vm.fcrL2  = fcrL2.toFixed(2);
 
       //function hitung IP
-      var percentMortalityL2 = (ayamMatiL2 / vm.jumlahAyamL2)*100;
+      var percentMortalityL2 = (ayamMatiL2 / 23327)*100;
 
       if (fcrL2 == 0.00) {
         var ipL2 = 0;
       } else {
-        var ipL2 = ((100 - percentMortalityL2) * rataBeratL2 * 100) / (fcrL2 * vm.dateLantai2);
+        var ipL2 = ((100 - percentMortalityL2) * rataBeratL2 * 100) / (fcrL2 * 32);
       }
       
       vm.ipL2 = ipL2.toFixed(2);
@@ -1583,7 +1583,7 @@
         ayamMatiL3 += matiL3;
       })
 
-      var ayamHidupL3 = vm.jumlahAyamL3 - ayamMatiL3;
+      var ayamHidupL3 = 23398 - ayamMatiL3;
 
       vm.totalPakanL3 = totalPakanL3/50;
       if (rataBeratL3 == 0) {
@@ -1595,12 +1595,12 @@
       vm.fcrL3  = fcrL3.toFixed(2);
 
       //function hitung IP
-      var percentMortalityL3 = (ayamMatiL3 / vm.jumlahAyamL3)*100;
+      var percentMortalityL3 = (ayamMatiL3 / 23398)*100;
 
       if (fcrL3 == 0.00) {
         var ipL3 = 0;
       } else {
-        var ipL3 = ((100 - percentMortalityL3) * rataBeratL3 * 100) / (fcrL3 * vm.dateLantai3);
+        var ipL3 = ((100 - percentMortalityL3) * rataBeratL3 * 100) / (fcrL3 * 25);
       }
       
       vm.ipL3 = ipL3.toFixed(2);
@@ -1637,7 +1637,7 @@
         ayamMatiL4 += matiL4;
       })
 
-      var ayamHidupL4 = vm.jumlahAyamL4 - ayamMatiL4;
+      var ayamHidupL4 = 23442 - ayamMatiL4;
 
       vm.totalPakanL4 = totalPakanL4/50;
       if (rataBeratL4 == 0) {
@@ -1649,12 +1649,12 @@
       vm.fcrL4  = fcrL4.toFixed(2);
 
       //function hitung IP
-      var percentMortalityL4 = (ayamMatiL4 / vm.jumlahAyamL4)*100;
+      var percentMortalityL4 = (ayamMatiL4 / 23442)*100;
 
       if (fcrL4 == 0.00) {
         var ipL4 = 0;
       } else {
-        var ipL4 = ((100 - percentMortalityL4) * rataBeratL4 * 100) / (fcrL4 * vm.dateLantai4);
+        var ipL4 = ((100 - percentMortalityL4) * rataBeratL4 * 100) / (fcrL4 * 25);
       }
       
       vm.ipL4 = ipL4.toFixed(2);
@@ -1691,7 +1691,7 @@
         ayamMatiL5 += matiL5;
       })
 
-      var ayamHidupL5 = vm.jumlahAyamL5 - ayamMatiL5;
+      var ayamHidupL5 = 23360 - ayamMatiL5;
 
       vm.totalPakanL5 = totalPakanL5/50;
       if (rataBeratL5 == 0) {
@@ -1703,12 +1703,12 @@
       vm.fcrL5  = fcrL5.toFixed(2);
 
       //function hitung IP
-      var percentMortalityL5 = (ayamMatiL5 / vm.jumlahAyamL5)*100;
+      var percentMortalityL5 = (ayamMatiL5 / 23360)*100;
 
       if (fcrL5 == 0.00) {
         var ipL5 = 0;
       } else {
-        var ipL5 = ((100 - percentMortalityL5) * rataBeratL5 * 100) / (fcrL5 * vm.dateLantai5);
+        var ipL5 = ((100 - percentMortalityL5) * rataBeratL5 * 100) / (fcrL5 * 18);
       }
       
       vm.ipL5 = ipL5.toFixed(2);
@@ -1745,7 +1745,7 @@
         ayamMatiL6 += matiL6;
       })
 
-      var ayamHidupL6 = vm.jumlahAyamL6 - ayamMatiL6;
+      var ayamHidupL6 = 23385 - ayamMatiL6;
 
       vm.totalPakanL6 = totalPakanL6/50;
       if (rataBeratL6 == 0) {
@@ -1757,12 +1757,12 @@
       vm.fcrL6  = fcrL6.toFixed(2);
 
       //function hitung IP
-      var percentMortalityL6 = (ayamMatiL6 / vm.jumlahAyamL6)*100;
+      var percentMortalityL6 = (ayamMatiL6 / 23385)*100;
 
       if (fcrL6 == 0.00) {
         var ipL6 = 0;
       } else {
-        var ipL6 = ((100 - percentMortalityL6) * rataBeratL6 * 100) / (fcrL6 * vm.dateLantai6);
+        var ipL6 = ((100 - percentMortalityL6) * rataBeratL6 * 100) / (fcrL6 * 18);
       }
       
       vm.ipL6 = ipL6.toFixed(2);
@@ -1793,7 +1793,7 @@
     }
     
     // Fungsi Notifikasi Mulai Panen
-    if (vm.dateLantai1 == 32) {
+    if (vm.dateLantai1 == 31) {
       $mdToast.show(
         $mdToast.simple()
           .textContent('Hari ke-32, Mulai Panen')
@@ -1802,7 +1802,7 @@
       );  
     }
 
-    if (vm.dateLantai2 == 32) {
+    if (vm.dateLantai2 == 31) {
       $mdToast.show(
         $mdToast.simple()
           .textContent('Hari ke-32, Mulai Panen')
