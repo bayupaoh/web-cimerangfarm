@@ -59,11 +59,15 @@
       </md-grid-list>
                 
       <center>
-        <div style="margin:12px;">
-          <md-switch ng-model="vm.switch.sw1"><B>B1</B></md-switch>
-          <md-switch ng-model="vm.switch.sw2"><B>B2</B></md-switch>
+        <div style="margin:12px;"><B>Blower</B></div>
+      </center>
+
+      <div class="flex-blower">
+        <div ng-repeat="switch in vm.switch" class="base-blower">
+          <md-switch ng-model="switch.sw" ng-change="vm.showConfirm($event)"></md-switch>
+          <B style="margin-left: 18px">{{switch.name}}</B>
         </div>
-      </center>               
+      </div>             
     </div>
 
     <div layout="column" style="margin: 12px 0 12px 0;">                    

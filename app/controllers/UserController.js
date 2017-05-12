@@ -29,6 +29,8 @@
           });
         }
 
+        vm.errorMessage = '';
+
         vm.login = function() {
           var email = vm.user.email + '@gmail.com';
           var password = vm.user.password;
@@ -37,8 +39,14 @@
               console.log('Logged In' + vm.user.email);
               $state.go('menu.home');
             })
-            .catch(function(error) {
-              
+            .catch(function(err) {
+              var errorCode = err.code;
+              var errorMessage = err.message;
+              if (errorCode === 'auth/wrong-password') {
+                alert('Password salah. Silahkan isi kembali');
+              } else {
+                alert(errorMessage);
+              }
           });
         };
 

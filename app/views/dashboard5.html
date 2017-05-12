@@ -60,7 +60,14 @@
                 
       <center>
         <div style="margin:12px;"><B>Blower</B></div>
-      </center>               
+      </center>              
+
+      <div class="flex-blower">
+        <div ng-repeat="switch in vm.switch" class="base-blower">
+          <md-switch ng-model="switch.sw" ng-change="vm.showConfirm($event)"></md-switch>
+          <B style="margin-left: 18px">{{switch.name}}</B>
+        </div>
+      </div>  
     </div>
 
     <div layout="column" style="margin: 12px 0 12px 0;">                    

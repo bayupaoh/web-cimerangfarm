@@ -162,8 +162,8 @@
       
     }
 
-    $scope.tambahDataK2 = function () {
-      var tanggal = $scope.tanggal;
+    vm.tambahDataK2 = function () {
+      var tanggal = vm.tanggal;
 
       var dates = new Date(tanggal);
       var yyyy = dates.getFullYear();
@@ -180,14 +180,25 @@
 
       var tgl = yyyy + '-' + mm + '-' + dd;
 
-      var updates = {};
-      updates['grafik/kandang2/feedandmortality/' + tgl + '/ayamMati'] = $scope.data.ayamMati;
-      updates['grafik/kandang2/feedandmortality/' + tgl + '/pakan'] = $scope.data.pakan;
-      firebase.database().ref().update(updates);
+      var lantai = vm.lantaiKandang;
+
+      if (lantai == 'Lantai Bawah') {
+        var updates = {};
+        updates['grafik/kandang3/feedandmortality/' + tgl + '/ayamMati'] = vm.data.ayamMati;
+        updates['grafik/kandang3/feedandmortality/' + tgl + '/pakan'] = vm.data.pakan;
+        firebase.database().ref().update(updates);
+      } else {
+        var updates = {};
+        updates['grafik/kandang4/feedandmortality/' + tgl + '/ayamMati'] = vm.data.ayamMati;
+        updates['grafik/kandang4/feedandmortality/' + tgl + '/pakan'] = vm.data.pakan;
+        firebase.database().ref().update(updates);
+      }
+
+      
     }
 
-    $scope.tambahDataK3 = function () {
-      var tanggal = $scope.tanggal;
+    vm.tambahDataK3 = function () {
+      var tanggal = vm.tanggal;
 
       var dates = new Date(tanggal);
       var yyyy = dates.getFullYear();
@@ -204,10 +215,21 @@
 
       var tgl = yyyy + '-' + mm + '-' + dd;
 
-      var updates = {};
-      updates['grafik/kandang3/feedandmortality/' + tgl + '/ayamMati'] = $scope.data.ayamMati;
-      updates['grafik/kandang3/feedandmortality/' + tgl + '/pakan'] = $scope.data.pakan;
-      firebase.database().ref().update(updates);
+      var lantai = vm.lantaiKandang;
+
+      if (lantai == 'Lantai Bawah') {
+        var updates = {};
+        updates['grafik/kandang5/feedandmortality/' + tgl + '/ayamMati'] = vm.data.ayamMati;
+        updates['grafik/kandang5/feedandmortality/' + tgl + '/pakan'] = vm.data.pakan;
+        firebase.database().ref().update(updates);
+      } else {
+        var updates = {};
+        updates['grafik/kandang6/feedandmortality/' + tgl + '/ayamMati'] = vm.data.ayamMati;
+        updates['grafik/kandang6/feedandmortality/' + tgl + '/pakan'] = vm.data.pakan;
+        firebase.database().ref().update(updates);
+      }
+
+      
     }
 
     $scope.tambahDataK4 = function () {

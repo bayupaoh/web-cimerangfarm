@@ -72,7 +72,7 @@
       }
     }); 
 
-  function kandangController($firebaseArray, $mdToast) {
+  function kandangController($firebaseArray, $mdToast, $mdDialog) {
     var vm = this;
 
     // Database Reference
@@ -1838,16 +1838,32 @@
     vm.humidityColor = humidityColor;    
     vm.sensorColor = sensorColor;
 
-    vm.switch = {
-      sw1: true,
-      sw2: true,
-      sw3: true,
-      sw4: true,
-      sw5: true,
-      sw6: true,
-      sw7: true,
-      sw8: true,
-    };
+    vm.switch = [
+      {name: 'B1', sw: true},
+      {name: 'B2', sw: true},
+      {name: 'B3', sw: true},
+      {name: 'B4', sw: true},
+      {name: 'B5', sw: true},
+      {name: 'B6', sw: true},
+      {name: 'B7', sw: true},
+      {name: 'B8', sw: true}
+    ];
+
+    vm.showConfirm = function(ev) {
+    var confirm = $mdDialog.confirm()
+          .title('Sensor Blower')
+          .textContent('Ubah Kondisi Blower ?')
+          .ariaLabel('Lucky day')
+          .targetEvent(ev)
+          .ok('Ubah')
+          .cancel('Batal');
+
+    $mdDialog.show(confirm).then(function() {
+      vm.status = 'You decided to get rid of your debt.';
+    }, function() {
+      vm.status = 'You decided to keep your debt.';
+    });
+  };
 
     function setTanggal (tanggal) {
       var push, split;

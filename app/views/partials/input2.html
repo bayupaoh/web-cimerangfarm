@@ -2,7 +2,7 @@
   <div role="dialog" aria-label="Tambah Data" layout="column" layout-align="center center">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2 style="color: white;">Tambah Data Kandang 1 Lantai Atas</h2>
+        <h2 style="color: white;">Tambah Data Kandang 2</h2>
         <span flex></span>
         <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.closeDialog()">
           <md-icon md-svg-icon="assets/icons/close.svg"></md-icon>
@@ -18,7 +18,13 @@
           </div>
           <h4 style="font-weight:400;margin:36px;">Hari ke- : {{vm.dateKandang2}}</h4>
         </div>
-        <div layout="row">
+        <md-input-container flex>
+            <md-radio-group ng-model="vm.lantaiKandang">
+              <md-radio-button value="Lantai Bawah">Lantai Bawah</md-radio-button>
+              <md-radio-button value="Lantai Atas">Lantai Atas</md-radio-button>
+            </md-radio-group>
+          </md-input-container>
+        <div layout="row">          
           <md-input-container flex style="margin-top: 36px;">
             <label>Jumlah Ayam Mati (ekor)</label>
             <input ng-model="vm.data.ayamMati" ng-init="vm.data.ayamMati=0" type="number" name="ayamMati" min="0">
