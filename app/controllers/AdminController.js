@@ -8,12 +8,26 @@
     .controller('PanelDialogCtrl', PanelDialogCtrl);
 
   function adminController($firebaseArray, $mdDialog, $scope, $stateParams) {
-    var refGrafik  = firebase.database().ref('grafik');
-    var refKandang = firebase.database().ref('kandangmirror/g');
-    var refSetting = firebase.database().ref('setting');
+    var vm = this;
+
+    var refGrafik   = firebase.database().ref('grafik');
+    var refKandang1 = firebase.database().ref('grafik/kandang1/feedandmortality');
+    var refKandang2 = firebase.database().ref('grafik/kandang2/feedandmortality');
+    var refKandang3 = firebase.database().ref('grafik/kandang3/feedandmortality');
+    var refKandang4 = firebase.database().ref('grafik/kandang4/feedandmortality');
+    var refKandang5 = firebase.database().ref('grafik/kandang5/feedandmortality');
+    var refKandang6 = firebase.database().ref('grafik/kandang6/feedandmortality');
+    var refKandang  = firebase.database().ref('kandangmirror/g');
+    var refSetting  = firebase.database().ref('setting');
 
     $scope.grafik  = $firebaseArray(refGrafik);
     $scope.kandang = $firebaseArray(refKandang);
+    vm.data    = $firebaseArray(refKandang1);
+    vm.data2   = $firebaseArray(refKandang2);
+    vm.data3   = $firebaseArray(refKandang3);
+    vm.data4   = $firebaseArray(refKandang4);
+    vm.data5   = $firebaseArray(refKandang5);
+    vm.data6   = $firebaseArray(refKandang6);
     $scope.now     = now();
 
     refSetting.on("value", function (snapshot) {
@@ -45,49 +59,76 @@
     }
 
     $scope.tanggal = new Date();
+    vm .tanggal = new Date();
 
-    var dateK1 = $scope.setMulaiKandang1;
-    var dateK2 = $scope.setMulaiKandang2;
-    var dateK3 = $scope.setMulaiKandang3;
-    var dateK4 = $scope.setMulaiKandang4;
-    var dateK5 = $scope.setMulaiKandang5;
-    var dateK6 = $scope.setMulaiKandang6;
+    vm.change = function () {
+      var dateK1 = $scope.setMulaiKandang1;
+      var dateK2 = $scope.setMulaiKandang2;
+      var dateK3 = $scope.setMulaiKandang3;
+      var dateK4 = $scope.setMulaiKandang4;
+      var dateK5 = $scope.setMulaiKandang5;
+      var dateK6 = $scope.setMulaiKandang6;
 
-    var timestamp = new Date($scope.tanggal).getTime();
-    var timestampK1 = new Date(dateK1).getTime();
-    var timestampK2 = new Date(dateK2).getTime();
-    var timestampK3 = new Date(dateK3).getTime();
-    var timestampK4 = new Date(dateK4).getTime();
-    var timestampK5 = new Date(dateK5).getTime();
-    var timestampK6 = new Date(dateK6).getTime();
+      var timestamp = new Date($scope.tanggal).getTime();
+      var timestampK1 = new Date(dateK1).getTime();
+      var timestampK2 = new Date(dateK2).getTime();
+      var timestampK3 = new Date(dateK3).getTime();
+      var timestampK4 = new Date(dateK4).getTime();
+      var timestampK5 = new Date(dateK5).getTime();
+      var timestampK6 = new Date(dateK6).getTime();
 
-    var diffK1 = timestamp - timestampK1;
-    var diffK2 = timestamp - timestampK2;
-    var diffK3 = timestamp - timestampK3;
-    var diffK4 = timestamp - timestampK4;
-    var diffK5 = timestamp - timestampK5;
-    var diffK6 = timestamp - timestampK6;
+      var diffK1 = timestamp - timestampK1;
+      var diffK2 = timestamp - timestampK2;
+      var diffK3 = timestamp - timestampK3;
+      var diffK4 = timestamp - timestampK4;
+      var diffK5 = timestamp - timestampK5;
+      var diffK6 = timestamp - timestampK6;
 
-    var newDateK1 = new Date(diffK1);
-    var newDateK2 = new Date(diffK2);
-    var newDateK3 = new Date(diffK3);
-    var newDateK4 = new Date(diffK4);
-    var newDateK5 = new Date(diffK5);
-    var newDateK6 = new Date(diffK6);
+      var newDateK1 = new Date(diffK1);
+      var newDateK2 = new Date(diffK2);
+      var newDateK3 = new Date(diffK3);
+      var newDateK4 = new Date(diffK4);
+      var newDateK5 = new Date(diffK5);
+      var newDateK6 = new Date(diffK6);
 
-    $scope.dateKandang1 = newDateK1.getDate() - 1;
-    $scope.dateKandang2 = newDateK2.getDate() - 1;
-    $scope.dateKandang3 = newDateK3.getDate() - 1;
-    $scope.dateKandang4 = newDateK4.getDate() - 1;
-    $scope.dateKandang5 = newDateK5.getDate() - 1;
-    $scope.dateKandang6 = newDateK6.getDate() - 1;
+      $scope.dateKandang1 = newDateK1.getDate() - 1;
+      $scope.dateKandang2 = newDateK2.getDate() - 1;
+      $scope.dateKandang3 = newDateK3.getDate() - 1;
+      $scope.dateKandang4 = newDateK4.getDate() - 1;
+      $scope.dateKandang5 = newDateK5.getDate() - 1;
+      $scope.dateKandang6 = newDateK6.getDate() - 1;
 
-    $scope.onTabChanges = function (key) {
-      $scope.kandang = key;
+      vm.dateKandang1 = $scope.dateKandang1;
+      vm.dateKandang2 = $scope.dateKandang2;
+      vm.dateKandang3 = $scope.dateKandang3;
+      vm.dateKandang4 = $scope.dateKandang4;
+      vm.dateKandang5 = $scope.dateKandang5;
+      vm.dateKandang6 = $scope.dateKandang6;
     }
 
-    $scope.tambahDataK1 = function () {
-      var tanggal = $scope.tanggal;
+    vm.onTabChanges = function (key) {
+      vm.lantai = key;
+    }
+
+    vm.setTanggal = setTanggal;
+    
+    function setTanggal (tanggal) {
+      var push, split;
+
+      if (tanggal != null) {
+        split = tanggal.split('-');
+        tanggal = split[2] + '-' + split[1] + '-' + split[0];
+      } else {
+        tanggal  = null;
+      }      
+
+      return tanggal;
+    }
+
+    vm.lantaiKandang = 'Lantai Bawah';
+
+    vm.tambahDataK1 = function () {
+      var tanggal = vm.tanggal;
 
       var dates = new Date(tanggal);
       var yyyy = dates.getFullYear();
@@ -104,10 +145,21 @@
 
       var tgl = yyyy + '-' + mm + '-' + dd;
 
-      var updates = {};
-      updates['grafik/kandang1/feedandmortality/' + tgl + '/ayamMati'] = $scope.data.ayamMati;
-      updates['grafik/kandang1/feedandmortality/' + tgl + '/pakan'] = $scope.data.pakan;
-      firebase.database().ref().update(updates);
+      var lantai = vm.lantaiKandang;
+
+      if (lantai == 'Lantai Bawah') {
+        var updates = {};
+        updates['grafik/kandang1/feedandmortality/' + tgl + '/ayamMati'] = vm.data.ayamMati;
+        updates['grafik/kandang1/feedandmortality/' + tgl + '/pakan'] = vm.data.pakan;
+        firebase.database().ref().update(updates);
+      } else {
+        var updates = {};
+        updates['grafik/kandang2/feedandmortality/' + tgl + '/ayamMati'] = vm.data.ayamMati;
+        updates['grafik/kandang2/feedandmortality/' + tgl + '/pakan'] = vm.data.pakan;
+        firebase.database().ref().update(updates);
+      }
+
+      
     }
 
     $scope.tambahDataK2 = function () {

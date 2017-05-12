@@ -9,6 +9,9 @@
             <table id="table" class="table table-hover table-bordered" md-theme="default">
               <thead>
                 <tr>
+                  <th colspan="3">Lantai Bawah</th>
+                </tr>
+                <tr>
                   <th>Tanggal</th>
                   <th>Jumlah Ayam Mati (ekor)</th>
                   <th>Pakan Harian (karung)</th>
@@ -22,17 +25,17 @@
                     </div>
                   </td>
                   <td data-title="Ayam Mati">{{data.ayamMati}}</td>
-                  <td data-title="Pakan Harian">{{data.pakan}}</td>          
+                  <td data-title="Pakan Harian">{{data.pakan}}</td>        
                 </tr>
               </tbody>
             </table>
-          </div>       
-      </md-tab>
-
-      <md-tab label="Kandang 2" md-on-select="vm.onTabChanges(2)">
+          </div>
           <div class="table-responsive-vertical md-whiteframe-z1">
             <table id="table" class="table table-hover table-bordered" md-theme="default">
               <thead>
+                <tr>
+                  <th colspan="3">Lantai Atas</th>
+                </tr>
                 <tr>
                   <th>Tanggal</th>
                   <th>Jumlah Ayam Mati (ekor)</th>
@@ -47,7 +50,60 @@
                     </div>
                   </td>
                   <td data-title="Ayam Mati">{{data2.ayamMati}}</td>
-                  <td data-title="Pakan Harian">{{data2.pakan}}</td>          
+                  <td data-title="Pakan Harian">{{data2.pakan}}</td>        
+                </tr>
+              </tbody>
+            </table>
+          </div>       
+      </md-tab>
+
+      <md-tab label="Kandang 2" md-on-select="vm.onTabChanges(2)">
+          <div class="table-responsive-vertical md-whiteframe-z1">
+            <table id="table" class="table table-hover table-bordered" md-theme="default">
+              <thead>
+                <tr>
+                  <th colspan="3">Lantai Bawah</th>
+                </tr>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Jumlah Ayam Mati (ekor)</th>
+                  <th>Pakan Harian (karung)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="data3 in vm.data3">
+                  <td data-title="Tanggal">
+                    <div ng-init="tanggal = vm.setTanggal(data3.$id)">
+                      {{tanggal}}                              
+                    </div>
+                  </td>
+                  <td data-title="Ayam Mati">{{data3.ayamMati}}</td>
+                  <td data-title="Pakan Harian">{{data3.pakan}}</td>          
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-responsive-vertical md-whiteframe-z1">
+            <table id="table" class="table table-hover table-bordered" md-theme="default">
+              <thead>
+                <tr>
+                  <th colspan="3">Lantai Atas</th>
+                </tr>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Jumlah Ayam Mati (ekor)</th>
+                  <th>Pakan Harian (karung)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="data4 in vm.data4">
+                  <td data-title="Tanggal">
+                    <div ng-init="tanggal = vm.setTanggal(data4.$id)">
+                      {{tanggal}}                              
+                    </div>
+                  </td>
+                  <td data-title="Ayam Mati">{{data4.ayamMati}}</td>
+                  <td data-title="Pakan Harian">{{data4.pakan}}</td>          
                 </tr>
               </tbody>
             </table>
@@ -59,37 +115,65 @@
             <table id="table" class="table table-hover table-bordered" md-theme="default">
               <thead>
                 <tr>
+                  <th colspan="3">Lantai Bawah</th>
+                </tr>
+                <tr>
                   <th>Tanggal</th>
                   <th>Jumlah Ayam Mati (ekor)</th>
                   <th>Pakan Harian (karung)</th>
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="data3 in vm.data3">
+                <tr ng-repeat="data5 in vm.data5">
                   <td data-title="Tanggal">
-                    <div ng-init="tanggal = vm.setTanggal(data2.$id)">
+                    <div ng-init="tanggal = vm.setTanggal(data5.$id)">
                       {{tanggal}}                              
                     </div>
                   </td>
-                  <td data-title="Ayam Mati">{{data2.ayamMati}}</td>
-                  <td data-title="Pakan Harian">{{data2.pakan}}</td>          
+                  <td data-title="Ayam Mati">{{data5.ayamMati}}</td>
+                  <td data-title="Pakan Harian">{{data5.pakan}}</td>          
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-responsive-vertical md-whiteframe-z1">
+            <table id="table" class="table table-hover table-bordered" md-theme="default">
+              <thead>
+                <tr>
+                  <th colspan="3">Lantai Atas</th>
+                </tr>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Jumlah Ayam Mati (ekor)</th>
+                  <th>Pakan Harian (karung)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="data6 in vm.data6">
+                  <td data-title="Tanggal">
+                    <div ng-init="tanggal = vm.setTanggal(data6.$id)">
+                      {{tanggal}}                              
+                    </div>
+                  </td>
+                  <td data-title="Ayam Mati">{{data6.ayamMati}}</td>
+                  <td data-title="Pakan Harian">{{data6.pakan}}</td>          
                 </tr>
               </tbody>
             </table>
           </div>
       </md-tab>       
     </md-tabs>
-    <div ng-show="vm.kandang == 1">
+    <div ng-show="vm.lantai == 1">
       <md-button class="md-fab" aria-label="Tambah" ng-click="ctrl.showDialogInput1($event)" md-theme="default">
         <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
       </md-button>
     </div>
-    <div ng-show="vm.kandang == 2">
+    <div ng-show="vm.lantai == 2">
       <md-button class="md-fab" aria-label="Tambah" ng-click="ctrl.showDialogInput2($event)" md-theme="default">
         <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
       </md-button>
     </div>
-    <div ng-show="vm.kandang == 3">
+    <div ng-show="vm.lantai == 3">
       <md-button class="md-fab" aria-label="Tambah" ng-click="ctrl.showDialogInput3($event)" md-theme="default">
         <md-icon md-svg-src="assets/icons/add.svg"></md-icon>
       </md-button>

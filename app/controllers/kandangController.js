@@ -1838,6 +1838,17 @@
     vm.humidityColor = humidityColor;    
     vm.sensorColor = sensorColor;
 
+    vm.switch = {
+      sw1: true,
+      sw2: true,
+      sw3: true,
+      sw4: true,
+      sw5: true,
+      sw6: true,
+      sw7: true,
+      sw8: true,
+    };
+
     function setTanggal (tanggal) {
       var push, split;
 
