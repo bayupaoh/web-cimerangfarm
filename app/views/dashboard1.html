@@ -40,7 +40,7 @@
 
         <div class="flex-sensor">
           <div class="flex-sensor base" 
-               ng-repeat="si in vm.sensor | filter: { tipe: 'si', lantai: 1 } | orderBy:'urutan'" >
+               ng-repeat="si in vm.sensor | filter: vm.sensorK11" >
             <div ng-class="vm.sensorColor(si.a)">
               <h4>{{si.$id}}</h4>
             </div>
@@ -49,7 +49,7 @@
 
         <div class="flex-angin">
           <div class="flex-angin base-angin" 
-               ng-repeat="sa in vm.sensor | filter: { tipe: 'sa', lantai: 1 } | orderBy:'urutan'" >
+               ng-repeat="sa in vm.sensor | filter: { $id: 'W1' }" >
             <div class="sensor-angin-red">
               <h4>{{sa.$id}}</h4>
             </div>
@@ -63,9 +63,14 @@
       </center>
 
       <div class="flex-blower">
-        <div ng-repeat="switch in vm.switch" class="base-blower">
-          <md-switch ng-model="switch.sw" ng-change="vm.showConfirm($event)"></md-switch>
-          <B style="margin-left: 18px">{{switch.name}}</B>
+        <div ng-repeat="blower in vm.blower | filter: { idKandang: 1 }" class="base-blower">
+          <md-switch ng-model="blower.ct"
+                     ng-true-value="1"
+                     ng-false-value="0"
+                     aria-label="Blower"
+                     ng-click="vm.showConfirm($event, blower.$id, blower.ct)">
+          </md-switch>
+          <B style="margin-left: 18px">{{blower.st}}</B>
         </div>
       </div>             
     </div>

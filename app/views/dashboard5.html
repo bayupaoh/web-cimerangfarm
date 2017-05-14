@@ -40,7 +40,7 @@
 
         <div class="flex-sensor">
           <div class="flex-sensor base" 
-               ng-repeat="si in vm.sensor | filter: { tipe: 'si', lantai: 1 } | orderBy:'urutan'" >
+               ng-repeat="si in vm.sensor | filter: vm.sensorK31" >
             <div ng-class="vm.sensorColor(si.a)">
               <h4>{{si.$id}}</h4>
             </div>
@@ -49,7 +49,7 @@
 
         <div class="flex-angin">
           <div class="flex-angin base-angin" 
-               ng-repeat="sa in vm.sensor | filter: { tipe: 'sa', lantai: 1 } | orderBy:'urutan'" >
+               ng-repeat="sa in vm.sensor | filter: { $id: 'W5' }" >
             <div class="sensor-angin-red">
               <h4>{{sa.$id}}</h4>
             </div>

@@ -78,6 +78,7 @@
     // Database Reference
     var refGrid    = firebase.database().ref('kandangmirror/g');
     var refSensor  = firebase.database().ref('kandangmirror/s');
+    var refBlower  = firebase.database().ref('kandangmirror/fan');
     var refKandang = firebase.database().ref('grafik');
     var refPakan   = firebase.database().ref('grafik/kandang1/feedandmortality');
     var refPakanL2 = firebase.database().ref('grafik/kandang2/feedandmortality');
@@ -91,7 +92,8 @@
     // Read Data
     vm.grid    = $firebaseArray(refGrid);    
     vm.sensor  = $firebaseArray(refSensor);
-    vm.kandang  = $firebaseArray(refKandang);
+    vm.kandang = $firebaseArray(refKandang);
+    vm.blower  = $firebaseArray(refBlower);
 
     refKandang.on("value", function refKandang (snapshot) {
      
@@ -1837,33 +1839,92 @@
     vm.temperatureColor = temperatureColor;
     vm.humidityColor = humidityColor;    
     vm.sensorColor = sensorColor;
+    
+    vm.showConfirm = function(ev, key, value) {
 
-    vm.switch = [
-      {name: 'B1', sw: true},
-      {name: 'B2', sw: true},
-      {name: 'B3', sw: true},
-      {name: 'B4', sw: true},
-      {name: 'B5', sw: true},
-      {name: 'B6', sw: true},
-      {name: 'B7', sw: true},
-      {name: 'B8', sw: true}
-    ];
+      console.log(key, value);
 
-    vm.showConfirm = function(ev) {
-    var confirm = $mdDialog.confirm()
-          .title('Sensor Blower')
-          .textContent('Ubah Kondisi Blower ?')
-          .ariaLabel('Lucky day')
+      if (value == 0) {
+
+        //Nyalakan Sensor
+        var confirm = $mdDialog.confirm({
+              onComplete: function afterShowAnimation() {
+                  var $dialog = angular.element(document.querySelector('md-dialog'));
+                  var $actionsSection = $dialog.find('md-dialog-actions');
+                  var $cancelButton = $actionsSection.children()[0];
+                  var $confirmButton = $actionsSection.children()[1];
+                  angular.element($confirmButton).addClass('md-warn');
+                  angular.element($cancelButton).addClass('md-warn');
+              }
+          })
+          .title('Nyalakan Blower?')
+          .textContent('Sensor blower akan menyala setelah 10 menit.')
+          .ariaLabel('Nyalakan Blower')
           .targetEvent(ev)
-          .ok('Ubah')
+          .ok('Nyalakan')
           .cancel('Batal');
 
-    $mdDialog.show(confirm).then(function() {
-      vm.status = 'You decided to get rid of your debt.';
-    }, function() {
-      vm.status = 'You decided to keep your debt.';
-    });
-  };
+        $mdDialog.show(confirm).then(function() {
+          var updates = {};
+          updates['/kandangmirror/fan/' + key + '/ct'] = 1;
+          firebase.database().ref().update(updates);
+        }, function() {
+          vm.blower.ct = 0;
+        });
+
+      } else {
+
+        //Matikan Sensor
+        var confirm = $mdDialog.confirm({
+              onComplete: function afterShowAnimation() {
+                  var $dialog = angular.element(document.querySelector('md-dialog'));
+                  var $actionsSection = $dialog.find('md-dialog-actions');
+                  var $cancelButton = $actionsSection.children()[0];
+                  var $confirmButton = $actionsSection.children()[1];
+                  angular.element($confirmButton).addClass('md-warn');
+                  angular.element($cancelButton).addClass('md-warn');
+              }
+          })
+          .title('Matikan Blower?')
+          .ariaLabel('Matikan Blower')
+          .targetEvent(ev)
+          .ok('Matikan')
+          .cancel('Batal');
+
+        $mdDialog.show(confirm).then(function() {
+          var updates = {};
+          updates['/kandangmirror/fan/' + key + '/ct'] = 0;
+          firebase.database().ref().update(updates);
+        }, function() {
+         
+        });
+      }
+
+    };
+
+    vm.sensorK11 = function(value) {
+      return value.$id == 'S1' || value.$id == 'S2';  
+    }
+
+    vm.sensorK12 = function(value) {
+      return value.$id == 'S3' || value.$id == 'S4';  
+    }
+
+    vm.sensorK21 = function(value) {
+      return value.$id == 'S5' || value.$id == 'S6';  
+    }
+
+    vm.sensorK22 = function(value) {
+      return value.$id == 'S7' || value.$id == 'S8';  
+    }
+
+    vm.sensorK31 = function(value) {
+      return value.$id == 'S9' || value.$id == 'S10';  
+    }
+
+    vm.sensorK33 = function(value) {
+      return value.$id == 'S11' || value.$id == 'S12';  
+    }
 
     function setTanggal (tanggal) {
       var push, split;
