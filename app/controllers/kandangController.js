@@ -1839,65 +1839,71 @@
     vm.temperatureColor = temperatureColor;
     vm.humidityColor = humidityColor;    
     vm.sensorColor = sensorColor;
-    
-    vm.showConfirm = function(ev, key, value) {
 
-      console.log(key, value);
+    //Blower
+
+    var refBlowers = firebase.database().ref('kandang/fan');
+
+    refBlowers.on('value', function (snapshot) {
+      snapshot.forEach(function (childSnapshot) {
+        var key = childSnapshot.key;
+        var status = childSnapshot.val().st;
+        var control = childSnapshot.val().ct;
+
+        if (status == 0) {
+          var updates = {};
+          updates['/kandang/fan/' + key + '/ct'] = 0;
+          updates['/kandangmirror/fan/' + key + '/ct'] = 0;
+          updates['/kandangmirror/fan/' + key + '/st'] = status;
+          firebase.database().ref().update(updates);
+        } else {
+          var updates = {};
+          updates['/kandangmirror/fan/' + key + '/ct'] = control;
+          updates['/kandangmirror/fan/' + key + '/st'] = status;
+          firebase.database().ref().update(updates);
+        }
+
+      });
+    });
+ 
+    vm.showConfirm = function(ev, key, value) {
 
       if (value == 0) {
 
         //Nyalakan Sensor
-        var confirm = $mdDialog.confirm({
-              onComplete: function afterShowAnimation() {
-                  var $dialog = angular.element(document.querySelector('md-dialog'));
-                  var $actionsSection = $dialog.find('md-dialog-actions');
-                  var $cancelButton = $actionsSection.children()[0];
-                  var $confirmButton = $actionsSection.children()[1];
-                  angular.element($confirmButton).addClass('md-warn');
-                  angular.element($cancelButton).addClass('md-warn');
-              }
-          })
-          .title('Nyalakan Blower?')
-          .textContent('Sensor blower akan menyala setelah 10 menit.')
-          .ariaLabel('Nyalakan Blower')
-          .targetEvent(ev)
-          .ok('Nyalakan')
-          .cancel('Batal');
-
-        $mdDialog.show(confirm).then(function() {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Sensor Blower')
+            .textContent('Blower akan menyala setelah 10 menit.')
+            .ariaLabel('Blower Nyala')
+            .ok('OK')
+            .targetEvent(ev)
+        ).then(function () {
           var updates = {};
-          updates['/kandangmirror/fan/' + key + '/ct'] = 1;
+          updates['/kandang/fan/' + key + '/ct'] = 1;
           firebase.database().ref().update(updates);
-        }, function() {
-          vm.blower.ct = 0;
-        });
+        });        
 
       } else {
 
         //Matikan Sensor
-        var confirm = $mdDialog.confirm({
-              onComplete: function afterShowAnimation() {
-                  var $dialog = angular.element(document.querySelector('md-dialog'));
-                  var $actionsSection = $dialog.find('md-dialog-actions');
-                  var $cancelButton = $actionsSection.children()[0];
-                  var $confirmButton = $actionsSection.children()[1];
-                  angular.element($confirmButton).addClass('md-warn');
-                  angular.element($cancelButton).addClass('md-warn');
-              }
-          })
-          .title('Matikan Blower?')
-          .ariaLabel('Matikan Blower')
-          .targetEvent(ev)
-          .ok('Matikan')
-          .cancel('Batal');
-
-        $mdDialog.show(confirm).then(function() {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Sensor Blower')
+            .textContent('Blower telah dimatikan.')
+            .ariaLabel('Blower Mati')
+            .ok('OK')
+            .targetEvent(ev)
+        ).then(function () {
           var updates = {};
-          updates['/kandangmirror/fan/' + key + '/ct'] = 0;
+          updates['/kandang/fan/' + key + '/ct'] = 0;
           firebase.database().ref().update(updates);
-        }, function() {
-         
         });
+
       }
 
     };
@@ -1925,6 +1931,74 @@
     vm.sensorK33 = function(value) {
       return value.$id == 'S11' || value.$id == 'S12';  
     }
+
+
+    //Rata-rata baru di bulatan hijau
+    var ref_rataSensor = firebase.database().ref('kandangmirror/rata_sensor');
+
+    ref_rataSensor.on('value', function(snapshot){
+      snapshot.forEach(function (childSnapshot) {
+        if (childSnapshot.key == 'kandang1') {
+          vm.rataSuhuK11 = childSnapshot.val().a.toFixed(2);
+          vm.rataKelembabanK11 = childSnapshot.val().b.toFixed(2);
+        } else 
+        
+        if (childSnapshot.key == 'kandang2') {
+          vm.rataSuhuK12 = childSnapshot.val().a.toFixed(2);
+          vm.rataKelembabanK12 = childSnapshot.val().b.toFixed(2);
+        } else
+
+        if (childSnapshot.key == 'kandang3') {
+          vm.rataSuhuK21 = childSnapshot.val().a.toFixed(2);
+          vm.rataKelembabanK21 = childSnapshot.val().b.toFixed(2);
+        } else
+
+        if (childSnapshot.key == 'kandang4') {
+          vm.rataSuhuK22 = childSnapshot.val().a.toFixed(2);
+          vm.rataKelembabanK22 = childSnapshot.val().b.toFixed(2);
+        } else
+
+        if (childSnapshot.key == 'kandang5') {
+          vm.rataSuhuK31 = childSnapshot.val().a.toFixed(2);
+          vm.rataKelembabanK31 = childSnapshot.val().b.toFixed(2);
+        } else 
+        
+        if (childSnapshot.key == 'kandang6') {
+          vm.rataSuhuK32 = childSnapshot.val().a.toFixed(2);
+          vm.rataKelembabanK32 = childSnapshot.val().b.toFixed(2);
+        }
+      });
+    });
+
+    var ref_feelsLike = firebase.database().ref('kandangmirror/feelslike');
+
+    ref_feelsLike.on('value', function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        if (childSnapshot.key == 'kandang1') {
+          vm.rataFeelsLikeK11 = childSnapshot.val();
+        } else 
+        
+        if (childSnapshot.key == 'kandang2') {
+          vm.rataFeelsLikeK12 = childSnapshot.val();
+        } else
+
+        if (childSnapshot.key == 'kandang3') {
+          vm.rataFeelsLikeK21 = childSnapshot.val();
+        } else
+
+        if (childSnapshot.key == 'kandang4') {
+          vm.rataFeelsLikeK22 = childSnapshot.val();
+        } else
+
+        if (childSnapshot.key == 'kandang5') {
+          vm.rataFeelsLikeK31 = childSnapshot.val();
+        } else 
+        
+        if (childSnapshot.key == 'kandang6') {
+          vm.rataFeelsLikeK32 = childSnapshot.val();
+        }
+      });
+    });
 
     function setTanggal (tanggal) {
       var push, split;

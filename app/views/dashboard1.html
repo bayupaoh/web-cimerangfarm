@@ -68,17 +68,19 @@
                      ng-true-value="1"
                      ng-false-value="0"
                      aria-label="Blower"
-                     ng-click="vm.showConfirm($event, blower.$id, blower.ct)">
+                     ng-click="vm.showConfirm($event, blower.$id, blower.ct); $event.stopPropagation();">
           </md-switch>
-          <B style="margin-left: 18px">{{blower.st}}</B>
+          <B style="margin-left: 18px">{{blower.idBlower}}</B>
+          <B style="margin-left: 18px; margin-top: 18px; color: green;" ng-if="blower.st == 1">ON</B>
+          <B style="margin-left: 18px; margin-top: 18px;" ng-if="blower.st == 0">OFF</B>
         </div>
       </div>             
     </div>
 
-    <div layout="column" style="margin: 12px 0 12px 0;">                    
-      <div layout="row">
+    <div layout="column" style="margin: 24px 0 12px 0;">                 
+      <div layout="column">
         <table id="table" class="table table-hover table-bordered" 
-               style="border: 1px solid #ddd; width: 48%;">
+               style="border: 1px solid #ddd; width: 100%;">
           <thead>
             <tr>
               <th colspan="4">
@@ -95,7 +97,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="si in vm.sensor | filter: { tipe: 'si', lantai: 1 }">
+            <tr ng-repeat="si in vm.sensor | filter: { tipe: 'si', id_kandang: 1 }">
               <td data-title="No. Sensor">{{si.$id}}</td>
               <td data-title="Suhu">{{si.a | filterSuhu}}</td>
               <td data-title="Kelembaban">{{si.b | filterHumidity}}</td>
@@ -108,40 +110,9 @@
           </tbody>
         </table>
 
-        <div style="width: 4%;"></div>
-
-        <div layout="column" style="width: 48%";>
-          <table id="table" class="table table-hover table-bordered" 
-                 style="border: 1px solid #ddd; margin-bottom:0; padding-bottom:0;">
-            <thead>
-              <tr>
-                <th colspan="3">
-                  <center>  
-                    <b>Sensor Outdoor</b>
-                  </center>
-                </th>
-              </tr>
-              <tr>
-                <th>Suhu Luar</th>
-                <th>Kelembaban</th>
-                <th>Last Update</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="so in vm.sensor | filter: { $id: 'S13'  }">
-                <td>{{so.a | filterSuhu}}</td>
-                <td>{{so.b | filterHumidity}}</td>
-                <td>
-                  <div ng-init="tanggal = vm.setTanggal(so.tanggal)">
-                    {{tanggal}} {{so.waktu}}                              
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>                      
-
-          <table id="table" class="table table-hover table-bordered" 
-                 style="border: 1px solid #ddd; margin-top:0; padding-top:0;">
+        <div layout="row">
+        <table id="table" class="table table-hover table-bordered" 
+                 style="border: 1px solid #ddd; margin-top:0; padding-top:0; width:48%">
             <thead>
               <tr>
                 <th colspan="3">
@@ -157,7 +128,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="sa in vm.sensor | filter: { tipe: 'sa', lantai: 1 }">
+              <tr ng-repeat="sa in vm.sensor | filter: { $id: 'W1' }">
                 <td data-title="No. Sensor">{{sa.$id}}</td>
                 <td data-title="Kecepatan">{{sa.a | filterAngin}}</td>
                 <td data-title="Update">
@@ -168,6 +139,37 @@
               </tr>
             </tbody>
           </table>
+
+          <div style="width: 4%;"></div>
+
+          <table id="table" class="table table-hover table-bordered" 
+                 style="border: 1px solid #ddd; margin-bottom:0; padding-bottom:0;width:48%">
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <center>  
+                    <b>Sensor Outdoor</b>
+                  </center>
+                </th>
+              </tr>
+              <tr>
+                <th>Suhu Luar</th>
+                <th>Kelembaban</th>
+                <th> Last Update</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="so in vm.sensor | filter: { $id: 'S13'  }">
+                <td>{{so.a | filterSuhu}}</td>
+                <td>{{so.b | filterHumidity}}</td>
+                <td>
+                  <div ng-init="tanggal = vm.setTanggal(so.tanggal)">
+                    {{tanggal}} {{so.waktu}}                              
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>                      
         </div>
       </div>
     </div>

@@ -367,6 +367,8 @@ md-grid-tile md-icon {
   align-items: center;
 }
 
+
+
 .flex-angin {
   display: flex;
 
@@ -488,6 +490,30 @@ md-grid-tile md-icon {
   font-size: 14px;
 }
 
+@media all and (max-width: 1359px) {
+  .flex-blower {
+    display: flex;
+
+    margin: 0px 8px 12px 8px;
+
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+
+    border: 1px solid #dddddd;
+  }
+
+  .flex-blower .base-blower {
+    display:flex; 
+
+    margin : 0px 26px 12px 26px;
+
+    flex-direction: column; 
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
 @media all and (max-width: 768px) {
   .home-baloon {
     width: 200px;
@@ -560,7 +586,6 @@ md-grid-tile md-icon {
   font-size: 32px;
   font-weight: bold;
 }
-
 
 .input-section {
   width: 60%;

@@ -63,17 +63,24 @@
       </center>      
 
       <div class="flex-blower">
-        <div ng-repeat="switch in vm.switch" class="base-blower">
-          <md-switch ng-model="switch.sw" ng-change="vm.showConfirm($event)"></md-switch>
-          <B style="margin-left: 18px">{{switch.name}}</B>
+        <div ng-repeat="blower in vm.blower | filter: { idKandang: 2 }" class="base-blower">
+          <md-switch ng-model="blower.ct"
+                     ng-true-value="1"
+                     ng-false-value="0"
+                     aria-label="Blower"
+                     ng-click="vm.showConfirm($event, blower.$id, blower.ct)">
+          </md-switch>
+          <B style="margin-left: 18px">{{blower.idBlower}}</B>
+          <B style="margin-left: 18px; margin-top: 18px; color: green;" ng-if="blower.st == 1">ON</B>
+          <B style="margin-left: 18px; margin-top: 18px;" ng-if="blower.st == 0">OFF</B>
         </div>
       </div>          
     </div>
 
-    <div layout="column" style="margin: 12px 0 12px 0;">                    
-      <div layout="row">
+    <div layout="column" style="margin: 24px 0 12px 0;">                    
+      <div layout="column">
         <table id="table" class="table table-hover table-bordered" 
-               style="border: 1px solid #ddd; width: 48%;">
+               style="border: 1px solid #ddd; width: 100%;">
           <thead>
             <tr>
               <th colspan="4">
@@ -90,7 +97,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="si in vm.sensor | filter: { tipe: 'si', lantai: 1 }">
+            <tr ng-repeat="si in vm.sensor | filter: { tipe: 'si', id_kandang: 2 }">
               <td data-title="No. Sensor">{{si.$id}}</td>
               <td data-title="Suhu">{{si.a | filterSuhu}}</td>
               <td data-title="Kelembaban">{{si.b | filterHumidity}}</td>
@@ -103,11 +110,40 @@
           </tbody>
         </table>
 
-        <div style="width: 4%;"></div>
-
-        <div layout="column" style="width: 48%";>
+        <div layout="row">
           <table id="table" class="table table-hover table-bordered" 
-                 style="border: 1px solid #ddd; margin-bottom:0; padding-bottom:0;">
+                 style="border: 1px solid #ddd; margin-top:0; padding-top:0; width:48%;">
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <center>  
+                    <b>Sensor Angin</b>
+                  </center>
+                </th>
+              </tr>
+              <tr>
+                <th>No. Sensor</th>
+                <th>Kecepatan</th>
+                <th>Last Update</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="sa in vm.sensor | filter: { $id: 'W2' }">
+                <td data-title="No. Sensor">{{sa.$id}}</td>
+                <td data-title="Kecepatan">{{sa.a | filterAngin}}</td>
+                <td data-title="Update">
+                  <div ng-init="tanggal = vm.setTanggal(sa.tanggal)">
+                    {{tanggal}} {{sa.waktu}}                              
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="width: 4%;"></div>                      
+
+          <table id="table" class="table table-hover table-bordered" 
+                 style="border: 1px solid #ddd; margin-bottom:0; padding-bottom:0; width:48%;">
             <thead>
               <tr>
                 <th colspan="3">
@@ -133,36 +169,8 @@
                 </td>
               </tr>
             </tbody>
-          </table>                      
-
-          <table id="table" class="table table-hover table-bordered" 
-                 style="border: 1px solid #ddd; margin-top:0; padding-top:0;">
-            <thead>
-              <tr>
-                <th colspan="3">
-                  <center>  
-                    <b>Sensor Angin</b>
-                  </center>
-                </th>
-              </tr>
-              <tr>
-                <th>No. Sensor</th>
-                <th>Kecepatan</th>
-                <th>Last Update</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="sa in vm.sensor | filter: { tipe: 'sa', lantai: 1 }">
-                <td data-title="No. Sensor">{{sa.$id}}</td>
-                <td data-title="Kecepatan">{{sa.a | filterAngin}}</td>
-                <td data-title="Update">
-                  <div ng-init="tanggal = vm.setTanggal(sa.tanggal)">
-                    {{tanggal}} {{sa.waktu}}                              
-                  </div>
-                </td>
-              </tr>
-            </tbody>
           </table>
+
         </div>
       </div>
     </div>
